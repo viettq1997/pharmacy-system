@@ -1,0 +1,87 @@
+@startuml
+entity "EMPLOGIN" as EmpLogin {
+  + Username : VARCHAR(255) [PK]
+  + Password : VARCHAR(255)
+  + E_ID : INT [FK]
+}
+
+entity "EMPLOYEE" as Employee {
+  + E_ID : INT [PK]
+  + E_Fname : VARCHAR(255)
+  + E_Lname : VARCHAR(255)
+  + E_Bdate : DATE
+  + E_Age : INT
+  + E_Sex : CHAR(1)
+  + E_Type : VARCHAR(50)
+  + E_Jdate : DATE
+  + E_Add : VARCHAR(255)
+  + E_Mail : VARCHAR(255)
+  + E_Phno : VARCHAR(20)
+  + E_Sal : DECIMAL(10, 2)
+}
+
+entity "SUPPLIERS" as Suppliers {
+  + Sup_ID : INT [PK]
+  + Sup_Name : VARCHAR(255)
+  + Sup_Add : VARCHAR(255)
+  + Sup_Phno : VARCHAR(20)
+  + Sup_Mail : VARCHAR(255)
+}
+
+entity "CUSTOMER" as Customer {
+  + C_ID : INT [PK]
+  + C_Fname : VARCHAR(255)
+  + C_Lname : VARCHAR(255)
+  + C_Age : INT
+  + C_Sex : CHAR(1)
+  + C_Phno : VARCHAR(20)
+  + C_Mail : VARCHAR(255)
+}
+
+entity "MEDS" as Meds {
+  + Med_ID : INT [PK]
+  + Med_Name : VARCHAR(255)
+  + Med_Qty : INT
+  + Med_Price : DECIMAL(10, 2)
+  + Category : VARCHAR(255)
+  + Location_Rack : VARCHAR(50)
+}
+
+entity "PURCHASE" as Purchase {
+  + P_ID : INT [PK]
+  + Med_ID : INT [FK]
+  + Sup_ID : INT [FK]
+  + P_Qty : INT
+  + P_Cost : DECIMAL(10, 2)
+  + Pur_Date : DATE
+  + Mfg_Date : DATE
+  + Exp_Date : DATE
+}
+
+entity "SALES" as Sales {
+  + Sale_ID : INT [PK]
+  + S_Date : DATE
+  + S_Time : TIME
+  + Total_Amt : DECIMAL(10, 2)
+  + C_ID : INT [FK]
+  + E_ID : INT [FK]
+}
+
+entity "SALES_ITEMS" as SalesItems {
+  + Med_ID : INT [FK]
+  + Sale_ID : INT [FK]
+  + Sale_Qty : INT
+  + Tot_Price : DECIMAL(10, 2)
+  + [PK] (Med_ID, Sale_ID)
+}
+
+EmpLogin --|> Employee : E_ID [FK]
+Employee --|> Sales : E_ID [FK]
+Employee -- Suppliers
+Sales --|> SalesItems : Sale_ID [FK]
+SalesItems --|> Meds : Med_ID [FK]
+SalesItems --|> Sales : Sale_ID [FK]
+Meds --|> Purchase : Med_ID [FK]
+Suppliers --|> Purchase : Sup_ID [FK]
+Sales --|> Customer : C_ID [FK]
+@enduml
