@@ -1,19 +1,19 @@
 @startuml
 entity "EMPLOGIN" as EmpLogin {
   + Username : VARCHAR(255) [PK]
-  + Password : VARCHAR(255)
-  + E_ID : INT [FK]
+  + Password : VARCHAR(255) [NOT NULL]
+  + E_ID : VARCHAR(50) [FK]
 }
 
 entity "EMPLOYEE" as Employee {
-  + E_ID : INT [PK]
-  + E_Fname : VARCHAR(255)
-  + E_Lname : VARCHAR(255)
+  + E_ID : VARCHAR(50) [PK]
+  + E_Fname : VARCHAR(255) [NOT NULL]
+  + E_Lname : VARCHAR(255) [NOT NULL]
   + E_Bdate : DATE
   + E_Age : INT
-  + E_Sex : CHAR(1)
-  + E_Type : VARCHAR(50)
-  + E_Jdate : DATE
+  + E_Sex : CHAR(1) [NOT NULL]
+  + E_Type : VARCHAR(50) [NOT NULL]
+  + E_Jdate : DATE [NOT NULL]
   + E_Add : VARCHAR(255)
   + E_Mail : VARCHAR(255)
   + E_Phno : VARCHAR(20)
@@ -21,57 +21,57 @@ entity "EMPLOYEE" as Employee {
 }
 
 entity "SUPPLIERS" as Suppliers {
-  + Sup_ID : INT [PK]
-  + Sup_Name : VARCHAR(255)
-  + Sup_Add : VARCHAR(255)
-  + Sup_Phno : VARCHAR(20)
+  + Sup_ID : VARCHAR(50) [PK]
+  + Sup_Name : VARCHAR(255) [NOT NULL]
+  + Sup_Add : VARCHAR(255) [NOT NULL]
+  + Sup_Phno : VARCHAR(20) [NOT NULL]
   + Sup_Mail : VARCHAR(255)
 }
 
 entity "CUSTOMER" as Customer {
-  + C_ID : INT [PK]
-  + C_Fname : VARCHAR(255)
-  + C_Lname : VARCHAR(255)
-  + C_Age : INT
-  + C_Sex : CHAR(1)
-  + C_Phno : VARCHAR(20)
+  + C_ID : VARCHAR(50) [PK]
+  + C_Fname : VARCHAR(255) [NOT NULL]
+  + C_Lname : VARCHAR(255) [NOT NULL]
+  + C_Age : INT [NOT NULL]
+  + C_Sex : CHAR(1) [NOT NULL]
+  + C_Phno : VARCHAR(20) [NOT NULL]
   + C_Mail : VARCHAR(255)
 }
 
 entity "MEDS" as Meds {
-  + Med_ID : INT [PK]
-  + Med_Name : VARCHAR(255)
-  + Med_Qty : INT
-  + Med_Price : DECIMAL(10, 2)
-  + Category : VARCHAR(255)
-  + Location_Rack : VARCHAR(50)
+  + Med_ID : VARCHAR(50) [PK]
+  + Med_Name : VARCHAR(255) [NOT NULL]
+  + Med_Qty : INT [NOT NULL]
+  + Med_Price : DECIMAL(10, 2) [NOT NULL]
+  + Category : VARCHAR(255) [NOT NULL]
+  + Location_Rack : VARCHAR(50) [NOT NULL]
 }
 
 entity "PURCHASE" as Purchase {
-  + P_ID : INT [PK]
-  + Med_ID : INT [FK]
-  + Sup_ID : INT [FK]
-  + P_Qty : INT
-  + P_Cost : DECIMAL(10, 2)
-  + Pur_Date : DATE
-  + Mfg_Date : DATE
-  + Exp_Date : DATE
+  + P_ID : VARCHAR(50) [PK]
+  + Med_ID : VARCHAR(50) [FK]
+  + Sup_ID : VARCHAR(50) [FK]
+  + P_Qty : INT [NOT NULL]
+  + P_Cost : DECIMAL(10, 2) [NOT NULL]
+  + Pur_Date : DATE [NOT NULL]
+  + Mfg_Date : DATE [NOT NULL]
+  + Exp_Date : DATE [NOT NULL]
 }
 
 entity "SALES" as Sales {
-  + Sale_ID : INT [PK]
-  + S_Date : DATE
-  + S_Time : TIME
-  + Total_Amt : DECIMAL(10, 2)
-  + C_ID : INT [FK]
-  + E_ID : INT [FK]
+  + Sale_ID : VARCHAR(50) [PK]
+  + S_Date : DATE [NOT NULL]
+  + S_Time : TIME [NOT NULL]
+  + Total_Amt : DECIMAL(10, 2) [NOT NULL]
+  + C_ID : VARCHAR(50) [FK]
+  + E_ID : VARCHAR(50) [FK]
 }
 
 entity "SALES_ITEMS" as SalesItems {
-  + Med_ID : INT [FK]
-  + Sale_ID : INT [FK]
-  + Sale_Qty : INT
-  + Tot_Price : DECIMAL(10, 2)
+  + Med_ID : VARCHAR(50) [FK]
+  + Sale_ID : VARCHAR(50) [FK]
+  + Sale_Qty : INT [NOT NULL]
+  + Tot_Price : DECIMAL(10, 2) [NOT NULL]
   + [PK] (Med_ID, Sale_ID)
 }
 
