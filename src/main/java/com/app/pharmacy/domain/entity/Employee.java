@@ -1,0 +1,49 @@
+package com.app.pharmacy.domain.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "EMPLOYEE")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Employee {
+
+    @Id
+    @Column(name = "E_ID")
+    private String id;
+    @Column(name = "E_Fname")
+    private String firstName;
+    @Column(name = "E_Lname")
+    private String lastName;
+    @Column(name = "E_Bdate")
+    private LocalDate birthDate;
+    @Column(name = "E_Age")
+    private Integer age;
+    @Column(name = "E_Sex")
+    private String sex;
+    @Column(name = "E_Type")
+    private String type;
+    @Column(name = "E_Jdate")
+    private LocalDateTime joinDate;
+    @Column(name = "E_Add")
+    private String address;
+    @Column(name = "E_Mail")
+    private String mail;
+    @Column(name = "E_Phno")
+    private String phoneNo;
+    @Column(name = "E_Sal")
+    private BigDecimal salary;
+}

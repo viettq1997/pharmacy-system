@@ -18,5 +18,14 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:9090/realms/pharmacy-management
+keycloak:
+  auth-server-url: http://localhost:9090
+  realm: pharmacy-management
+  client-id: admin-cli
+  # admin user should be assigned realm-management (manage-users)
+  username: admin
+  password: admin
+  grant-type: password
+
 server:
   port: 8081

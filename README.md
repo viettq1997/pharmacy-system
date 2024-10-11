@@ -73,7 +73,7 @@ as keeping track of its purchases and sales.
 
 ![RDM](design/RDM.svg)
 
-# Database Schema Description
+## Database Schema Description
 
 | Table Name      | Field Name      | Data Type        | Constraints                                     | Description                                                |
 |-----------------|-----------------|------------------|-------------------------------------------------|------------------------------------------------------------|

@@ -7,8 +7,9 @@ import org.springframework.http.HttpStatusCode;
 @Getter
 public enum ErrorCode {
     UNCATEGORIZED_EXCEPTION("API9999", "Uncategorized error", HttpStatus.INTERNAL_SERVER_ERROR),
-    INVALID_KEY("PS1000", "Uncategorized error", HttpStatus.BAD_REQUEST),
+    INVALID_KEY("PS0000", "Uncategorized error", HttpStatus.BAD_REQUEST),
     UN_AUTHORIZE("403", "Forbidden", HttpStatus.FORBIDDEN),
+    USER_EXISTED("PS00001", "Username or Email is existed", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(String code, String message, HttpStatusCode statusCode) {
