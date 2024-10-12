@@ -132,6 +132,10 @@ as keeping track of its purchases and sales.
 
 # How to Run
 ```shell
+./gradlew build
+```
+
+```shell
 docker compose up
 ```
 

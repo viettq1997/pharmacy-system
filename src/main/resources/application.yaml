@@ -7,3 +7,12 @@ spring:
 server:
   servlet:
     context-path: /pharmacy
+
+keycloak:
+  auth-server-url: "${KEY_CLOAK_AUTH_SERVER_URL:http://localhost:9090}"
+  realm: pharmacy-management
+  client-id: admin-cli
+  # admin user should be assigned realm-management (manage-users)
+  username: admin
+  password: admin
+  grant-type: password

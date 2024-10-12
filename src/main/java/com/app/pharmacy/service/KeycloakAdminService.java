@@ -27,7 +27,7 @@ public class KeycloakAdminService {
 
     public String createUser(CreateEmployeeRequest request) {
 
-        UserRepresentation user = getUserRepresentation(request.username(), request.mail(), request.password());
+        UserRepresentation user = getUserRepresentation(request);
 
         RealmResource realmResource = keycloak.realm(realm);
         UsersResource usersResource = realmResource.users();
@@ -52,16 +52,18 @@ public class KeycloakAdminService {
         return users.get(0).getId();
     }
 
-    private static UserRepresentation getUserRepresentation(String username, String email, String password) {
+    private static UserRepresentation getUserRepresentation(CreateEmployeeRequest request) {
         UserRepresentation user = new UserRepresentation();
-        user.setUsername(username);
-        user.setEmail(email);
+        user.setUsername(request.username());
+        user.setEmail(request.mail());
         user.setEnabled(true);
         user.setEmailVerified(true);
+        user.setFirstName(request.firstName());
+        user.setLastName(request.lastName());
 
         CredentialRepresentation credential = new CredentialRepresentation();
         credential.setType(CredentialRepresentation.PASSWORD);
-        credential.setValue(password);
+        credential.setValue(request.password());
         credential.setTemporary(false);
 
         user.setCredentials(Collections.singletonList(credential));

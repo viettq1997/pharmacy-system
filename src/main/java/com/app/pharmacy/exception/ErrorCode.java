@@ -10,6 +10,7 @@ public enum ErrorCode {
     INVALID_KEY("PS0000", "Uncategorized error", HttpStatus.BAD_REQUEST),
     UN_AUTHORIZE("403", "Forbidden", HttpStatus.FORBIDDEN),
     USER_EXISTED("PS00001", "Username or Email is existed", HttpStatus.BAD_REQUEST),
+    USER_NOT_EXIST("PS00002", "User is not found", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(String code, String message, HttpStatusCode statusCode) {
