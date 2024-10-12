@@ -129,3 +129,12 @@ as keeping track of its purchases and sales.
 |                 | `Sale_Qty`      | `INT`            | NOT NULL                                        | Quantity of the medicine sold.                             |
 |                 | `Tot_Price`     | `DECIMAL(10, 2)` | NOT NULL                                        | Total price for the sold quantity.                         |
 |                 | [PK]            | Composite Key    | (`Med_ID`, `Sale_ID`)                           | Composite primary key consisting of medicine and sale IDs. |
+
+# How to Run
+```shell
+docker compose up
+```
+
+```shell
+./gradlew bootRun
+```

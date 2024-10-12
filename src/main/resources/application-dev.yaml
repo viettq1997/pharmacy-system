@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/pharmacy_db
-    username: admin
-    password: admin
+    url: "${DATABASE_URL:jdbc:postgresql://localhost:5432/pharmacy_db}"
+    username: "${DATABASE_USER:admin}"
+    password: "${DATABASE_PASSWORD:admin}"
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -19,7 +19,7 @@ spring:
         jwt:
           issuer-uri: http://localhost:9090/realms/pharmacy-management
 keycloak:
-  auth-server-url: http://localhost:9090
+  auth-server-url: "${KEY_CLOAK_AUTH_SERVER_URL:http://localhost:9090}"
   realm: pharmacy-management
   client-id: admin-cli
   # admin user should be assigned realm-management (manage-users)
