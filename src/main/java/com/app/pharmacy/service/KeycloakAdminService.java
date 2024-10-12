@@ -3,6 +3,7 @@ package com.app.pharmacy.service;
 import com.app.pharmacy.domain.dto.employee.CreateEmployeeRequest;
 import com.app.pharmacy.exception.CustomResponseException;
 import com.app.pharmacy.exception.ErrorCode;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
@@ -52,14 +53,24 @@ public class KeycloakAdminService {
         return users.get(0).getId();
     }
 
+    public void deleteUser(String userId) {
+        RealmResource realmResource = keycloak.realm(realm);
+
+        try {
+            realmResource.users().delete(userId);
+        } catch (NotFoundException ex) {
+            throw new CustomResponseException(ErrorCode.USER_NOT_EXIST);
+        } catch (Exception e) {
+            throw new RuntimeException("User deletion failed", e);
+        }
+    }
+
     private static UserRepresentation getUserRepresentation(CreateEmployeeRequest request) {
         UserRepresentation user = new UserRepresentation();
         user.setUsername(request.username());
         user.setEmail(request.mail());
         user.setEnabled(true);
         user.setEmailVerified(true);
-        user.setFirstName(request.firstName());
-        user.setLastName(request.lastName());
 
         CredentialRepresentation credential = new CredentialRepresentation();
         credential.setType(CredentialRepresentation.PASSWORD);

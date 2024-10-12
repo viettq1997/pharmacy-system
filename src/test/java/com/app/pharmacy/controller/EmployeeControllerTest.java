@@ -1,6 +1,5 @@
 package com.app.pharmacy.controller;
 
-import com.app.pharmacy.config.KeycloakConfig;
 import com.app.pharmacy.config.TestSecurityConfig;
 import com.app.pharmacy.domain.dto.employee.CreateEmployeeRequest;
 import com.app.pharmacy.service.KeycloakAdminService;
@@ -17,21 +16,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
-import java.util.List;
-import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -64,7 +61,7 @@ public class EmployeeControllerTest {
         Mockito.when(clock.getZone()).thenReturn(ZoneOffset.UTC);
         Mockito.when(keycloakAdminService.createUser(ArgumentMatchers.any(CreateEmployeeRequest.class))).thenReturn("123");
 
-        var registerRequest = """
+        var createUserRequest = """
                 {
                   "username": "john_doe",
                   "password": "password123",
@@ -79,11 +76,7 @@ public class EmployeeControllerTest {
                   "phoneNo": "+1234567890",
                   "salary": 65000.00
                 }""";
-
-        mockMvc.perform(post("/api/v1/employees")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(registerRequest))
-                .andExpect(status().isCreated())
+        createUser(createUserRequest).andExpect(status().isCreated())
                 .andExpect(result -> {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = """
@@ -110,6 +103,12 @@ public class EmployeeControllerTest {
                 });
     }
 
+    private ResultActions createUser(String createUserRequest) throws Exception {
+         return mockMvc.perform(post("/api/v1/employees")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(createUserRequest));
+    }
+
     @DisplayName("Delete an employee: "
             + "givenEmployeeId"
             + "_whenCallDeleteEmployeeApi"
@@ -119,9 +118,26 @@ public class EmployeeControllerTest {
     public void givenEmployeeId_whenCallDeleteEmployeeApi_thenReturnSuccess() throws Exception {
         Mockito.when(clock.instant()).thenReturn(Instant.ofEpochMilli(0));
         Mockito.when(clock.getZone()).thenReturn(ZoneOffset.UTC);
-        Mockito.when(keycloakAdminService.createUser(ArgumentMatchers.any(CreateEmployeeRequest.class))).thenReturn("123");
+        Mockito.doNothing().when(keycloakAdminService).deleteUser(ArgumentMatchers.anyString());
+        Mockito.when(keycloakAdminService.createUser(ArgumentMatchers.any(CreateEmployeeRequest.class))).thenReturn("124");
 
-        mockMvc.perform(delete("/api/v1/employees/123")
+        var createUserRequest = """
+                {
+                  "username": "john_doe1",
+                  "password": "password123",
+                  "firstName": "John",
+                  "lastName": "Doe",
+                  "birthDate": "1990-05-15",
+                  "age": 34,
+                  "sex": "M",
+                  "type": "Pharmacist",
+                  "address": "1234 Elm Street, Springfield, USA",
+                  "mail": "john.doe@example.com",
+                  "phoneNo": "+1234567890",
+                  "salary": 65000.00
+                }""";
+        createUser(createUserRequest).andExpect(status().isCreated());
+        mockMvc.perform(delete("/api/v1/employees/124")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(result -> {
@@ -129,6 +145,79 @@ public class EmployeeControllerTest {
                     String expectedResponse = """
                         {
                           "message": "Deleted employee!"
+                        }
+                        """;
+                    JSONAssert.assertEquals(expectedResponse, response, JSONCompareMode.LENIENT);
+                });
+    }
+
+    @DisplayName("Update an employee: "
+            + "givenEmployeeIdAndEmployeeInfo"
+            + "_whenCallUpdateEmployeeApi"
+            + "_thenReturnSuccess")
+    @Test
+    @WithMockUser
+    public void givenEmployeeIdAndEmployeeInfo_whenCallUpdateEmployeeApi_thenReturnSuccess() throws Exception {
+        Mockito.when(clock.instant()).thenReturn(Instant.ofEpochMilli(0));
+        Mockito.when(clock.getZone()).thenReturn(ZoneOffset.UTC);
+        Mockito.doNothing().when(keycloakAdminService).deleteUser(ArgumentMatchers.anyString());
+        Mockito.when(keycloakAdminService.createUser(ArgumentMatchers.any(CreateEmployeeRequest.class))).thenReturn("124");
+
+        var createUserRequest = """
+                {
+                  "username": "john_doe1",
+                  "password": "password123",
+                  "firstName": "John",
+                  "lastName": "Doe",
+                  "birthDate": "1990-05-15",
+                  "age": 34,
+                  "sex": "M",
+                  "type": "Pharmacist",
+                  "address": "1234 Elm Street, Springfield, USA",
+                  "mail": "john.doe@example.com",
+                  "phoneNo": "+1234567890",
+                  "salary": 65000.00
+                }""";
+        createUser(createUserRequest).andExpect(status().isCreated());
+
+        var updateUserRequest = """
+                {
+                  "username": "john_doe1",
+                  "firstName": "John111",
+                  "lastName": "Doe",
+                  "birthDate": "1990-05-15",
+                  "age": 34,
+                  "sex": "M",
+                  "type": "Pharmacist",
+                  "address": "1234 Elm Street, Springfield, USA",
+                  "mail": "john.doe@example.com",
+                  "phoneNo": "+1234567890",
+                  "salary": 65000.00
+                }""";
+        mockMvc.perform(put("/api/v1/employees/124")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(updateUserRequest))
+                .andExpect(status().isOk())
+                .andExpect(result -> {
+                    var response = result.getResponse().getContentAsString();
+                    String expectedResponse = """
+                        {
+                          "message": "Updated employee!",
+                          "data": {
+                            "id": "124",
+                            "username": "john_doe1",
+                            "firstName": "John111",
+                            "lastName": "Doe",
+                            "birthDate": "1990-05-15",
+                            "age": 34,
+                            "sex": "M",
+                            "type": "Pharmacist",
+                            "joinDate": "1970-01-01T00:00:00",
+                            "address": "1234 Elm Street, Springfield, USA",
+                            "mail": "john.doe@example.com",
+                            "phoneNo": "+1234567890",
+                            "salary": 65000.00
+                          }
                         }
                         """;
                     JSONAssert.assertEquals(expectedResponse, response, JSONCompareMode.LENIENT);

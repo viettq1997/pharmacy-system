@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,11 +20,14 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Employee {
 
     @Id
     @Column(name = "E_ID")
     private String id;
+    @Column(name = "E_Username")
+    private String username;
     @Column(name = "E_Fname")
     private String firstName;
     @Column(name = "E_Lname")

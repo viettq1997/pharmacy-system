@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateEmployeeResponse {
+public class EmployeeResponse {
     private String id;
     private String username;
     private String firstName;
