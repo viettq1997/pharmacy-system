@@ -4,6 +4,7 @@ import com.app.pharmacy.domain.common.ApiResponse;
 import com.app.pharmacy.domain.dto.employee.CreateEmployeeRequest;
 import com.app.pharmacy.domain.dto.employee.EmployeeResponse;
 import com.app.pharmacy.domain.dto.employee.GetEmployeeRequest;
+import com.app.pharmacy.domain.dto.employee.GetEmployeeResponse;
 import com.app.pharmacy.domain.dto.employee.UpdateEmployeeRequest;
 import com.app.pharmacy.domain.entity.Employee;
 import com.app.pharmacy.exception.CustomResponseException;
@@ -11,13 +12,19 @@ import com.app.pharmacy.exception.ErrorCode;
 import com.app.pharmacy.mapper.EmployeeMapper;
 import com.app.pharmacy.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.app.pharmacy.specification.EmployeeSpecifications.hasFirstName;
+import static com.app.pharmacy.specification.EmployeeSpecifications.hasLastName;
 
 @Service
 @RequiredArgsConstructor
@@ -46,10 +53,20 @@ public class EmployeeService {
         return response;
     }
 
-    public ApiResponse<List<EmployeeResponse>> getEmployees(GetEmployeeRequest request, Authentication connectedUser) {
-        ApiResponse<List<EmployeeResponse>> response = new ApiResponse<>();
-        List<EmployeeResponse> employeeResponses = new ArrayList<>();
-        response.setData(employeeResponses);
+    public ApiResponse<GetEmployeeResponse> getEmployees(GetEmployeeRequest request, Pageable pageable, Authentication connectedUser) {
+        ApiResponse<GetEmployeeResponse> response = new ApiResponse<>();
+
+        Specification<Employee> specification = Specification.where(hasFirstName(request.name()).or(hasLastName(request.name())));
+        Page<Employee> employees = employeeRepository.findAll(specification, pageable);
+        List<EmployeeResponse> employeeResponses = EmployeeMapper.INSTANCE.toListEmployeeResponse(employees.getContent());
+
+        response.setMessage("Fetched employees");
+        response.setData(new GetEmployeeResponse(
+                employeeResponses,
+                employees.getSize(),
+                employees.getNumber(),
+                employees.getTotalElements()));
+
         return response;
     }
 

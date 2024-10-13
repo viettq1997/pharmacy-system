@@ -4,11 +4,16 @@ import com.app.pharmacy.domain.common.ApiResponse;
 import com.app.pharmacy.domain.dto.employee.CreateEmployeeRequest;
 import com.app.pharmacy.domain.dto.employee.EmployeeResponse;
 import com.app.pharmacy.domain.dto.employee.GetEmployeeRequest;
+import com.app.pharmacy.domain.dto.employee.GetEmployeeResponse;
 import com.app.pharmacy.domain.dto.employee.UpdateEmployeeRequest;
 import com.app.pharmacy.service.EmployeeService;
 import com.app.pharmacy.service.KeycloakAdminService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,9 +39,11 @@ public class EmployeeController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<List<EmployeeResponse>>> getEmployees(
-            @Valid @RequestBody GetEmployeeRequest request, Authentication connectedUser) {
-        return ResponseEntity.ok(employeeService.getEmployees(request, connectedUser));
+    public ResponseEntity<ApiResponse<GetEmployeeResponse>> getEmployees(
+            @ModelAttribute GetEmployeeRequest request,
+            @PageableDefault(sort = "joinDate", direction = Sort.Direction.DESC) Pageable pageable,
+            Authentication connectedUser) {
+        return ResponseEntity.ok(employeeService.getEmployees(request, pageable, connectedUser));
     }
 
     @PutMapping("/{id}")
