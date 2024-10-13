@@ -77,10 +77,8 @@ as keeping track of its purchases and sales.
 
 | Table Name      | Field Name      | Data Type        | Constraints                                     | Description                                                |
 |-----------------|-----------------|------------------|-------------------------------------------------|------------------------------------------------------------|
-| **EMPLOGIN**    | `Username`      | `VARCHAR(255)`   | Primary Key (PK)                                | The username used for employee login.                      |
-|                 | `Password`      | `VARCHAR(255)`   | NOT NULL                                        | The password associated with the employee login.           |
-|                 | `E_ID`          | `VARCHAR(50)`    | Foreign Key (FK) references `EMPLOYEE(E_ID)`    | The ID linking to the corresponding employee record.       |
-| **EMPLOYEE**    | `E_ID`          | `VARCHAR(50)`    | Primary Key (PK)                                | Unique identifier for each employee.                       |
+| **EMPLOYEE**    | `E_ID`          | `VARCHAR(36)`    | Primary Key (PK)                                | Unique identifier for each employee.                       |
+|                 | `E_Username`    | `VARCHAR(50)`    | NOT NULL, UNIQUE                                | Employee's username.                                       |
 |                 | `E_Fname`       | `VARCHAR(255)`   | NOT NULL                                        | Employee's first name.                                     |
 |                 | `E_Lname`       | `VARCHAR(255)`   | NOT NULL                                        | Employee's last name.                                      |
 |                 | `E_Bdate`       | `DATE`           |                                                 | Employee's birth date.                                     |
@@ -92,43 +90,71 @@ as keeping track of its purchases and sales.
 |                 | `E_Mail`        | `VARCHAR(255)`   |                                                 | Employee's email address.                                  |
 |                 | `E_Phno`        | `VARCHAR(20)`    |                                                 | Employee's phone number.                                   |
 |                 | `E_Sal`         | `DECIMAL(10, 2)` |                                                 | Employee's salary.                                         |
-| **SUPPLIERS**   | `Sup_ID`        | `VARCHAR(50)`    | Primary Key (PK)                                | Unique identifier for each supplier.                       |
+|                 | `created_date`  | `DATE`           |                                                 |                                                            |
+|                 | `created_by`    | `VARCHAR(36)`    |                                                 |                                                            |
+|                 | `updated_date`  | `DATE`           |                                                 |                                                            |
+|                 | `updated_by`    | `VARCHAR(36)`    |                                                 |                                                            |
+| **SUPPLIERS**   | `Sup_ID`        | `VARCHAR(36)`    | Primary Key (PK)                                | Unique identifier for each supplier.                       |
 |                 | `Sup_Name`      | `VARCHAR(255)`   | NOT NULL                                        | Name of the supplier.                                      |
 |                 | `Sup_Add`       | `VARCHAR(255)`   | NOT NULL                                        | Supplier's address.                                        |
 |                 | `Sup_Phno`      | `VARCHAR(20)`    | NOT NULL                                        | Supplier's phone number.                                   |
 |                 | `Sup_Mail`      | `VARCHAR(255)`   |                                                 | Supplier's email address.                                  |
-| **CUSTOMER**    | `C_ID`          | `VARCHAR(50)`    | Primary Key (PK)                                | Unique identifier for each customer.                       |
+|                 | `created_date`  | `DATE`           |                                                 |                                                            |
+|                 | `created_by`    | `VARCHAR(36)`    |                                                 |                                                            |
+|                 | `updated_date`  | `DATE`           |                                                 |                                                            |
+|                 | `updated_by`    | `VARCHAR(36)`    |                                                 |                                                            |
+| **CUSTOMER**    | `C_ID`          | `VARCHAR(36)`    | Primary Key (PK)                                | Unique identifier for each customer.                       |
 |                 | `C_Fname`       | `VARCHAR(255)`   | NOT NULL                                        | Customer's first name.                                     |
 |                 | `C_Lname`       | `VARCHAR(255)`   | NOT NULL                                        | Customer's last name.                                      |
 |                 | `C_Age`         | `INT`            | NOT NULL                                        | Customer's age.                                            |
 |                 | `C_Sex`         | `CHAR(1)`        | NOT NULL                                        | Customer's gender (M/F).                                   |
 |                 | `C_Phno`        | `VARCHAR(20)`    | NOT NULL                                        | Customer's phone number.                                   |
 |                 | `C_Mail`        | `VARCHAR(255)`   |                                                 | Customer's email address.                                  |
+|                 | `created_date`  | `DATE`           |                                                 |                                                            |
+|                 | `created_by`    | `VARCHAR(36)`    |                                                 |                                                            |
+|                 | `updated_date`  | `DATE`           |                                                 |                                                            |
+|                 | `updated_by`    | `VARCHAR(36)`    |                                                 |                                                            |
 | **MEDS**        | `Med_ID`        | `VARCHAR(50)`    | Primary Key (PK)                                | Unique identifier for each medicine.                       |
 |                 | `Med_Name`      | `VARCHAR(255)`   | NOT NULL                                        | Name of the medicine.                                      |
 |                 | `Med_Qty`       | `INT`            | NOT NULL                                        | Quantity of the medicine available in stock.               |
 |                 | `Med_Price`     | `DECIMAL(10, 2)` | NOT NULL                                        | Price of the medicine.                                     |
 |                 | `Category`      | `VARCHAR(255)`   | NOT NULL                                        | Medicine category (e.g., painkiller, antibiotic).          |
 |                 | `Location_Rack` | `VARCHAR(50)`    | NOT NULL                                        | Rack location of the medicine in the store.                |
-| **PURCHASE**    | `P_ID`          | `VARCHAR(50)`    | Primary Key (PK)                                | Unique identifier for each purchase transaction.           |
-|                 | `Med_ID`        | `VARCHAR(50)`    | Foreign Key (FK) references `MEDS(Med_ID)`      | The medicine purchased in this transaction.                |
-|                 | `Sup_ID`        | `VARCHAR(50)`    | Foreign Key (FK) references `SUPPLIERS(Sup_ID)` | The supplier involved in the purchase.                     |
+|                 | `created_date`  | `DATE`           |                                                 |                                                            |
+|                 | `created_by`    | `VARCHAR(36)`    |                                                 |                                                            |
+|                 | `updated_date`  | `DATE`           |                                                 |                                                            |
+|                 | `updated_by`    | `VARCHAR(36)`    |                                                 |                                                            |
+| **PURCHASE**    | `P_ID`          | `VARCHAR(36)`    | Primary Key (PK)                                | Unique identifier for each purchase transaction.           |
+|                 | `Med_ID`        | `VARCHAR(36)`    | Foreign Key (FK) references `MEDS(Med_ID)`      | The medicine purchased in this transaction.                |
+|                 | `Sup_ID`        | `VARCHAR(36)`    | Foreign Key (FK) references `SUPPLIERS(Sup_ID)` | The supplier involved in the purchase.                     |
 |                 | `P_Qty`         | `INT`            | NOT NULL                                        | Quantity of medicine purchased.                            |
 |                 | `P_Cost`        | `DECIMAL(10, 2)` | NOT NULL                                        | Total cost of the purchase.                                |
 |                 | `Pur_Date`      | `DATE`           | NOT NULL                                        | Date the purchase was made.                                |
 |                 | `Mfg_Date`      | `DATE`           | NOT NULL                                        | Manufacturing date of the medicine.                        |
 |                 | `Exp_Date`      | `DATE`           | NOT NULL                                        | Expiration date of the medicine.                           |
-| **SALES**       | `Sale_ID`       | `VARCHAR(50)`    | Primary Key (PK)                                | Unique identifier for each sales transaction.              |
+|                 | `created_date`  | `DATE`           |                                                 |                                                            |
+|                 | `created_by`    | `VARCHAR(36)`    |                                                 |                                                            |
+|                 | `updated_date`  | `DATE`           |                                                 |                                                            |
+|                 | `updated_by`    | `VARCHAR(36)`    |                                                 |                                                            |
+| **SALES**       | `Sale_ID`       | `VARCHAR(36)`    | Primary Key (PK)                                | Unique identifier for each sales transaction.              |
 |                 | `S_Date`        | `DATE`           | NOT NULL                                        | Date of the sale.                                          |
 |                 | `S_Time`        | `TIME`           | NOT NULL                                        | Time of the sale.                                          |
 |                 | `Total_Amt`     | `DECIMAL(10, 2)` | NOT NULL                                        | Total amount of the sale.                                  |
 |                 | `C_ID`          | `VARCHAR(50)`    | Foreign Key (FK) references `CUSTOMER(C_ID)`    | The customer making the purchase.                          |
 |                 | `E_ID`          | `VARCHAR(50)`    | Foreign Key (FK) references `EMPLOYEE(E_ID)`    | The employee handling the sale.                            |
-| **SALES_ITEMS** | `Med_ID`        | `VARCHAR(50)`    | Foreign Key (FK) references `MEDS(Med_ID)`      | The medicine sold in this transaction.                     |
-|                 | `Sale_ID`       | `VARCHAR(50)`    | Foreign Key (FK) references `SALES(Sale_ID)`    | The sale to which the medicine belongs.                    |
+|                 | `created_date`  | `DATE`           |                                                 |                                                            |
+|                 | `created_by`    | `VARCHAR(36)`    |                                                 |                                                            |
+|                 | `updated_date`  | `DATE`           |                                                 |                                                            |
+|                 | `updated_by`    | `VARCHAR(36)`    |                                                 |                                                            |
+| **SALES_ITEMS** | `Med_ID`        | `VARCHAR(36)`    | Foreign Key (FK) references `MEDS(Med_ID)`      | The medicine sold in this transaction.                     |
+|                 | `Sale_ID`       | `VARCHAR(36)`    | Foreign Key (FK) references `SALES(Sale_ID)`    | The sale to which the medicine belongs.                    |
 |                 | `Sale_Qty`      | `INT`            | NOT NULL                                        | Quantity of the medicine sold.                             |
 |                 | `Tot_Price`     | `DECIMAL(10, 2)` | NOT NULL                                        | Total price for the sold quantity.                         |
 |                 | [PK]            | Composite Key    | (`Med_ID`, `Sale_ID`)                           | Composite primary key consisting of medicine and sale IDs. |
+|                 | `created_date`  | `DATE`           |                                                 |                                                            |
+|                 | `created_by`    | `VARCHAR(36)`    |                                                 |                                                            |
+|                 | `updated_date`  | `DATE`           |                                                 |                                                            |
+|                 | `updated_by`    | `VARCHAR(36)`    |                                                 |                                                            |
 
 # How to Run
 ```shell
