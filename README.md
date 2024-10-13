@@ -168,7 +168,7 @@ docker compose up
 ```shell
 ./gradlew bootRun
 ```
-
+The application will be running on port `8081`
 # How to test (postman collection)
 
 [postman collection here!](src/test/postman/pharmacy.postman_collection.json)
