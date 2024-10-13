@@ -1,11 +1,11 @@
 --CREATE TABLE EMPLOGIN (
 --    E_Username VARCHAR(255) PRIMARY KEY,
 --    E_Password VARCHAR(255) NOT NULL,
---    E_ID VARCHAR(50) NOT NULL
+--    E_ID VARCHAR(36) NOT NULL
 --);
 
 CREATE TABLE EMPLOYEE (
-    E_ID VARCHAR(50) PRIMARY KEY,
+    E_ID VARCHAR(36) PRIMARY KEY,
     E_Username VARCHAR(50) NOT NULL UNIQUE,
     E_Fname VARCHAR(255) NOT NULL,
     E_Lname VARCHAR(255) NOT NULL,
@@ -19,25 +19,25 @@ CREATE TABLE EMPLOYEE (
     E_Phno VARCHAR(20) NOT NULL,
     E_Sal DECIMAL(10, 2),
     created_date DATE NOT NULL,
-    created_by VARCHAR(50) NOT NULL,
+    created_by VARCHAR(36) NOT NULL,
     updated_date DATE,
-    updated_by VARCHAR(50)
+    updated_by VARCHAR(36)
 );
 
 CREATE TABLE SUPPLIERS (
-    Sup_ID VARCHAR(50) PRIMARY KEY,
+    Sup_ID VARCHAR(36) PRIMARY KEY,
     Sup_Name VARCHAR(255) NOT NULL,
     Sup_Add VARCHAR(255) NOT NULL,
     Sup_Phno VARCHAR(20) NOT NULL,
     Sup_Mail VARCHAR(255),
     created_date DATE NOT NULL,
-    created_by VARCHAR(50) NOT NULL,
+    created_by VARCHAR(36) NOT NULL,
     updated_date DATE,
-    updated_by VARCHAR(50)
+    updated_by VARCHAR(36)
 );
 
 CREATE TABLE CUSTOMER (
-    C_ID VARCHAR(50) PRIMARY KEY,
+    C_ID VARCHAR(36) PRIMARY KEY,
     C_Fname VARCHAR(255) NOT NULL,
     C_Lname VARCHAR(255) NOT NULL,
     C_Age INT NOT NULL,
@@ -45,60 +45,60 @@ CREATE TABLE CUSTOMER (
     C_Phno VARCHAR(20) NOT NULL,
     C_Mail VARCHAR(255),
     created_date DATE NOT NULL,
-    created_by VARCHAR(50) NOT NULL,
+    created_by VARCHAR(36) NOT NULL,
     updated_date DATE,
-    updated_by VARCHAR(50)
+    updated_by VARCHAR(36)
 );
 
 CREATE TABLE MEDS (
-    Med_ID VARCHAR(50) PRIMARY KEY,
+    Med_ID VARCHAR(36) PRIMARY KEY,
     Med_Name VARCHAR(255) NOT NULL,
     Med_Qty INT NOT NULL,
     Med_Price DECIMAL(10, 2) NOT NULL,
     Category VARCHAR(255) NOT NULL,
     Location_Rack VARCHAR(50) NOT NULL,
     created_date DATE NOT NULL,
-    created_by VARCHAR(50) NOT NULL,
+    created_by VARCHAR(36) NOT NULL,
     updated_date DATE,
-    updated_by VARCHAR(50)
+    updated_by VARCHAR(36)
 );
 
 CREATE TABLE PURCHASE (
-    P_ID VARCHAR(50) PRIMARY KEY,
-    Med_ID VARCHAR(50) NOT NULL,
-    Sup_ID VARCHAR(50) NOT NULL,
+    P_ID VARCHAR(36) PRIMARY KEY,
+    Med_ID VARCHAR(36) NOT NULL,
+    Sup_ID VARCHAR(36) NOT NULL,
     P_Qty INT NOT NULL,
     P_Cost DECIMAL(10, 2) NOT NULL,
     Pur_Date DATE NOT NULL,
     Mfg_Date DATE NOT NULL,
     Exp_Date DATE NOT NULL,
     created_date DATE NOT NULL,
-    created_by VARCHAR(50) NOT NULL,
+    created_by VARCHAR(36) NOT NULL,
     updated_date DATE,
-    updated_by VARCHAR(50)
+    updated_by VARCHAR(36)
 );
 
 CREATE TABLE SALES (
-    Sale_ID VARCHAR(50) PRIMARY KEY,
+    Sale_ID VARCHAR(36) PRIMARY KEY,
     S_Date DATE NOT NULL,
     S_Time TIME NOT NULL,
     Total_Amt DECIMAL(10, 2),
-    C_ID VARCHAR(50) NOT NULL,
-    E_ID VARCHAR(50) NOT NULL,
+    C_ID VARCHAR(36) NOT NULL,
+    E_ID VARCHAR(36) NOT NULL,
     created_date DATE NOT NULL,
-    created_by VARCHAR(50) NOT NULL,
+    created_by VARCHAR(36) NOT NULL,
     updated_date DATE,
-    updated_by VARCHAR(50)
+    updated_by VARCHAR(36)
 );
 
 CREATE TABLE SALES_ITEMS (
-    Med_ID VARCHAR(50),
-    Sale_ID VARCHAR(50),
+    Med_ID VARCHAR(36),
+    Sale_ID VARCHAR(36),
     Sale_Qty INT NOT NULL,
     Tot_Price DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (Med_ID, Sale_ID),
     created_date DATE NOT NULL,
-    created_by VARCHAR(50) NOT NULL,
+    created_by VARCHAR(36) NOT NULL,
     updated_date DATE,
-    updated_by VARCHAR(50)
+    updated_by VARCHAR(36)
 );
