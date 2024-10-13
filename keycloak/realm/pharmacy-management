@@ -426,26 +426,6 @@
     "notBefore" : 0,
     "groups" : [ ]
   }, {
-    "id" : "a2c2930e-f9be-4ed1-a772-cbe598772ea7",
-    "username" : "john_doe1",
-    "email" : "john.d1oe@example.com",
-    "emailVerified" : true,
-    "createdTimestamp" : 1728735570424,
-    "enabled" : true,
-    "totp" : false,
-    "credentials" : [ {
-      "id" : "f2ce2075-0958-499e-97fc-2ac626fddf70",
-      "type" : "password",
-      "createdDate" : 1728735570586,
-      "secretData" : "{\"value\":\"vzJDarm/g0husRyTtd9NOA0zIW+YNYmzOPfkaGSFPiz3SJAhUppmiOQgPNDfVSZof6RJtPoToe0yTVjg9fWP1w==\",\"salt\":\"yJI4r4d5VbGlz8ksikPnvg==\",\"additionalParameters\":{}}",
-      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
-    } ],
-    "disableableCredentialTypes" : [ ],
-    "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-pharmacy-management" ],
-    "notBefore" : 0,
-    "groups" : [ ]
-  }, {
     "id" : "9c28ab83-ab9a-497a-b466-3329e1c7fe3d",
     "username" : "user@yopmail.com",
     "firstName" : "User",
@@ -1249,7 +1229,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-sha256-pairwise-sub-mapper", "oidc-address-mapper", "oidc-full-name-mapper", "oidc-usermodel-property-mapper", "saml-role-list-mapper", "saml-user-property-mapper", "oidc-usermodel-attribute-mapper", "saml-user-attribute-mapper" ]
+        "allowed-protocol-mapper-types" : [ "saml-user-attribute-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-full-name-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper", "saml-user-property-mapper" ]
       }
     }, {
       "id" : "261ecc34-b7d3-4bba-9c0f-065e863a14e8",
@@ -1276,7 +1256,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-attribute-mapper", "oidc-address-mapper", "saml-role-list-mapper", "saml-user-property-mapper", "oidc-full-name-mapper", "saml-user-attribute-mapper", "oidc-usermodel-property-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-sha256-pairwise-sub-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper", "oidc-address-mapper", "saml-user-property-mapper", "oidc-usermodel-property-mapper", "saml-user-attribute-mapper", "oidc-full-name-mapper" ]
       }
     }, {
       "id" : "b783c769-4f8d-4b34-bfc4-7fd4c3c59c33",
@@ -1311,6 +1291,14 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : { }
+    } ],
+    "org.keycloak.userprofile.UserProfileProvider" : [ {
+      "id" : "7c745c83-22a7-4d2f-bf35-fc9b54e15a94",
+      "providerId" : "declarative-user-profile",
+      "subComponents" : { },
+      "config" : {
+        "kc.user.profile.config" : [ "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}]}" ]
+      }
     } ],
     "org.keycloak.keys.KeyProvider" : [ {
       "id" : "3e4c68e5-0ed1-400d-a25b-53e8fc6520e4",

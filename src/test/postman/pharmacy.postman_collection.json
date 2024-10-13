@@ -124,7 +124,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"john_doe1\",\n    \"password\": \"password123\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthDate\": \"1990-05-15\",\n    \"age\": 34,\n    \"sex\": \"M\",\n    \"type\": \"Manager\",\n    \"address\": \"1234 Elm Street, Springfield, USA\",\n    \"mail\": \"john.do1e@example.com\",\n    \"phoneNo\": \"+1234567890\",\n    \"salary\": 65000.00\n}",
+							"raw": "{\n    \"username\": \"john_doe\",\n    \"role\": \"USER\",\n    \"password\": \"password123\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthDate\": \"1990-05-15\",\n    \"age\": 34,\n    \"sex\": \"M\",\n    \"type\": \"Manager\",\n    \"address\": \"1234 Elm Street, Springfield, USA\",\n    \"mail\": \"john.do1e@example.com\",\n    \"phoneNo\": \"+1234567890\",\n    \"salary\": 65000.00\n}",
 							"options": {
 								"raw": {
 									"language": "json"

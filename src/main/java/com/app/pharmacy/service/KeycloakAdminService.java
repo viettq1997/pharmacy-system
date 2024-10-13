@@ -7,9 +7,12 @@ import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.ClientResource;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.representations.idm.ClientRepresentation;
 import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -50,7 +53,9 @@ public class KeycloakAdminService {
         if (users.isEmpty()) {
             throw new RuntimeException();
         }
-        return users.get(0).getId();
+        String userId = users.get(0).getId();
+        assignRoleToUser(userId, request.role().toString());
+        return userId;
     }
 
     public void deleteUser(String userId) {
@@ -79,5 +84,16 @@ public class KeycloakAdminService {
 
         user.setCredentials(Collections.singletonList(credential));
         return user;
+    }
+
+    private void assignRoleToUser(String userId, String roleName) {
+        RealmResource realmResource = keycloak.realm(realm);
+        ClientRepresentation clientRepresentation = realmResource.clients().findByClientId("pharmacy-management-system").get(0);
+
+        ClientResource clientResource = realmResource.clients().get(clientRepresentation.getId());
+
+        RoleRepresentation clientRole = clientResource.roles().get(roleName).toRepresentation();
+        realmResource.users().get(userId).roles().clientLevel(clientResource.toRepresentation().getId())
+                .add(Collections.singletonList(clientRole));
     }
 }
