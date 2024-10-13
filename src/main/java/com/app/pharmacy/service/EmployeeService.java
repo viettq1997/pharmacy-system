@@ -1,10 +1,11 @@
 package com.app.pharmacy.service;
 
 import com.app.pharmacy.domain.common.ApiResponse;
+import com.app.pharmacy.domain.common.CommonDeleteResponse;
+import com.app.pharmacy.domain.common.CommonGetResponse;
 import com.app.pharmacy.domain.dto.employee.CreateEmployeeRequest;
 import com.app.pharmacy.domain.dto.employee.EmployeeResponse;
 import com.app.pharmacy.domain.dto.employee.GetEmployeeRequest;
-import com.app.pharmacy.domain.dto.employee.GetEmployeeResponse;
 import com.app.pharmacy.domain.dto.employee.UpdateEmployeeRequest;
 import com.app.pharmacy.domain.entity.Employee;
 import com.app.pharmacy.exception.CustomResponseException;
@@ -13,7 +14,6 @@ import com.app.pharmacy.mapper.EmployeeMapper;
 import com.app.pharmacy.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.Authentication;
@@ -53,15 +53,15 @@ public class EmployeeService {
         return response;
     }
 
-    public ApiResponse<GetEmployeeResponse> getEmployees(GetEmployeeRequest request, Pageable pageable, Authentication connectedUser) {
-        ApiResponse<GetEmployeeResponse> response = new ApiResponse<>();
+    public ApiResponse<CommonGetResponse<EmployeeResponse>> getEmployees(GetEmployeeRequest request, Pageable pageable) {
+        ApiResponse<CommonGetResponse<EmployeeResponse>> response = new ApiResponse<>();
 
         Specification<Employee> specification = Specification.where(hasFirstName(request.name()).or(hasLastName(request.name())));
         Page<Employee> employees = employeeRepository.findAll(specification, pageable);
         List<EmployeeResponse> employeeResponses = EmployeeMapper.INSTANCE.toListEmployeeResponse(employees.getContent());
 
         response.setMessage("Fetched employees");
-        response.setData(new GetEmployeeResponse(
+        response.setData(new CommonGetResponse<>(
                 employeeResponses,
                 employees.getSize(),
                 employees.getNumber(),
@@ -78,6 +78,8 @@ public class EmployeeService {
                 throw new CustomResponseException(ErrorCode.USERNAME_CANNOT_CHANGE);
             }
             EmployeeMapper.INSTANCE.toEntity(request, employee);
+            employee.setUpdatedBy(connectedUser.getName());
+            employee.setUpdatedDate(LocalDateTime.now(clock));
             employeeRepository.save(employee);
 
             EmployeeResponse employeeResponse = EmployeeMapper.INSTANCE.toEmployeeResponse(employee);
@@ -91,12 +93,13 @@ public class EmployeeService {
         return response;
     }
 
-    public ApiResponse<?> deleteEmployee(String employeeId) {
-        ApiResponse<?> response = new ApiResponse<>();
+    public ApiResponse<CommonDeleteResponse> deleteEmployee(String employeeId) {
+        ApiResponse<CommonDeleteResponse> response = new ApiResponse<>();
         keycloakAdminService.deleteUser(employeeId);
         employeeRepository.findById(employeeId).ifPresentOrElse(employeeRepository::delete, () -> {
             throw new CustomResponseException(ErrorCode.USER_NOT_EXIST);
         });
+        response.setData(new CommonDeleteResponse(employeeId));
         response.setMessage("Deleted employee!");
         return response;
     }

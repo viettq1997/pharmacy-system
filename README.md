@@ -168,3 +168,7 @@ docker compose up
 ```shell
 ./gradlew bootRun
 ```
+
+# How to test (postman collection)
+
+[postman collection here!](src/test/postman/pharmacy.postman_collection.json)

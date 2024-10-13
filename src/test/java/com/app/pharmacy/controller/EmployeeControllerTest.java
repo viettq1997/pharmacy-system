@@ -27,6 +27,7 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -81,23 +82,25 @@ public class EmployeeControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = """
                         {
-                          "message": "Created employee!",
-                          "data": {
-                            "id": "123",
-                            "username": "john_doe",
-                            "firstName": "John",
-                            "lastName": "Doe",
-                            "birthDate": "1990-05-15",
-                            "age": 34,
-                            "sex": "M",
-                            "type": "Pharmacist",
-                            "joinDate": "1970-01-01T00:00:00",
-                            "address": "1234 Elm Street, Springfield, USA",
-                            "mail": "john.doe@example.com",
-                            "phoneNo": "+1234567890",
-                            "salary": 65000.00
-                          }
-                        }
+                           "message": "Created employee!",
+                           "data": {
+                             "id": "123",
+                             "username": "john_doe",
+                             "firstName": "John",
+                             "lastName": "Doe",
+                             "birthDate": "1990-05-15",
+                             "age": 34,
+                             "sex": "M",
+                             "type": "Pharmacist",
+                             "joinDate": "1970-01-01T00:00:00",
+                             "address": "1234 Elm Street, Springfield, USA",
+                             "mail": "john.doe@example.com",
+                             "phoneNo": "+1234567890",
+                             "salary": 65000.00,
+                             "createdDate": "1970-01-01T00:00:00",
+                             "createdBy": "user"
+                           }
+                         }
                         """;
                     JSONAssert.assertEquals(expectedResponse, response, JSONCompareMode.NON_EXTENSIBLE);
                 });
@@ -217,6 +220,69 @@ public class EmployeeControllerTest {
                             "mail": "john.doe@example.com",
                             "phoneNo": "+1234567890",
                             "salary": 65000.00
+                          }
+                        }
+                        """;
+                    JSONAssert.assertEquals(expectedResponse, response, JSONCompareMode.LENIENT);
+                });
+    }
+
+    @DisplayName("Get Medicines: "
+            + "givenGetMedicineRequest"
+            + "_whenCallGetMedicineApi"
+            + "_thenReturnMedicinesResponse")
+    @Test
+    @WithMockUser
+    public void givenGetMedicineRequest_whenCallGetMedicineApi_thenReturnMedicinesResponse() throws Exception {
+        Mockito.when(clock.instant()).thenReturn(Instant.ofEpochMilli(0));
+        Mockito.when(clock.getZone()).thenReturn(ZoneOffset.UTC);
+        Mockito.when(keycloakAdminService.createUser(ArgumentMatchers.any(CreateEmployeeRequest.class))).thenReturn("testGet");
+        var createUserRequest = """
+                {
+                  "username": "john_doe1",
+                  "password": "password123",
+                  "firstName": "John",
+                  "lastName": "Doe",
+                  "birthDate": "1990-05-15",
+                  "age": 34,
+                  "sex": "M",
+                  "type": "Pharmacist",
+                  "address": "1234 Elm Street, Springfield, USA",
+                  "mail": "john.doe@example.com",
+                  "phoneNo": "+1234567890",
+                  "salary": 65000.00
+                }""";
+        createUser(createUserRequest).andExpect(status().isCreated());
+
+        mockMvc.perform(get("/api/v1/employees")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(result -> {
+                    var response = result.getResponse().getContentAsString();
+                    String expectedResponse = """
+                        {
+                          "message": "Fetched employees",
+                          "data": {
+                            "content": [
+                              {
+                                "id": "testGet",
+                                "username": "john_doe1",
+                                "firstName": "John",
+                                "lastName": "Doe",
+                                "birthDate": "1990-05-15",
+                                "age": 34,
+                                "sex": "M",
+                                "type": "Pharmacist",
+                                "joinDate": "1970-01-01T00:00:00",
+                                "address": "1234 Elm Street, Springfield, USA",
+                                "mail": "john.doe@example.com",
+                                "phoneNo": "+1234567890",
+                                "salary": 65000.00
+                              }
+                            ],
+                            "size": 10,
+                            "number": 0,
+                            "totalElement": 1
                           }
                         }
                         """;

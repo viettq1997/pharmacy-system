@@ -8,311 +8,503 @@
 	},
 	"item": [
 		{
-			"name": "token",
-			"event": [
+			"name": "startup",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200)",
-							"})",
-							"pm.test(\"response login success\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.access_token).not.null",
-							"    pm.collectionVariables.set(\"token\", jsonData.access_token)",
-							"})"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/x-www-form-urlencoded"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
+					"name": "token",
+					"event": [
 						{
-							"key": "client_id",
-							"value": "pharmacy-management-system",
-							"type": "text"
-						},
-						{
-							"key": "username",
-							"value": "admin",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "admin",
-							"type": "text"
-						},
-						{
-							"key": "grant_type",
-							"value": "password",
-							"type": "text"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"response login success\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.access_token).not.null",
+									"    pm.collectionVariables.set(\"token\", jsonData.access_token)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:9090/realms/pharmacy-management/protocol/openid-connect/token",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "9090",
-					"path": [
-						"realms",
-						"pharmacy-management",
-						"protocol",
-						"openid-connect",
-						"token"
-					]
-				},
-				"description": "Generated from cURL: curl --location --request POST 'http://localhost:9090/realms/pharmacy-management/protocol/openid-connect/token' \\\n--header 'Content-Type: application/x-www-form-urlencoded' \\\n--data-urlencode 'client_id=admin-cli' \\\n--data-urlencode 'username=admin-user' \\\n--data-urlencode 'password=admin-password' \\\n--data-urlencode 'grant_type=password'\n"
-			},
-			"response": []
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "pharmacy-management-system",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9090/realms/pharmacy-management/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"realms",
+								"pharmacy-management",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						},
+						"description": "Generated from cURL: curl --location --request POST 'http://localhost:9090/realms/pharmacy-management/protocol/openid-connect/token' \\\n--header 'Content-Type: application/x-www-form-urlencoded' \\\n--data-urlencode 'client_id=admin-cli' \\\n--data-urlencode 'username=admin-user' \\\n--data-urlencode 'password=admin-password' \\\n--data-urlencode 'grant_type=password'\n"
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "create employee",
-			"event": [
+			"name": "employee",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201)",
-							"})",
-							"pm.test(\"create employee success\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.data.token).not.null",
-							"    pm.collectionVariables.set(\"employeeId\", jsonData.data.id)",
-							"})"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"name": "create employee",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201)",
+									"})",
+									"pm.test(\"create employee success\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.token).not.null",
+									"    pm.collectionVariables.set(\"employeeId\", jsonData.data.id)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\": \"john_doe1\",\n    \"password\": \"password123\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthDate\": \"1990-05-15\",\n    \"age\": 34,\n    \"sex\": \"M\",\n    \"type\": \"Manager\",\n    \"address\": \"1234 Elm Street, Springfield, USA\",\n    \"mail\": \"john.do1e@example.com\",\n    \"phoneNo\": \"+1234567890\",\n    \"salary\": 65000.00\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8081/pharmacy/api/v1/employees",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "8081",
-					"path": [
-						"pharmacy",
-						"api",
-						"v1",
-						"employees"
-					]
-				},
-				"description": "Generated from cURL: curl -X POST \"http://localhost:8080/api/users/create?firstName=John&lastName=Doe&email=john.doe@example.com&username=johndoe&password=secret123\"\n"
-			},
-			"response": []
-		},
-		{
-			"name": "create employee Copy",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200)",
-							"})"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8081/pharmacy/api/v1/employees?name=E&page=0&size=10",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8081",
-					"path": [
-						"pharmacy",
-						"api",
-						"v1",
-						"employees"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "E"
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"key": "page",
-							"value": "0"
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"john_doe1\",\n    \"password\": \"password123\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthDate\": \"1990-05-15\",\n    \"age\": 34,\n    \"sex\": \"M\",\n    \"type\": \"Manager\",\n    \"address\": \"1234 Elm Street, Springfield, USA\",\n    \"mail\": \"john.do1e@example.com\",\n    \"phoneNo\": \"+1234567890\",\n    \"salary\": 65000.00\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "size",
-							"value": "10"
-						}
-					]
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/employees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"employees"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST \"http://localhost:8080/api/users/create?firstName=John&lastName=Doe&email=john.doe@example.com&username=johndoe&password=secret123\"\n"
+					},
+					"response": []
 				},
-				"description": "Generated from cURL: curl -X POST \"http://localhost:8080/api/users/create?firstName=John&lastName=Doe&email=john.doe@example.com&username=johndoe&password=secret123\"\n"
-			},
-			"response": []
-		},
-		{
-			"name": "update employee",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200)",
-							"})"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"name": "get employees",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\": \"john_doe\",\n    \"firstName\": \"John12\",\n    \"lastName\": \"Doe1\",\n    \"birthDate\": \"1990-05-15\",\n    \"age\": 34,\n    \"sex\": \"M\",\n    \"type\": \"Manager\",\n    \"address\": \"1234 Elm Street, Springfield, USA\",\n    \"mail\": \"john.doe@example.com\",\n    \"phoneNo\": \"+1234567890\",\n    \"salary\": 65000.00\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8081/pharmacy/api/v1/employees/{{employeeId}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "8081",
-					"path": [
-						"pharmacy",
-						"api",
-						"v1",
-						"employees",
-						"{{employeeId}}"
-					]
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/employees?name=E&page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"employees"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "E"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl -X POST \"http://localhost:8080/api/users/create?firstName=John&lastName=Doe&email=john.doe@example.com&username=johndoe&password=secret123\"\n"
+					},
+					"response": []
 				},
-				"description": "Generated from cURL: curl -X POST \"http://localhost:8080/api/users/create?firstName=John&lastName=Doe&email=john.doe@example.com&username=johndoe&password=secret123\"\n"
-			},
-			"response": []
+				{
+					"name": "update employee",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"john_doe\",\n    \"firstName\": \"John12\",\n    \"lastName\": \"Doe1\",\n    \"birthDate\": \"1990-05-15\",\n    \"age\": 34,\n    \"sex\": \"M\",\n    \"type\": \"Manager\",\n    \"address\": \"1234 Elm Street, Springfield, USA\",\n    \"mail\": \"john.doe@example.com\",\n    \"phoneNo\": \"+1234567890\",\n    \"salary\": 65000.00\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/employees/{{employeeId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"employees",
+								"{{employeeId}}"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST \"http://localhost:8080/api/users/create?firstName=John&lastName=Doe&email=john.doe@example.com&username=johndoe&password=secret123\"\n"
+					},
+					"response": []
+				},
+				{
+					"name": "delete employee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/employees/{{employeeId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"employees",
+								"{{employeeId}}"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST \"http://localhost:8080/api/users/create?firstName=John&lastName=Doe&email=john.doe@example.com&username=johndoe&password=secret123\"\n"
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "delete employee",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+			"name": "medicine",
+			"item": [
+				{
+					"name": "create medicine",
+					"event": [
 						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201)",
+									"})",
+									"pm.test(\"create medicine success\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.token).not.null",
+									"    pm.collectionVariables.set(\"medicineId\", jsonData.data.id)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8081/pharmacy/api/v1/employees/{{employeeId}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "8081",
-					"path": [
-						"pharmacy",
-						"api",
-						"v1",
-						"employees",
-						"{{employeeId}}"
-					]
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Aspirin\",\n    \"quantity\": 100,\n    \"price\": 19.99,\n    \"category\": \"Pain Relief\",\n    \"locationRack\": \"Rack A1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicines",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicines"
+							]
+						}
+					},
+					"response": []
 				},
-				"description": "Generated from cURL: curl -X POST \"http://localhost:8080/api/users/create?firstName=John&lastName=Doe&email=john.doe@example.com&username=johndoe&password=secret123\"\n"
-			},
-			"response": []
+				{
+					"name": "get medicines",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicines?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicines"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update medicine",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Aspirin1\",\n    \"quantity\": 100,\n    \"price\": 19.99,\n    \"category\": \"Pain Relief\",\n    \"locationRack\": \"Rack A1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicines/{{medicineId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicines",
+								"{{medicineId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete medicine",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicines/{{medicineId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicines",
+								"{{medicineId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
@@ -322,6 +514,10 @@
 		},
 		{
 			"key": "employeeId",
+			"value": ""
+		},
+		{
+			"key": "medicineId",
 			"value": ""
 		}
 	]
