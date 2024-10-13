@@ -4,7 +4,7 @@ The project aims to assist a pharmacy in managing its inventory, details of cust
 as keeping track of its purchases and sales.
 
 ## Endpoints
-## prefix: pharmacy/api/v1
+prefix: `/pharmacy/api/v1`
 ### Medicine Management
 
 - Function: Access and update the list of medicines.
