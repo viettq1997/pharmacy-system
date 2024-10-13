@@ -80,7 +80,7 @@ public class MedicineService {
             response.setData(medicineResponse);
             response.setMessage("Updated medicine!");
         }, () -> {
-            throw new CustomResponseException(ErrorCode.USER_NOT_EXIST);
+            throw new CustomResponseException(ErrorCode.MEDICINE_NOT_EXIST);
         });
 
         return response;

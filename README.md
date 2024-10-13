@@ -156,6 +156,18 @@ as keeping track of its purchases and sales.
 |                 | `updated_date`  | `DATE`           |                                                 |                                                            |
 |                 | `updated_by`    | `VARCHAR(36)`    |                                                 |                                                            |
 
+## Function flow
+### Employee
+#### Creation
+
+![Employee Creation](design/flow/employee/EmployeeDeleting.svg)
+#### Fetching
+![Employee Fetching](design/flow/employee/FetchEmployeeFlow.svg)
+#### Updating
+![Employee Updating](design/flow/employee/EmployeeUpdating.svg)
+#### Deleting
+![Employee Deleting](design/flow/employee/EmployeeDeleting.svg)
+
 # How to Run
 ```shell
 ./gradlew build

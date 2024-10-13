@@ -1,9 +1,4 @@
 @startuml
-entity "EMPLOGIN" as EmpLogin {
-  + Username : VARCHAR(255) [PK]
-  + Password : VARCHAR(255) [NOT NULL]
-  + E_ID : VARCHAR(50) [FK]
-}
 
 entity "EMPLOYEE" as Employee {
   + E_ID : VARCHAR(50) [PK]
@@ -19,6 +14,10 @@ entity "EMPLOYEE" as Employee {
   + E_Mail : VARCHAR(255)
   + E_Phno : VARCHAR(20)
   + E_Sal : DECIMAL(10, 2)
+  + created_date : DATE
+  + created_by : VARCHAR(36)
+  + updated_date : DATE
+  + updated_by : VARCHAR(36)
 }
 
 entity "SUPPLIERS" as Suppliers {
@@ -27,6 +26,10 @@ entity "SUPPLIERS" as Suppliers {
   + Sup_Add : VARCHAR(255) [NOT NULL]
   + Sup_Phno : VARCHAR(20) [NOT NULL]
   + Sup_Mail : VARCHAR(255)
+  + created_date : DATE
+  + created_by : VARCHAR(36)
+  + updated_date : DATE
+  + updated_by : VARCHAR(36)
 }
 
 entity "CUSTOMER" as Customer {
@@ -37,6 +40,10 @@ entity "CUSTOMER" as Customer {
   + C_Sex : CHAR(1) [NOT NULL]
   + C_Phno : VARCHAR(20) [NOT NULL]
   + C_Mail : VARCHAR(255)
+  + created_date : DATE
+  + created_by : VARCHAR(36)
+  + updated_date : DATE
+  + updated_by : VARCHAR(36)
 }
 
 entity "MEDS" as Meds {
@@ -46,6 +53,10 @@ entity "MEDS" as Meds {
   + Med_Price : DECIMAL(10, 2) [NOT NULL]
   + Category : VARCHAR(255) [NOT NULL]
   + Location_Rack : VARCHAR(50) [NOT NULL]
+  + created_date : DATE
+  + created_by : VARCHAR(36)
+  + updated_date : DATE
+  + updated_by : VARCHAR(36)
 }
 
 entity "PURCHASE" as Purchase {
@@ -57,6 +68,10 @@ entity "PURCHASE" as Purchase {
   + Pur_Date : DATE [NOT NULL]
   + Mfg_Date : DATE [NOT NULL]
   + Exp_Date : DATE [NOT NULL]
+  + created_date : DATE
+  + created_by : VARCHAR(36)
+  + updated_date : DATE
+  + updated_by : VARCHAR(36)
 }
 
 entity "SALES" as Sales {
@@ -66,6 +81,10 @@ entity "SALES" as Sales {
   + Total_Amt : DECIMAL(10, 2) [NOT NULL]
   + C_ID : VARCHAR(50) [FK]
   + E_ID : VARCHAR(50) [FK]
+  + created_date : DATE
+  + created_by : VARCHAR(36)
+  + updated_date : DATE
+  + updated_by : VARCHAR(36)
 }
 
 entity "SALES_ITEMS" as SalesItems {
@@ -74,9 +93,12 @@ entity "SALES_ITEMS" as SalesItems {
   + Sale_Qty : INT [NOT NULL]
   + Tot_Price : DECIMAL(10, 2) [NOT NULL]
   + [PK] (Med_ID, Sale_ID)
+  + created_date : DATE
+  + created_by : VARCHAR(36)
+  + updated_date : DATE
+  + updated_by : VARCHAR(36)
 }
 
-EmpLogin --|> Employee : E_ID [FK]
 Employee --|> Sales : E_ID [FK]
 Employee -- Suppliers
 Sales --|> SalesItems : Sale_ID [FK]
