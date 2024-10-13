@@ -48,7 +48,6 @@ public class EmployeeService {
 
         EmployeeResponse employeeResponse = EmployeeMapper.INSTANCE.toEmployeeResponse(employee);
         employeeResponse.setUsername(request.username());
-        response.setMessage("Created employee!");
         response.setData(employeeResponse);
         return response;
     }
@@ -60,7 +59,6 @@ public class EmployeeService {
         Page<Employee> employees = employeeRepository.findAll(specification, pageable);
         List<EmployeeResponse> employeeResponses = EmployeeMapper.INSTANCE.toListEmployeeResponse(employees.getContent());
 
-        response.setMessage("Fetched employees");
         response.setData(new CommonGetResponse<>(
                 employeeResponses,
                 employees.getSize(),
@@ -84,7 +82,6 @@ public class EmployeeService {
 
             EmployeeResponse employeeResponse = EmployeeMapper.INSTANCE.toEmployeeResponse(employee);
             employeeResponse.setUsername(request.username());
-            response.setMessage("Updated employee!");
             response.setData(employeeResponse);
         }, () -> {
             throw new CustomResponseException(ErrorCode.USER_NOT_EXIST);
@@ -100,7 +97,6 @@ public class EmployeeService {
             throw new CustomResponseException(ErrorCode.USER_NOT_EXIST);
         });
         response.setData(new CommonDeleteResponse(employeeId));
-        response.setMessage("Deleted employee!");
         return response;
     }
 }

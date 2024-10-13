@@ -48,7 +48,6 @@ public class MedicineService {
                 medicinesPage.getSize(),
                 medicinesPage.getNumber(),
                 medicinesPage.getTotalElements()));
-        response.setMessage("Fetched medicines");
         return response;
     }
 
@@ -62,7 +61,6 @@ public class MedicineService {
         medicineRepository.save(medicine);
 
         MedicineResponse medicineResponse = MedicineMapper.INSTANCE.toMedicineResponse(medicine);
-        response.setMessage("Created medicine!");
         response.setData(medicineResponse);
         return response;
     }
@@ -78,7 +76,6 @@ public class MedicineService {
 
             MedicineResponse medicineResponse = MedicineMapper.INSTANCE.toMedicineResponse(medicine);
             response.setData(medicineResponse);
-            response.setMessage("Updated medicine!");
         }, () -> {
             throw new CustomResponseException(ErrorCode.MEDICINE_NOT_EXIST);
         });
@@ -92,7 +89,6 @@ public class MedicineService {
             throw new CustomResponseException(ErrorCode.MEDICINE_NOT_EXIST);
         });
         response.setData(new CommonDeleteResponse(medicineId));
-        response.setMessage("Deleted medicine!");
         return response;
     }
 }

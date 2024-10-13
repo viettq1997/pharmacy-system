@@ -44,6 +44,4 @@ public class Supplier {
     private LocalDateTime updatedDate;
     @Column(name = "updated_by")
     private String updatedBy;
-
-
 }

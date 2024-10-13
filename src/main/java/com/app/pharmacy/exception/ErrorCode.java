@@ -13,6 +13,7 @@ public enum ErrorCode {
     USER_NOT_EXIST("PS00002", "User is not found", HttpStatus.BAD_REQUEST),
     USERNAME_CANNOT_CHANGE("PS00003", "Username cannot be changed!", HttpStatus.BAD_REQUEST),
     MEDICINE_NOT_EXIST("PS00004", "Medicine is not found", HttpStatus.BAD_REQUEST),
+    SUPPLIER_NOT_EXIST("PS00005", "Supplier is not found", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(String code, String message, HttpStatusCode statusCode) {
