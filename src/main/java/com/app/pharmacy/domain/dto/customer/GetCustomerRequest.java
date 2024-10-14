@@ -1,4 +1,4 @@
 package com.app.pharmacy.domain.dto.customer;
 
-public class GetCustomerRequest {
+public record GetCustomerRequest(String name) {
 }

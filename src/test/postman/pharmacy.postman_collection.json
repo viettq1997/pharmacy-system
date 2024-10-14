@@ -687,6 +687,188 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "create supplier",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201)",
+									"})",
+									"pm.test(\"create medicine success\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.token).not.null",
+									"    pm.collectionVariables.set(\"customerId\", jsonData.data.id)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"age\": 30,\n    \"sex\": \"M\",\n    \"phoneNo\": \"123-456-7890\",\n    \"mail\": \"johndoe@example.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get suppliers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/customers?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"John updated\",\n    \"lastName\": \"Doe\",\n    \"age\": 30,\n    \"sex\": \"M\",\n    \"phoneNo\": \"123-456-7890\",\n    \"mail\": \"johndoe@example.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/customers/{{customerId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"customers",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete supplier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/customers/{{customerId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"customers",
+								"{{customerId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
@@ -704,6 +886,10 @@
 		},
 		{
 			"key": "supplierId",
+			"value": ""
+		},
+		{
+			"key": "customerId",
 			"value": ""
 		}
 	]

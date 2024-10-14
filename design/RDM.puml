@@ -79,7 +79,7 @@ entity "SALES" as Sales {
   + S_Date : DATE [NOT NULL]
   + S_Time : TIME [NOT NULL]
   + Total_Amt : DECIMAL(10, 2) [NOT NULL]
-  + C_ID : VARCHAR(50) [FK]
+  + C_ID : VARCHAR(50) [FK] [NULLABLE]
   + E_ID : VARCHAR(50) [FK]
   + created_date : DATE
   + created_by : VARCHAR(36)
