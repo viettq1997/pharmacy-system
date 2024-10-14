@@ -420,7 +420,7 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "default-roles-pharmacy-management" ],
     "clientRoles" : {
-      "pharmacy-management-system" : [ "ADMIN", "USER" ],
+      "pharmacy-management-system" : [ "ADMIN" ],
       "realm-management" : [ "realm-admin" ]
     },
     "notBefore" : 0,
@@ -592,14 +592,14 @@
     "clientId" : "pharmacy-management-system",
     "name" : "",
     "description" : "",
-    "rootUrl" : "http://localhost:4200",
-    "adminUrl" : "http://localhost:4200",
+    "rootUrl" : "http://localhost:3000",
+    "adminUrl" : "http://localhost:3000",
     "baseUrl" : "",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "http://localhost:4200/*" ],
+    "redirectUris" : [ "http://localhost:3000/*" ],
     "webOrigins" : [ "*" ],
     "notBefore" : 0,
     "bearerOnly" : false,
@@ -1229,7 +1229,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-user-attribute-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-full-name-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper", "saml-user-property-mapper" ]
+        "allowed-protocol-mapper-types" : [ "saml-role-list-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper", "oidc-full-name-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper", "oidc-usermodel-attribute-mapper" ]
       }
     }, {
       "id" : "261ecc34-b7d3-4bba-9c0f-065e863a14e8",
@@ -1256,7 +1256,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-sha256-pairwise-sub-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper", "oidc-address-mapper", "saml-user-property-mapper", "oidc-usermodel-property-mapper", "saml-user-attribute-mapper", "oidc-full-name-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-full-name-mapper", "oidc-address-mapper", "saml-user-property-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-attribute-mapper", "saml-role-list-mapper", "saml-user-attribute-mapper", "oidc-usermodel-property-mapper" ]
       }
     }, {
       "id" : "b783c769-4f8d-4b34-bfc4-7fd4c3c59c33",
