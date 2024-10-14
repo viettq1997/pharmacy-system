@@ -191,7 +191,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/employees?name=E&page=0&size=10",
+							"raw": "http://localhost:8081/pharmacy/api/v1/employees?name=&page=0&size=10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -206,7 +206,7 @@
 							"query": [
 								{
 									"key": "name",
-									"value": "E"
+									"value": ""
 								},
 								{
 									"key": "page",
@@ -371,7 +371,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/medicines",
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicines?category=Pain Relief&name=Aspirin&quantity=100",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -382,6 +382,20 @@
 								"api",
 								"v1",
 								"medicines"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "Pain Relief"
+								},
+								{
+									"key": "name",
+									"value": "Aspirin"
+								},
+								{
+									"key": "quantity",
+									"value": "100"
+								}
 							]
 						}
 					},
@@ -585,7 +599,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/suppliers?page=0&size=10",
+							"raw": "http://localhost:8081/pharmacy/api/v1/suppliers?page=0&size=10&name=ABC Suppliers test",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -605,6 +619,10 @@
 								{
 									"key": "size",
 									"value": "10"
+								},
+								{
+									"key": "name",
+									"value": "ABC Suppliers test"
 								}
 							]
 						}
@@ -692,7 +710,7 @@
 			"name": "customer",
 			"item": [
 				{
-					"name": "create supplier",
+					"name": "create customer",
 					"event": [
 						{
 							"listen": "test",
@@ -752,7 +770,7 @@
 					"response": []
 				},
 				{
-					"name": "get suppliers",
+					"name": "get customers",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -767,7 +785,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/customers?page=0&size=10",
+							"raw": "http://localhost:8081/pharmacy/api/v1/customers?page=0&size=10&name=John",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -787,6 +805,10 @@
 								{
 									"key": "size",
 									"value": "10"
+								},
+								{
+									"key": "name",
+									"value": "John"
 								}
 							]
 						}
@@ -794,7 +816,7 @@
 					"response": []
 				},
 				{
-					"name": "update supplier",
+					"name": "update customer",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -836,7 +858,7 @@
 					"response": []
 				},
 				{
-					"name": "delete supplier",
+					"name": "delete customer",
 					"request": {
 						"auth": {
 							"type": "bearer",
