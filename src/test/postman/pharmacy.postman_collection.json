@@ -417,7 +417,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/medicines?page=0&size=10",
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicines?page=0&size=10&category=Pain Relief&name=Aspirin&quantity=100",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -437,6 +437,18 @@
 								{
 									"key": "size",
 									"value": "10"
+								},
+								{
+									"key": "category",
+									"value": "Pain Relief"
+								},
+								{
+									"key": "name",
+									"value": "Aspirin"
+								},
+								{
+									"key": "quantity",
+									"value": "100"
 								}
 							]
 						}
