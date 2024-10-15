@@ -1,10 +1,7 @@
 package com.app.pharmacy.controller;
 
 import com.app.pharmacy.config.TestSecurityConfig;
-import com.app.pharmacy.domain.common.ApiResponse;
-import com.app.pharmacy.domain.dto.medicine.MedicineResponse;
 import com.app.pharmacy.service.KeycloakAdminService;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -85,7 +82,6 @@ public class MedicineControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = """
                             {
-                               "message": "Fetched medicines",
                                "data": {
                                  "content": [
                                    {
@@ -134,7 +130,6 @@ public class MedicineControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = """
                             {
-                               "message": "Created medicine!",
                                "data": {
                                  "name": "Aspirin",
                                  "quantity": 100,
@@ -189,7 +184,6 @@ public class MedicineControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                             {
-                              "message": "Deleted medicine!",
                               "data": {
                                 "id": "%s"
                               }
@@ -242,7 +236,6 @@ public class MedicineControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = """
                         {
-                               "message": "Updated medicine!",
                                "data": {
                                  "name": "Aspirin1",
                                  "quantity": 100,

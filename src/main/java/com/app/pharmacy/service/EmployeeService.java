@@ -48,6 +48,7 @@ public class EmployeeService {
 
         EmployeeResponse employeeResponse = EmployeeMapper.INSTANCE.toEmployeeResponse(employee);
         employeeResponse.setUsername(request.username());
+        employeeResponse.setRole(request.role());
         response.setData(employeeResponse);
         return response;
     }
