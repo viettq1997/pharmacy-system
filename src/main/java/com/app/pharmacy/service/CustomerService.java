@@ -72,7 +72,7 @@ public class CustomerService {
             CustomerResponse customerResponse = CustomerMapper.INSTANCE.toCustomerResponse(customer);
             response.setData(customerResponse);
         }, () -> {
-            throw new CustomResponseException(ErrorCode.SUPPLIER_NOT_EXIST);
+            throw new CustomResponseException(ErrorCode.CUSTOMER_NOT_EXIST);
         });
 
         return response;
@@ -81,7 +81,7 @@ public class CustomerService {
     public ApiResponse<CommonDeleteResponse> deleteCustomer(String customerId) {
         ApiResponse<CommonDeleteResponse> response = new ApiResponse<>();
         customerRepository.findById(customerId).ifPresentOrElse(customerRepository::delete, () -> {
-            throw new CustomResponseException(ErrorCode.SUPPLIER_NOT_EXIST);
+            throw new CustomResponseException(ErrorCode.CUSTOMER_NOT_EXIST);
         });
         response.setData(new CommonDeleteResponse(customerId));
         return response;

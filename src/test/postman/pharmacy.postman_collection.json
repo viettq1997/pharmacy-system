@@ -903,6 +903,192 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "med category",
+			"item": [
+				{
+					"name": "create med category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201)",
+									"})",
+									"pm.test(\"create medicine success\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.token).not.null",
+									"    pm.collectionVariables.set(\"medCategoryId\", jsonData.data.id)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pain Relief\",\n    \"description\": \"Medicines used for relieving pain.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicineCategories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicineCategories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get med categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicineCategories?page=0&size=10&name=Pain Relief",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicineCategories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "name",
+									"value": "Pain Relief"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update med category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pain Relief updated\",\n    \"description\": \"Medicines used for relieving pain.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicineCategories/{{medCategoryId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicineCategories",
+								"{{medCategoryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete med category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicineCategories/{{medCategoryId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicineCategories",
+								"{{medCategoryId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
@@ -924,6 +1110,10 @@
 		},
 		{
 			"key": "customerId",
+			"value": ""
+		},
+		{
+			"key": "medCategoryId",
 			"value": ""
 		}
 	]
