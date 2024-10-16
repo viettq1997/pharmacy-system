@@ -1,10 +1,7 @@
 package com.app.pharmacy.controller;
 
 import com.app.pharmacy.config.TestSecurityConfig;
-import com.app.pharmacy.domain.common.ApiResponse;
-import com.app.pharmacy.domain.dto.medicine.MedicineResponse;
 import com.app.pharmacy.service.KeycloakAdminService;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -70,10 +67,8 @@ public class MedicineControllerTest {
         var createMedicineRequest = """
                 {
                   "name": "Aspirin",
-                  "quantity": 100,
                   "price": 19.99,
-                  "category": "Pain Relief",
-                  "locationRack": "Rack A1"
+                  "categoryId": "CAT123"
                 }
                 """;
         createMedicine(createMedicineRequest).andExpect(status().isCreated());
@@ -85,15 +80,12 @@ public class MedicineControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = """
                             {
-                               "message": "Fetched medicines",
                                "data": {
                                  "content": [
                                    {
                                      "name": "Aspirin",
-                                     "quantity": 100,
                                      "price": 19.99,
-                                     "category": "Pain Relief",
-                                     "locationRack": "Rack A1",
+                                     "categoryId": "CAT123",
                                      "createdDate": "1970-01-01T00:00:00",
                                      "createdBy": "user"
                                    }
@@ -121,10 +113,8 @@ public class MedicineControllerTest {
         var createMedicineRequest = """
                 {
                   "name": "Aspirin",
-                  "quantity": 100,
                   "price": 19.99,
-                  "category": "Pain Relief",
-                  "locationRack": "Rack A1"
+                  "categoryId": "CAT123"
                 }
                 """;
 
@@ -134,13 +124,10 @@ public class MedicineControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = """
                             {
-                               "message": "Created medicine!",
                                "data": {
                                  "name": "Aspirin",
-                                 "quantity": 100,
                                  "price": 19.99,
-                                 "category": "Pain Relief",
-                                 "locationRack": "Rack A1",
+                                 "categoryId": "CAT123",
                                  "createdDate": "1970-01-01T00:00:00",
                                  "createdBy": "user"
                                }
@@ -169,10 +156,8 @@ public class MedicineControllerTest {
         var createMedicineRequest = """
                 {
                   "name": "Aspirin",
-                  "quantity": 100,
                   "price": 19.99,
-                  "category": "Pain Relief",
-                  "locationRack": "Rack A1"
+                  "categoryId": "CAT123"
                 }
                 """;
         AtomicReference<String> id = new AtomicReference<>("");
@@ -189,7 +174,6 @@ public class MedicineControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                             {
-                              "message": "Deleted medicine!",
                               "data": {
                                 "id": "%s"
                               }
@@ -211,10 +195,8 @@ public class MedicineControllerTest {
         var createMedicineRequest = """
                 {
                   "name": "Aspirin",
-                  "quantity": 100,
                   "price": 19.99,
-                  "category": "Pain Relief",
-                  "locationRack": "Rack A1"
+                  "categoryId": "CAT123"
                 }
                 """;
         AtomicReference<String> id = new AtomicReference<>("");
@@ -228,10 +210,8 @@ public class MedicineControllerTest {
         var updateMedicineRequest = """
                 {
                   "name": "Aspirin1",
-                  "quantity": 100,
                   "price": 19.99,
-                  "category": "Pain Relief",
-                  "locationRack": "Rack A1"
+                  "categoryId": "CAT123"
                 }
                 """;
         mockMvc.perform(put("/api/v1/medicines/{id}", id)
@@ -242,13 +222,10 @@ public class MedicineControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = """
                         {
-                               "message": "Updated medicine!",
                                "data": {
                                  "name": "Aspirin1",
-                                 "quantity": 100,
                                  "price": 19.99,
-                                 "category": "Pain Relief",
-                                 "locationRack": "Rack A1",
+                                 "categoryId": "CAT123",
                                  "createdDate": "1970-01-01T00:00:00",
                                  "createdBy": "user",
                                  "updatedDate": "1970-01-01T00:00:00",

@@ -18,10 +18,8 @@ public class MedicineResponse {
 
     private String id;
     private String name;
-    private Integer quantity;
     private BigDecimal price;
-    private String category;
-    private String locationRack;
+    private String categoryId;
 
     private LocalDateTime createdDate;
     private String createdBy;

@@ -22,6 +22,7 @@ public class EmployeeResponse {
     private String username;
     private String firstName;
     private String lastName;
+    private EmployeeRole role;
     private LocalDate birthDate;
     private Integer age;
     private String sex;

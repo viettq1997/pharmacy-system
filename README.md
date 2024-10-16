@@ -1,4 +1,4 @@
-# Phamacy System
+# Pharmacy System
 
 The project aims to assist a pharmacy in managing its inventory, details of customers, employees and suppliers as well
 as keeping track of its purchases and sales.
@@ -64,10 +64,6 @@ prefix: `/pharmacy/api/v1`
     - GET `/reports/sales`: Generate sales report (Admin only).
     - GET `/reports/inventory`: Generate inventory report (Admin only).
     - GET `/reports/customers`: Generate customer report (Admin only).
-
-## ER Diagram
-
-![ER Diagram](design/ER.svg)
 
 ## RDM Diagram
 

@@ -363,7 +363,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Aspirin\",\n    \"quantity\": 100,\n    \"price\": 19.99,\n    \"category\": \"Pain Relief\",\n    \"locationRack\": \"Rack A1\"\n}",
+							"raw": "{\n    \"name\": \"Aspirin\",\n    \"price\": 19.99,\n    \"categoryId\": \"Cat1234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -371,7 +371,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/medicines?category=Pain Relief&name=Aspirin&quantity=100",
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicines",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -382,20 +382,6 @@
 								"api",
 								"v1",
 								"medicines"
-							],
-							"query": [
-								{
-									"key": "category",
-									"value": "Pain Relief"
-								},
-								{
-									"key": "name",
-									"value": "Aspirin"
-								},
-								{
-									"key": "quantity",
-									"value": "100"
-								}
 							]
 						}
 					},
@@ -417,7 +403,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/medicines?page=0&size=10&category=Pain Relief&name=Aspirin&quantity=100",
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicines?page=0&size=10&categoryId=Cat1234&name=Aspirin",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -439,16 +425,12 @@
 									"value": "10"
 								},
 								{
-									"key": "category",
-									"value": "Pain Relief"
+									"key": "categoryId",
+									"value": "Cat1234"
 								},
 								{
 									"key": "name",
 									"value": "Aspirin"
-								},
-								{
-									"key": "quantity",
-									"value": "100"
 								}
 							]
 						}
@@ -472,7 +454,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Aspirin1\",\n    \"quantity\": 100,\n    \"price\": 19.99,\n    \"category\": \"Pain Relief\",\n    \"locationRack\": \"Rack A1\"\n}",
+							"raw": "{\n    \"name\": \"Aspirin updated\",\n    \"price\": 19.99,\n    \"categoryId\": \"Cat1234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

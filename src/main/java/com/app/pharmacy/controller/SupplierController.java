@@ -38,7 +38,7 @@ public class SupplierController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<CommonGetResponse<SupplierResponse>>> getSuppliers(
             @ModelAttribute GetSupplierRequest request,
-            @PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable
+            @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         return ResponseEntity.ok(supplierService.getSuppliers(request, pageable));
     }

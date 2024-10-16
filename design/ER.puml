@@ -33,7 +33,7 @@ entity "EMPLOYEE" as Employee {
   + Bdate
 }
 
-entity "SUPPLIERS" as Suppliers {
+entity "SUPPLIER" as Suppliers {
   + Sup_ID
   + Sup_Name
   + Sup_Add
@@ -51,13 +51,11 @@ entity "CUSTOMER" as Customer {
   + C_Mail
 }
 
-entity "MEDS" as Meds {
+entity "MED" as Meds {
   + Med_ID
   + Med_Name
-  + Med_Qty
   + Med_Price
   + Category
-  + Location_Rack
 }
 
 entity "PURCHASE" as Purchase {
@@ -69,14 +67,14 @@ entity "PURCHASE" as Purchase {
   + Mfg_Date
 }
 
-entity "SALES" as Sales {
+entity "SALE" as Sales {
   + Sale_ID
   + S_Time
   + S_Date
   + Total_Amt
 }
 
-entity "SALES_ITEMS" as SalesItems {
+entity "SALE_ITEM" as SalesItems {
   + Sale_Qty
   + Tot_Price
 }

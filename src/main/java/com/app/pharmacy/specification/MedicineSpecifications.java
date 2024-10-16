@@ -14,12 +14,12 @@ public class MedicineSpecifications {
         };
     }
 
-    public static Specification<Medicine> hasCategory(String category) {
+    public static Specification<Medicine> hasCategory(String categoryId) {
         return (root, query, criteriaBuilder) -> {
-            if (category == null || category.isEmpty()) {
+            if (categoryId == null || categoryId.isEmpty()) {
                 return criteriaBuilder.conjunction();
             }
-            return criteriaBuilder.equal(root.get("category"), category);
+            return criteriaBuilder.equal(root.get("categoryId"), categoryId);
         };
     }
 

@@ -27,9 +27,6 @@ public class GetPurchaseResponse {
     private SupplierResponse supplier;
     private Integer quantity;
     private BigDecimal cost;
-    private LocalDate purchaseDate;
-    private LocalDate mfgDate;
-    private LocalDate expDate;
 
     private LocalDateTime createdDate;
     private String createdBy;

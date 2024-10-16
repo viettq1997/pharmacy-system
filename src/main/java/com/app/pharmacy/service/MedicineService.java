@@ -39,7 +39,7 @@ public class MedicineService {
 
         Specification<Medicine> specification = Specification.where(
                 hasName(request.name())
-                        .and(hasCategory(request.category())
+                        .and(hasCategory(request.categoryId())
                                 .and(hasQuantity(request.quantity()))));
         Page<Medicine> medicinesPage = medicineRepository.findAll(specification, pageable);
         List<MedicineResponse> medicineResponses = MedicineMapper.INSTANCE.toListMedicineResponse(medicinesPage.getContent());

@@ -39,7 +39,7 @@ public class EmployeeController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<CommonGetResponse<EmployeeResponse>>> getEmployees(
             @ModelAttribute GetEmployeeRequest request,
-            @PageableDefault(sort = "joinDate", direction = Sort.Direction.DESC) Pageable pageable) {
+            @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(employeeService.getEmployees(request, pageable));
     }
 

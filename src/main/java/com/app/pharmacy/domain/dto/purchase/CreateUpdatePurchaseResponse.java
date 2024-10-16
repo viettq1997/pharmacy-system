@@ -25,9 +25,6 @@ public class CreateUpdatePurchaseResponse {
     private String supplierId;
     private Integer quantity;
     private BigDecimal cost;
-    private LocalDate purchaseDate;
-    private LocalDate mfgDate;
-    private LocalDate expDate;
 
     private LocalDateTime createdDate;
     private String createdBy;
