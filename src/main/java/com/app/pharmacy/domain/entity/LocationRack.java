@@ -12,29 +12,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "MED")
+@Table(name = "LOCATION_RACK")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Medicine {
+public class LocationRack {
 
     @Id
-    @Column(name = "Med_ID")
+    @Column(name = "LR_ID")
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(name = "Med_Name")
-    private String name;
-    @Column(name = "Med_Price")
-    private BigDecimal price;
-    @Column(name = "Cat_ID")
-    private String categoryId;
+    @Column(name = "LR_POSITION")
+    private String position;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;

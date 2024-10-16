@@ -67,10 +67,8 @@ public class MedicineControllerTest {
         var createMedicineRequest = """
                 {
                   "name": "Aspirin",
-                  "quantity": 100,
                   "price": 19.99,
-                  "category": "Pain Relief",
-                  "locationRack": "Rack A1"
+                  "categoryId": "CAT123"
                 }
                 """;
         createMedicine(createMedicineRequest).andExpect(status().isCreated());
@@ -86,10 +84,8 @@ public class MedicineControllerTest {
                                  "content": [
                                    {
                                      "name": "Aspirin",
-                                     "quantity": 100,
                                      "price": 19.99,
-                                     "category": "Pain Relief",
-                                     "locationRack": "Rack A1",
+                                     "categoryId": "CAT123",
                                      "createdDate": "1970-01-01T00:00:00",
                                      "createdBy": "user"
                                    }
@@ -117,10 +113,8 @@ public class MedicineControllerTest {
         var createMedicineRequest = """
                 {
                   "name": "Aspirin",
-                  "quantity": 100,
                   "price": 19.99,
-                  "category": "Pain Relief",
-                  "locationRack": "Rack A1"
+                  "categoryId": "CAT123"
                 }
                 """;
 
@@ -132,10 +126,8 @@ public class MedicineControllerTest {
                             {
                                "data": {
                                  "name": "Aspirin",
-                                 "quantity": 100,
                                  "price": 19.99,
-                                 "category": "Pain Relief",
-                                 "locationRack": "Rack A1",
+                                 "categoryId": "CAT123",
                                  "createdDate": "1970-01-01T00:00:00",
                                  "createdBy": "user"
                                }
@@ -164,10 +156,8 @@ public class MedicineControllerTest {
         var createMedicineRequest = """
                 {
                   "name": "Aspirin",
-                  "quantity": 100,
                   "price": 19.99,
-                  "category": "Pain Relief",
-                  "locationRack": "Rack A1"
+                  "categoryId": "CAT123"
                 }
                 """;
         AtomicReference<String> id = new AtomicReference<>("");
@@ -205,10 +195,8 @@ public class MedicineControllerTest {
         var createMedicineRequest = """
                 {
                   "name": "Aspirin",
-                  "quantity": 100,
                   "price": 19.99,
-                  "category": "Pain Relief",
-                  "locationRack": "Rack A1"
+                  "categoryId": "CAT123"
                 }
                 """;
         AtomicReference<String> id = new AtomicReference<>("");
@@ -222,10 +210,8 @@ public class MedicineControllerTest {
         var updateMedicineRequest = """
                 {
                   "name": "Aspirin1",
-                  "quantity": 100,
                   "price": 19.99,
-                  "category": "Pain Relief",
-                  "locationRack": "Rack A1"
+                  "categoryId": "CAT123"
                 }
                 """;
         mockMvc.perform(put("/api/v1/medicines/{id}", id)
@@ -238,10 +224,8 @@ public class MedicineControllerTest {
                         {
                                "data": {
                                  "name": "Aspirin1",
-                                 "quantity": 100,
                                  "price": 19.99,
-                                 "category": "Pain Relief",
-                                 "locationRack": "Rack A1",
+                                 "categoryId": "CAT123",
                                  "createdDate": "1970-01-01T00:00:00",
                                  "createdBy": "user",
                                  "updatedDate": "1970-01-01T00:00:00",

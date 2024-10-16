@@ -38,7 +38,7 @@ public class CustomerController {
     @PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
     public ResponseEntity<ApiResponse<CommonGetResponse<CustomerResponse>>> getCustomers(
             @ModelAttribute GetCustomerRequest request,
-            @PageableDefault(sort = "createdDate", direction = Sort.Direction.ASC) Pageable pageable
+            @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         return ResponseEntity.ok(customerService.getCustomers(request, pageable));
     }

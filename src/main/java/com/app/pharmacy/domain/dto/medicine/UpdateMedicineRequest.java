@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 
 public record UpdateMedicineRequest(
         String name,
-        Integer quantity,
         BigDecimal price,
-        String category,
-        String locationRack
+        String categoryId
 ) {
 }

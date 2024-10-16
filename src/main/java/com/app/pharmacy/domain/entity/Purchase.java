@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -38,12 +37,6 @@ public class Purchase {
     private Integer quantity;
     @Column(name = "P_Cost")
     private BigDecimal cost;
-    @Column(name = "Pur_Date")
-    private LocalDate purchaseDate;
-    @Column(name = "Mfg_Date")
-    private LocalDate mfgDate;
-    @Column(name = "Exp_Date")
-    private LocalDate expDate;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;

@@ -40,7 +40,7 @@ CREATE TABLE CUSTOMER (
     C_ID VARCHAR(36) PRIMARY KEY,
     C_Fname VARCHAR(255) NOT NULL,
     C_Lname VARCHAR(255) NOT NULL,
-    C_Age INT NOT NULL,
+    C_Age INT,
     C_Sex CHAR(1) NOT NULL,
     C_Phno VARCHAR(20) NOT NULL,
     C_Mail VARCHAR(255),
@@ -63,10 +63,8 @@ CREATE TABLE MED_CATEGORY (
 CREATE TABLE MED (
     Med_ID VARCHAR(36) PRIMARY KEY,
     Med_Name VARCHAR(255) NOT NULL,
-    Med_Qty INT NOT NULL,
     Med_Price DECIMAL(10, 2) NOT NULL,
-    Category VARCHAR(255) NOT NULL,
-    Location_Rack VARCHAR(50) NOT NULL,
+    Cat_ID VARCHAR(36) NOT NULL,
     created_date DATE NOT NULL,
     created_by VARCHAR(36) NOT NULL,
     updated_date DATE,
@@ -79,9 +77,6 @@ CREATE TABLE PURCHASE (
     Sup_ID VARCHAR(36) NOT NULL,
     P_Qty INT NOT NULL,
     P_Cost DECIMAL(10, 2) NOT NULL,
-    Pur_Date DATE NOT NULL,
-    Mfg_Date DATE NOT NULL,
-    Exp_Date DATE NOT NULL,
     created_date DATE NOT NULL,
     created_by VARCHAR(36) NOT NULL,
     updated_date DATE,
@@ -106,6 +101,28 @@ CREATE TABLE SALE_ITEM (
     Sale_Qty INT NOT NULL,
     Tot_Price DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (Med_ID, Sale_ID),
+    created_date DATE NOT NULL,
+    created_by VARCHAR(36) NOT NULL,
+    updated_date DATE,
+    updated_by VARCHAR(36)
+);
+
+CREATE TABLE LOCATION_RACK (
+    LR_ID VARCHAR(36) PRIMARY KEY,
+    LR_POSITION VARCHAR(50) NOT NULL,
+    created_date DATE NOT NULL,
+    created_by VARCHAR(36) NOT NULL,
+    updated_date DATE,
+    updated_by VARCHAR(36)
+);
+
+CREATE TABLE INVENTORY (
+    I_ID VARCHAR(36) PRIMARY KEY,
+    MED_ID VARCHAR(36) NOT NULL,
+    LR_ID VARCHAR(36) NOT NULL,
+    I_Qty INT NOT NULL,
+    Mfg_Date DATE NOT NULL,
+    Exp_Date DATE NOT NULL,
     created_date DATE NOT NULL,
     created_by VARCHAR(36) NOT NULL,
     updated_date DATE,

@@ -38,7 +38,7 @@ public class MedicineController {
     @PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<CommonGetResponse<MedicineResponse>>> getMedicines(
             @ModelAttribute GetMedicineRequest request,
-            @PageableDefault(sort = "category", direction = Sort.Direction.ASC) Pageable pageable
+            @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable
             ) {
         return ResponseEntity.ok(medicineService.getMedicines(request, pageable));
     }

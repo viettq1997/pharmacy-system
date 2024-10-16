@@ -18,9 +18,9 @@ CREATE TABLE EMPLOYEE (
     E_Mail VARCHAR(255),
     E_Phno VARCHAR(20) NOT NULL,
     E_Sal DECIMAL(10, 2),
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
@@ -30,9 +30,9 @@ CREATE TABLE SUPPLIER (
     Sup_Add VARCHAR(255) NOT NULL,
     Sup_Phno VARCHAR(20) NOT NULL,
     Sup_Mail VARCHAR(255),
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
@@ -40,13 +40,13 @@ CREATE TABLE CUSTOMER (
     C_ID VARCHAR(36) NOT NULL,
     C_Fname VARCHAR(255) NOT NULL,
     C_Lname VARCHAR(255) NOT NULL,
-    C_Age INT NOT NULL,
+    C_Age INT,
     C_Sex CHAR(1) NOT NULL,
     C_Phno VARCHAR(20) NOT NULL,
     C_Mail VARCHAR(255),
-    created_date DATE NOT NULL UNIQUE,
+    created_date TIMESTAMP NOT NULL UNIQUE,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 ) PARTITION BY RANGE (created_date);
 
@@ -66,22 +66,20 @@ CREATE TABLE MED_CATEGORY (
     Cat_ID VARCHAR(36) PRIMARY KEY,
     Cat_Name VARCHAR(255) NOT NULL,
     Cat_Description VARCHAR(1000),
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
 CREATE TABLE MED (
     Med_ID VARCHAR(36) PRIMARY KEY,
     Med_Name VARCHAR(255) NOT NULL,
-    Med_Qty INT NOT NULL,
     Med_Price DECIMAL(10, 2) NOT NULL,
-    Category VARCHAR(255) NOT NULL,
-    Location_Rack VARCHAR(50) NOT NULL,
-    created_date DATE NOT NULL,
+    Cat_ID VARCHAR(36) NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
@@ -91,12 +89,9 @@ CREATE TABLE PURCHASE (
     Sup_ID VARCHAR(36) NOT NULL,
     P_Qty INT NOT NULL,
     P_Cost DECIMAL(10, 2) NOT NULL,
-    Pur_Date DATE NOT NULL,
-    Mfg_Date DATE NOT NULL,
-    Exp_Date DATE NOT NULL,
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
@@ -106,9 +101,9 @@ CREATE TABLE SALE (
     Total_Amt DECIMAL(10, 2),
     C_ID VARCHAR(36), -- allow anonymous customer
     E_ID VARCHAR(36) NOT NULL,
-    created_date DATE NOT NULL UNIQUE,
+    created_date TIMESTAMP NOT NULL UNIQUE,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 ) PARTITION BY RANGE (created_date);
 
@@ -130,8 +125,31 @@ CREATE TABLE SALE_ITEM (
     Sale_Qty INT NOT NULL,
     Tot_Price DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (Med_ID, Sale_ID),
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
+);
+
+CREATE TABLE LOCATION_RACK (
+    LR_ID VARCHAR(36) PRIMARY KEY,
+    LR_POSITION VARCHAR(50) NOT NULL,
+    created_date TIMESTAMP NOT NULL,
+    created_by VARCHAR(36) NOT NULL,
+    updated_date TIMESTAMP,
+    updated_by VARCHAR(36)
+);
+
+CREATE TABLE INVENTORY (
+    I_ID VARCHAR(36) PRIMARY KEY,
+    Med_ID VARCHAR(36) NOT NULL,
+    LR_ID VARCHAR(36) NOT NULL,
+    I_Qty INT NOT NULL,
+    Mfg_Date DATE NOT NULL,
+    Exp_Date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
+    created_by VARCHAR(36) NOT NULL,
+    updated_date TIMESTAMP,
+    updated_by VARCHAR(36),
+    UNIQUE (Med_ID, Mfg_Date)
 );

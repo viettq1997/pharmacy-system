@@ -1,7 +1,6 @@
 package com.app.pharmacy.domain.dto.customer;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 public record CreateCustomerRequest(
 
@@ -9,7 +8,6 @@ public record CreateCustomerRequest(
         String firstName,
         @NotBlank(message = "Last name is mandatory field")
         String lastName,
-        @NotNull(message = "Age is mandatory field")
         Integer age,
         @NotBlank(message = "Sex is mandatory field")
         String sex,
