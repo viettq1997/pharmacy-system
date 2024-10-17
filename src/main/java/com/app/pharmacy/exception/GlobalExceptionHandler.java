@@ -10,6 +10,7 @@ import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -24,6 +25,19 @@ public class GlobalExceptionHandler {
         log.error(ex.getMessage());
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse
+                        .builder()
+                        .code(errorCode.getCode())
+                        .message(errorCode.getMessage())
+                        .build());
+    }
+
+    @ExceptionHandler(value = NoResourceFoundException.class)
+    public ResponseEntity<ApiResponse<?>> handleNoResourceFoundException(NoResourceFoundException ex) {
+        ErrorCode errorCode = ErrorCode.NO_RESOURCE_FOUND;
+        log.error(ex.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
                 .body(ApiResponse
                         .builder()
                         .code(errorCode.getCode())
