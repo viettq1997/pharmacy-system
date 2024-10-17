@@ -4,9 +4,11 @@ import com.app.pharmacy.domain.dto.medicinecategory.CreateMedicineCategoryReques
 import com.app.pharmacy.domain.dto.medicinecategory.MedicineCategoryResponse;
 import com.app.pharmacy.domain.dto.medicinecategory.UpdateMedicineCategoryRequest;
 import com.app.pharmacy.domain.entity.MedicineCategory;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MapperConfig;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
@@ -19,6 +21,7 @@ public interface MedicineCategoryMapper {
     MedicineCategoryMapper INSTANCE = Mappers.getMapper(MedicineCategoryMapper.class);
 
     MedicineCategory toEntity(CreateMedicineCategoryRequest request);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toEntity(UpdateMedicineCategoryRequest request, @MappingTarget MedicineCategory medicinecategory);
     MedicineCategoryResponse toMedicineCategoryResponse(MedicineCategory medicinecategory);
     List<MedicineCategoryResponse> toListMedicineCategoryResponse(List<MedicineCategory> medicineCategories);
