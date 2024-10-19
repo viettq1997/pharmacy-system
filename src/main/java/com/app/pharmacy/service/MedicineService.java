@@ -11,7 +11,9 @@ import com.app.pharmacy.domain.entity.Medicine;
 import com.app.pharmacy.exception.CustomResponseException;
 import com.app.pharmacy.exception.ErrorCode;
 import com.app.pharmacy.mapper.MedicineMapper;
+import com.app.pharmacy.repository.MedicineCategoryRepository;
 import com.app.pharmacy.repository.MedicineRepository;
+import com.app.pharmacy.repository.PurchaseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +34,8 @@ import static com.app.pharmacy.specification.MedicineSpecifications.hasQuantity;
 public class MedicineService {
 
     private final MedicineRepository medicineRepository;
+    private final MedicineCategoryRepository medicineCategoryRepository;
+    private final PurchaseRepository purchaseRepository;
     private final Clock clock;
 
     public ApiResponse<CommonGetResponse<MedicineResponse>> getMedicines(GetMedicineRequest request, Pageable pageable) {
@@ -55,6 +59,10 @@ public class MedicineService {
             CreateMedicineRequest request, Authentication connectedUser) {
 
         ApiResponse<MedicineResponse> response = new ApiResponse<>();
+        if (medicineCategoryRepository.findById(request.categoryId()).isEmpty()) {
+           throw new CustomResponseException(ErrorCode.CATEGORY_NOT_EXIST);
+        }
+
         Medicine medicine = MedicineMapper.INSTANCE.toEntity(request);
         medicine.setCreatedBy(connectedUser.getName());
         medicine.setCreatedDate(LocalDateTime.now(clock));
@@ -85,7 +93,12 @@ public class MedicineService {
 
     public ApiResponse<CommonDeleteResponse> deleteMedicine(String medicineId) {
         ApiResponse<CommonDeleteResponse> response = new ApiResponse<>();
-        medicineRepository.findById(medicineId).ifPresentOrElse(medicineRepository::delete, () -> {
+        medicineRepository.findById(medicineId).ifPresentOrElse(medicine -> {
+            if (purchaseRepository.existsByMedicineId(medicine.getId())) {
+                throw new CustomResponseException(ErrorCode.MED_IS_BEING_USED);
+            }
+            medicineRepository.delete(medicine);
+        }, () -> {
             throw new CustomResponseException(ErrorCode.MEDICINE_NOT_EXIST);
         });
         response.setData(new CommonDeleteResponse(medicineId));

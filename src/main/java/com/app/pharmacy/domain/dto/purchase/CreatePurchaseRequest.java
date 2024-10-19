@@ -5,17 +5,23 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public record CreatePurchaseRequest(
 
-        @NotBlank(message = "Medicine id is mandatory field")
+        @NotBlank(message = "medicineId is mandatory field")
         String medicineId,
-        @NotBlank(message = "Supplier id is mandatory field")
+        @NotBlank(message = "supplierId is mandatory field")
         String supplierId,
-        @NotNull(message = "Quantity id is mandatory field")
+        @NotBlank(message = "locationRackId is mandatory field")
+        String locationRackId,
+        @NotNull(message = "Quantity is mandatory field")
         Integer quantity,
-        @NotNull(message = "Cost id is mandatory field")
-        BigDecimal cost
+        @NotNull(message = "Cost is mandatory field")
+        BigDecimal cost,
+        @NotNull(message = "mfgDate is mandatory field")
+        LocalDate mfgDate,
+        @NotNull(message = "expDate is mandatory field")
+        LocalDate expDate
 ) {
 }

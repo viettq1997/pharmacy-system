@@ -1,7 +1,7 @@
 package com.app.pharmacy.domain.dto.purchase;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public record GetPurchaseRequest(
-        LocalDate purDateBegin, LocalDate purDateEnd) {
+        String medicineName, String supplierName, LocalDateTime purDateBegin, LocalDateTime purDateEnd) {
 }

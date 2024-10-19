@@ -18,6 +18,10 @@ public enum ErrorCode {
     CUSTOMER_NOT_EXIST("PS00006", "Customer is not found", HttpStatus.BAD_REQUEST),
     CATEGORY_NOT_EXIST("PS00007", "Category is not found", HttpStatus.BAD_REQUEST),
     LOCATION_RACK_NOT_EXIST("PS00008", "Location rack is not found", HttpStatus.BAD_REQUEST),
+    MED_IS_BEING_USED("PS00009", "Medicine is being used, cannot delete", HttpStatus.BAD_REQUEST),
+    PURCHASE_NOT_EXIST("PS00010", "Purchase is not found", HttpStatus.BAD_REQUEST),
+    PURCHASE_UPDATE_MEDICINE_INFO_REQUIRED("PS00011",
+            "Manufacturing date, expire date, location rack is required when the medicine is provided", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(String code, String message, HttpStatusCode statusCode) {

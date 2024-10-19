@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,8 +31,9 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(name = "Med_ID")
-    private String medicineId;
+    @ManyToOne
+    @JoinColumn(name = "Med_ID", referencedColumnName = "Med_ID", updatable = false)
+    private Medicine medicine;
     @Column(name = "LR_ID")
     private String locationRackId;
     @Column(name = "I_Qty")
