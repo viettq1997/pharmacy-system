@@ -8,6 +8,7 @@ import com.app.pharmacy.domain.entity.Purchase;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MapperConfig;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
@@ -25,5 +26,10 @@ public interface PurchaseMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toEntity(UpdatePurchaseRequest request, @MappingTarget Purchase purchase);
     CreateUpdatePurchaseResponse toCreateUpdateResponse(Purchase purchase);
+
+    @Mapping(target = "medicine", source = "medicine")
+    @Mapping(target = "supplier", source = "supplier")
     List<GetPurchaseResponse> toPurchaseList(List<Purchase> purchases);
+
+    CreatePurchaseRequest toCreateRequest(UpdatePurchaseRequest request);
 }

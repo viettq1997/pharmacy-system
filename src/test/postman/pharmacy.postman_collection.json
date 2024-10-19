@@ -363,7 +363,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Aspirin\",\n    \"price\": 19.99,\n    \"categoryId\": \"Cat1234\"\n}",
+							"raw": "{\n    \"name\": \"Aspirin\",\n    \"price\": 19.99,\n    \"categoryId\": \"{{medCategoryId}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1257,6 +1257,196 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "purchase",
+			"item": [
+				{
+					"name": "create purchase",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201)",
+									"})",
+									"pm.test(\"create medicine success\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.token).not.null",
+									"    pm.collectionVariables.set(\"purchaseId\", jsonData.data.id)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"medicineId\": \"{{medicineId}}\",\n    \"supplierId\": \"{{supplierId}}\",\n    \"locationRackId\": \"{{locationRackId}}\",\n    \"quantity\": 50,\n    \"cost\": 250.75,\n    \"mfgDate\": \"2024-01-15\",\n    \"expDate\": \"2025-01-15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/purchases",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"purchases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get purchase",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/purchases?medicineName=Aspirin&supplierName=ABC Suppliers test&purDateBegin=2024-10-19T00:00:00&purDateEnd=2024-10-20T00:00:00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"purchases"
+							],
+							"query": [
+								{
+									"key": "medicineName",
+									"value": "Aspirin"
+								},
+								{
+									"key": "supplierName",
+									"value": "ABC Suppliers test"
+								},
+								{
+									"key": "purDateBegin",
+									"value": "2024-10-19T00:00:00"
+								},
+								{
+									"key": "purDateEnd",
+									"value": "2024-10-20T00:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update purchase",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"medicineId\": \"{{medicineId}}\",\n    \"supplierId\": \"{{supplierId}}\",\n    \"locationRackId\": \"{{locationRackId}}\",\n    \"quantity\": 50,\n    \"cost\": 250.75,\n    \"mfgDate\": \"2024-01-15\",\n    \"expDate\": \"2025-01-15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/purchases/{{purchaseId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"purchases",
+								"{{purchaseId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete purchase",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/purchases/{{purchaseId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"purchases",
+								"{{purchaseId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
@@ -1286,6 +1476,10 @@
 		},
 		{
 			"key": "locationRackId",
+			"value": ""
+		},
+		{
+			"key": "purchaseId",
 			"value": ""
 		}
 	]
