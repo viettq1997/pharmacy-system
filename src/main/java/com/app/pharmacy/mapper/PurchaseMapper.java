@@ -28,7 +28,12 @@ public interface PurchaseMapper {
     CreateUpdatePurchaseResponse toCreateUpdateResponse(Purchase purchase);
 
     @Mapping(target = "medicine", source = "medicine")
+    @Mapping(target = "medicine.createdBy", source = "medicine.employee.firstName")
     @Mapping(target = "supplier", source = "supplier")
+    @Mapping(target = "supplier.createdBy", source = "supplier.employee.firstName")
+    GetPurchaseResponse toGetPurchaseResponse(Purchase purchase);
+
+    @Mapping(target = "createdBy", source = "employee.firstName")
     List<GetPurchaseResponse> toPurchaseList(List<Purchase> purchases);
 
     CreatePurchaseRequest toCreateRequest(UpdatePurchaseRequest request);

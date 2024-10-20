@@ -4,6 +4,7 @@ import com.app.pharmacy.config.TestSecurityConfig;
 import com.app.pharmacy.domain.dto.employee.CreateEmployeeRequest;
 import com.app.pharmacy.service.KeycloakAdminService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -17,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
@@ -55,6 +57,14 @@ public class EmployeeControllerTest {
     private JwtDecoder jwtDecoder;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @BeforeEach
+    public void init() {
+        jdbcTemplate.execute("DELETE FROM EMPLOYEE");
+    }
 
     @DisplayName("Create an employee: "
             + "givenCreateEmployeeRequest"

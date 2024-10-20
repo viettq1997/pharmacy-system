@@ -7,6 +7,7 @@ import com.app.pharmacy.domain.entity.Supplier;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MapperConfig;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
@@ -23,6 +24,7 @@ public interface SupplierMapper {
     Supplier toEntity(CreateSupplierRequest request);
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toEntity(UpdateSupplierRequest request, @MappingTarget Supplier supplier);
+    @Mapping(target = "createdBy", source = "employee.firstName")
     SupplierResponse toSupplierResponse(Supplier supplier);
     List<SupplierResponse> toListSupplierResponse(List<Supplier> suppliers);
 }

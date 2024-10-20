@@ -39,12 +39,14 @@ public interface SaleMapper {
     List<SaleItem> toListEntity(List<SaleItemRequest> dtos, @Context LocalDateTime now, @Context String createdBy, @Context Sale sale);
 
     SaleResponse toSaleResponse(Sale sale);
+    @Mapping(target = "createdBy", source = "employee.firstName")
     SaleItemResponse toSaleItemResponse(SaleItem saleItem);
 
     List<SaleItemResponse> toSaleItemResponseList(List<SaleItem> saleItems);
 
     @Mapping(target = "id", source = "saleId")
     @Mapping(target = "saleItems", source = "sale.saleItems")
+    @Mapping(target = "createdBy", source = "employee.firstName")
     SaleResponse toSaleResponseFromLog(SaleLog saleLog);
     List<SaleResponse> toSaleResponseList(List<SaleLog> saleLogs);
 }
