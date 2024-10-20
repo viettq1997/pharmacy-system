@@ -1,8 +1,12 @@
 package com.app.pharmacy.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,12 +27,17 @@ import java.time.LocalDateTime;
 public class SaleItem {
 
     @EmbeddedId
-    private MedSaleId id;
+    private InventorySaleId id;
 
     @Column(name = "Sale_Qty")
     private Integer quantity;
     @Column(name = "Tot_Price")
     private BigDecimal totalPrice;
+    @ManyToOne
+    @MapsId("saleId")
+    @JoinColumn(name = "Sale_ID", referencedColumnName = "Sale_ID")
+    @JsonBackReference
+    private Sale sale;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;

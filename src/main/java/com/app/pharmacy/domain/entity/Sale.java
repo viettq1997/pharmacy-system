@@ -1,10 +1,13 @@
 package com.app.pharmacy.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +17,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "SALE")
@@ -29,21 +33,11 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(name = "S_Date")
-    private LocalDateTime saleDate;
     @Column(name = "Total_Amt")
     private BigDecimal totalAmount;
     @Column(name = "C_ID")
     private String customerId;
-    @Column(name = "E_ID")
-    private String employeeId;
-
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
-    @Column(name = "created_by")
-    private String createdBy;
-    @Column(name = "updated_date")
-    private LocalDateTime updatedDate;
-    @Column(name = "updated_by")
-    private String updatedBy;
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<SaleItem> saleItems;
 }

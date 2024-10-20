@@ -3,6 +3,7 @@ package com.app.pharmacy.controller;
 import com.app.pharmacy.config.TestSecurityConfig;
 import com.app.pharmacy.service.KeycloakAdminService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -53,6 +54,28 @@ public class MedicineControllerTest {
     private JwtDecoder jwtDecoder;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+    AtomicReference<String> categoryId = new AtomicReference<>("");
+
+    @BeforeEach
+    public void init() throws Exception {
+        Mockito.when(clock.instant()).thenReturn(Instant.ofEpochMilli(0));
+        Mockito.when(clock.getZone()).thenReturn(ZoneOffset.UTC);
+        String createMedCategoryRequest = """
+                {
+                    "name": "Pain Relief",
+                    "description": "Medicines used for relieving pain."
+                }
+                """;
+        mockMvc.perform(post("/api/v1/medicineCategories")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(createMedCategoryRequest))
+                .andExpect(status().isCreated())
+                .andExpect(result -> {
+                    var response = result.getResponse().getContentAsString();
+                    Map<String, Object> responseMap = objectMapper.readValue(response, Map.class);
+                    categoryId.set(((Map<String, String>) responseMap.get("data")).get("id"));
+                });
+    }
 
     @DisplayName("Get Medicines: "
             + "givenGetMedicineRequest"
@@ -64,13 +87,13 @@ public class MedicineControllerTest {
         Mockito.when(clock.instant()).thenReturn(Instant.ofEpochMilli(0));
         Mockito.when(clock.getZone()).thenReturn(ZoneOffset.UTC);
 
-        var createMedicineRequest = """
+        var createMedicineRequest = String.format("""
                 {
                   "name": "Aspirin",
                   "price": 19.99,
-                  "categoryId": "CAT123"
+                  "categoryId": "%s"
                 }
-                """;
+                """, categoryId);
         createMedicine(createMedicineRequest).andExpect(status().isCreated());
 
         mockMvc.perform(get("/api/v1/medicines")
@@ -78,14 +101,14 @@ public class MedicineControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(result -> {
                     var response = result.getResponse().getContentAsString();
-                    String expectedResponse = """
+                    String expectedResponse = String.format("""
                             {
                                "data": {
                                  "content": [
                                    {
                                      "name": "Aspirin",
                                      "price": 19.99,
-                                     "categoryId": "CAT123",
+                                     "categoryId": "%s",
                                      "createdDate": "1970-01-01T00:00:00",
                                      "createdBy": "user"
                                    }
@@ -95,7 +118,7 @@ public class MedicineControllerTest {
                                  "totalElement": 1
                                }
                              }
-                            """;
+                            """, categoryId);
                     JSONAssert.assertEquals(expectedResponse, response, JSONCompareMode.LENIENT);
                 });
     }
@@ -110,29 +133,29 @@ public class MedicineControllerTest {
         Mockito.when(clock.instant()).thenReturn(Instant.ofEpochMilli(0));
         Mockito.when(clock.getZone()).thenReturn(ZoneOffset.UTC);
 
-        var createMedicineRequest = """
+        var createMedicineRequest = String.format("""
                 {
                   "name": "Aspirin",
                   "price": 19.99,
-                  "categoryId": "CAT123"
+                  "categoryId": "%s"
                 }
-                """;
+                """, categoryId);
 
         createMedicine(createMedicineRequest)
                 .andExpect(status().isCreated())
                 .andExpect(result -> {
                     var response = result.getResponse().getContentAsString();
-                    String expectedResponse = """
+                    String expectedResponse = String.format("""
                             {
                                "data": {
                                  "name": "Aspirin",
                                  "price": 19.99,
-                                 "categoryId": "CAT123",
+                                 "categoryId": "%s",
                                  "createdDate": "1970-01-01T00:00:00",
                                  "createdBy": "user"
                                }
                              }
-                            """;
+                            """, categoryId);
                     JSONAssert.assertEquals(expectedResponse, response, JSONCompareMode.LENIENT);
                 });
     }
@@ -153,13 +176,13 @@ public class MedicineControllerTest {
         Mockito.when(clock.instant()).thenReturn(Instant.ofEpochMilli(0));
         Mockito.when(clock.getZone()).thenReturn(ZoneOffset.UTC);
 
-        var createMedicineRequest = """
+        var createMedicineRequest = String.format("""
                 {
                   "name": "Aspirin",
                   "price": 19.99,
-                  "categoryId": "CAT123"
+                  "categoryId": "%s"
                 }
-                """;
+                """, categoryId);
         AtomicReference<String> id = new AtomicReference<>("");
         createMedicine(createMedicineRequest).andExpect(status().isCreated()).andExpect(result -> {
             var response = result.getResponse().getContentAsString();
@@ -174,6 +197,8 @@ public class MedicineControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                             {
+                              "code": null,
+                              "message": null,
                               "data": {
                                 "id": "%s"
                               }
@@ -192,13 +217,13 @@ public class MedicineControllerTest {
     public void givenMedicineIdAndMedicineInfo_whenCallUpdateMedicineApi_thenReturnSuccess() throws Exception {
         Mockito.when(clock.instant()).thenReturn(Instant.ofEpochMilli(0));
         Mockito.when(clock.getZone()).thenReturn(ZoneOffset.UTC);
-        var createMedicineRequest = """
+        var createMedicineRequest = String.format("""
                 {
                   "name": "Aspirin",
                   "price": 19.99,
-                  "categoryId": "CAT123"
+                  "categoryId": "%s"
                 }
-                """;
+                """, categoryId);
         AtomicReference<String> id = new AtomicReference<>("");
         createMedicine(createMedicineRequest).andExpect(status().isCreated()).andExpect(result -> {
             var response = result.getResponse().getContentAsString();
@@ -207,32 +232,32 @@ public class MedicineControllerTest {
 
         });
 
-        var updateMedicineRequest = """
+        var updateMedicineRequest = String.format("""
                 {
                   "name": "Aspirin1",
                   "price": 19.99,
-                  "categoryId": "CAT123"
+                  "categoryId": "%s"
                 }
-                """;
+                """, categoryId);
         mockMvc.perform(put("/api/v1/medicines/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updateMedicineRequest))
                 .andExpect(status().isOk())
                 .andExpect(result -> {
                     var response = result.getResponse().getContentAsString();
-                    String expectedResponse = """
+                    String expectedResponse = String.format("""
                         {
                                "data": {
                                  "name": "Aspirin1",
                                  "price": 19.99,
-                                 "categoryId": "CAT123",
+                                 "categoryId": "%s",
                                  "createdDate": "1970-01-01T00:00:00",
                                  "createdBy": "user",
                                  "updatedDate": "1970-01-01T00:00:00",
                                  "updatedBy": "user"
                                }
                              }
-                        """;
+                        """, categoryId);
                     JSONAssert.assertEquals(expectedResponse, response, JSONCompareMode.LENIENT);
                 });
     }

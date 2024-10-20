@@ -65,14 +65,13 @@ prefix: `/pharmacy/api/v1`
 
 - Function: Manage sales transactions.
 - API Endpoints:
-    - GET `/sales`: Get all sales transactions (Admin: all transactions, Pharmacists: own transactions).
-    - POST `/sales`: Register a new sale (Pharmacists).
+    - POST `/sales`: Register a new sale (Admin, Pharmacists).
 
 ### Reports
 
 - Function: Generate reports.
 - API Endpoints:
-    - GET `/reports/sales`: Generate sales report (Admin only).
+    - GET `/reports/sales`: Generate sales report (Admin: all transactions, Pharmacists: own transactions).
     - GET `/reports/inventory`: Generate inventory report (Admin only).
     - GET `/reports/customers`: Generate customer report (Admin only).
 
@@ -152,17 +151,15 @@ prefix: `/pharmacy/api/v1`
 |                  | updated_by         | VARCHAR(36)           |                                                  | Updated by (User ID)                            |
 | ---------------- | ------------------ | --------------------- | ------------------------------------------------ | ----------------------------------------------- |
 | SALE             | Sale_ID            | VARCHAR(36)           | NOT NULL                                         | Sale ID (UUID)                                  |
-|                  | S_Date             | DATE                  | NOT NULL                                         | Sale date                                       |
 |                  | Total_Amt          | DECIMAL(10, 2)        |                                                  | Total sale amount                               |
 |                  | C_ID               | VARCHAR(36)           |                                                  | Customer ID (UUID) (nullable for anonymous)     |
-|                  | E_ID               | VARCHAR(36)           | NOT NULL                                         | Employee ID (UUID)                              |
 |                  | created_date       | TIMESTAMP             | NOT NULL, UNIQUE                                 | Sale creation date                              |
 |                  | created_by         | VARCHAR(36)           | NOT NULL                                         | Created by (User ID)                            |
 |                  | updated_date       | TIMESTAMP             |                                                  | Last update date                                |
 |                  | updated_by         | VARCHAR(36)           |                                                  | Updated by (User ID)                            |
 | ---------------- | ------------------ | --------------------- | ------------------------------------------------ | ----------------------------------------------- |
-| SALE_ITEM        | Med_ID             | VARCHAR(36)           | PRIMARY KEY (Med_ID, Sale_ID)                    | Medicine ID (UUID)                              |
-|                  | Sale_ID            | VARCHAR(36)           | PRIMARY KEY (Med_ID, Sale_ID)                    | Sale ID (UUID)                                  |
+| SALE_ITEM        | I_ID               | VARCHAR(36)           | PRIMARY KEY (I_ID, Sale_ID)                      | Medicine ID (UUID)                              |
+|                  | Sale_ID            | VARCHAR(36)           | PRIMARY KEY (I_ID, Sale_ID)                      | Sale ID (UUID)                                  |
 |                  | Sale_Qty           | INT                   | NOT NULL                                         | Quantity sold                                   |
 |                  | Tot_Price          | DECIMAL(10, 2)        | NOT NULL                                         | Total price of the sale item                    |
 |                  | created_date       | TIMESTAMP             | NOT NULL                                         | Sale item creation date                         |
