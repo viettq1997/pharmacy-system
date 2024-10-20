@@ -2,8 +2,11 @@ package com.app.pharmacy.controller;
 
 import com.app.pharmacy.domain.common.ApiResponse;
 import com.app.pharmacy.domain.common.CommonGetResponse;
+import com.app.pharmacy.domain.dto.inventory.GetInventoryRequest;
+import com.app.pharmacy.domain.dto.inventory.InventoryDto;
 import com.app.pharmacy.domain.dto.sale.SaleLogRequest;
 import com.app.pharmacy.domain.dto.sale.SaleResponse;
+import com.app.pharmacy.service.InventoryService;
 import com.app.pharmacy.service.SaleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +28,7 @@ import java.util.List;
 public class ReportController {
 
     private final SaleService saleService;
+    private final InventoryService inventoryService;
 
     @GetMapping("/sales")
     public ResponseEntity<ApiResponse<CommonGetResponse<SaleResponse>>> reportSales(
@@ -33,5 +37,13 @@ public class ReportController {
             Authentication connectedUser
             ) {
         return ResponseEntity.ok(saleService.getSales(request, pageable, connectedUser));
+    }
+
+    @GetMapping("/inventory")
+    public ResponseEntity<ApiResponse<CommonGetResponse<InventoryDto>>> reportInventory(
+            @ModelAttribute GetInventoryRequest request,
+            @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        return ResponseEntity.ok(inventoryService.getInventory(request, pageable));
     }
 }

@@ -39,7 +39,7 @@ public class SaleLog {
     private String createdBy;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", referencedColumnName = "E_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), insertable = false, updatable = false)
-    private Employee employee;
+    private Employee employeeCreated;
 
     @ManyToOne
     @JoinColumn(name = "Sale_ID", referencedColumnName = "Sale_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), updatable = false, insertable = false)

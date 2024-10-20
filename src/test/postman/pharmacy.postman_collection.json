@@ -1488,7 +1488,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"saleItems\": [\n    {\n      \"inventoryId\": \"25d9ec14-73cf-4a41-8c81-729d5655ff28\",\n      \"quantity\": 2,\n      \"totalPrice\": 19.99\n    }\n  ]\n}",
+							"raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"saleItems\": [\n    {\n      \"inventoryId\": \"fc7f39d2-a2dd-4ed2-8e9b-c20b1fb24ea4\",\n      \"quantity\": 2,\n      \"totalPrice\": 19.99\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1600,7 +1600,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/reports/inventory",
+							"raw": "http://localhost:8081/pharmacy/api/v1/reports/inventory?expireDateBegin=2024-01-15&expireDateEnd=2029-01-15&quantity=&medicineName=Aspirin",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1612,6 +1612,24 @@
 								"v1",
 								"reports",
 								"inventory"
+							],
+							"query": [
+								{
+									"key": "expireDateBegin",
+									"value": "2024-01-15"
+								},
+								{
+									"key": "expireDateEnd",
+									"value": "2029-01-15"
+								},
+								{
+									"key": "quantity",
+									"value": ""
+								},
+								{
+									"key": "medicineName",
+									"value": "Aspirin"
+								}
 							]
 						}
 					},

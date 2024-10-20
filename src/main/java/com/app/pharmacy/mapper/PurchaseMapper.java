@@ -1,10 +1,14 @@
 package com.app.pharmacy.mapper;
 
+import com.app.pharmacy.domain.dto.medicine.MedicineResponse;
 import com.app.pharmacy.domain.dto.purchase.CreatePurchaseRequest;
 import com.app.pharmacy.domain.dto.purchase.CreateUpdatePurchaseResponse;
 import com.app.pharmacy.domain.dto.purchase.GetPurchaseResponse;
 import com.app.pharmacy.domain.dto.purchase.UpdatePurchaseRequest;
+import com.app.pharmacy.domain.dto.supplier.SupplierResponse;
+import com.app.pharmacy.domain.entity.Medicine;
 import com.app.pharmacy.domain.entity.Purchase;
+import com.app.pharmacy.domain.entity.Supplier;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MapperConfig;
@@ -25,15 +29,19 @@ public interface PurchaseMapper {
     Purchase toEntity(CreatePurchaseRequest request);
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toEntity(UpdatePurchaseRequest request, @MappingTarget Purchase purchase);
+    @Mapping(target = "createdBy", source = "employeeCreated.firstName")
+    MedicineResponse toMedicineResponse(Medicine medicine);
+    @Mapping(target = "createdBy", source = "employeeCreated.firstName")
+    SupplierResponse toMedicineResponse(Supplier medicine);
     CreateUpdatePurchaseResponse toCreateUpdateResponse(Purchase purchase);
 
     @Mapping(target = "medicine", source = "medicine")
-    @Mapping(target = "medicine.createdBy", source = "medicine.employee.firstName")
+    @Mapping(target = "medicine.createdBy", source = "medicine.employeeCreated.firstName")
     @Mapping(target = "supplier", source = "supplier")
-    @Mapping(target = "supplier.createdBy", source = "supplier.employee.firstName")
+    @Mapping(target = "supplier.createdBy", source = "supplier.employeeCreated.firstName")
     GetPurchaseResponse toGetPurchaseResponse(Purchase purchase);
 
-    @Mapping(target = "createdBy", source = "employee.firstName")
+    @Mapping(target = "createdBy", source = "employeeCreated.firstName")
     List<GetPurchaseResponse> toPurchaseList(List<Purchase> purchases);
 
     CreatePurchaseRequest toCreateRequest(UpdatePurchaseRequest request);

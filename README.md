@@ -73,7 +73,6 @@ prefix: `/pharmacy/api/v1`
 - API Endpoints:
     - GET `/reports/sales`: Generate sales report (Admin: all transactions, Pharmacists: own transactions).
     - GET `/reports/inventory`: Generate inventory report (Admin only).
-    - GET `/reports/customers`: Generate customer report (Admin only).
 
 ## RDM Diagram
 

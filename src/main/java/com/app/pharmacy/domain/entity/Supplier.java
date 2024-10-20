@@ -47,7 +47,7 @@ public class Supplier {
     private String createdBy;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", referencedColumnName = "E_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), insertable = false, updatable = false)
-    private Employee employee;
+    private Employee employeeCreated;
     @Column(name = "updated_date")
     private LocalDateTime updatedDate;
     @Column(name = "updated_by")
