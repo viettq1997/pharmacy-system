@@ -589,7 +589,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/medicines?page=0&size=10&categoryId=Cat1234&name=Aspirin",
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicines?page=0&size=10&categoryId={{medCategoryId}}&name=Aspirin",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -612,7 +612,7 @@
 								},
 								{
 									"key": "categoryId",
-									"value": "Cat1234"
+									"value": "{{medCategoryId}}"
 								},
 								{
 									"key": "name",
@@ -640,7 +640,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Aspirin updated\",\n    \"price\": 19.99,\n    \"categoryId\": \"Cat1234\"\n}",
+							"raw": "{\n    \"name\": \"Aspirin updated\",\n    \"price\": 19.99,\n    \"categoryId\": \"{{medCategoryId}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1488,7 +1488,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"saleItems\": [\n    {\n      \"inventoryId\": \"2703fd25-22e2-43e0-a98d-1a91edad13cc\",\n      \"quantity\": 2,\n      \"totalPrice\": 19.99\n    }\n  ]\n}",
+							"raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"saleItems\": [\n    {\n      \"inventoryId\": \"25d9ec14-73cf-4a41-8c81-729d5655ff28\",\n      \"quantity\": 2,\n      \"totalPrice\": 19.99\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"

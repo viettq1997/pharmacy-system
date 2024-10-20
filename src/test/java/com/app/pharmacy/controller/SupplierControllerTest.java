@@ -3,6 +3,7 @@ package com.app.pharmacy.controller;
 import com.app.pharmacy.config.TestSecurityConfig;
 import com.app.pharmacy.service.KeycloakAdminService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
@@ -54,6 +56,18 @@ public class SupplierControllerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @BeforeEach
+    public void init() {
+        jdbcTemplate.execute("DELETE FROM EMPLOYEE");
+        jdbcTemplate.execute("INSERT INTO EMPLOYEE(E_ID, E_Username, E_Fname, E_Lname, E_Bdate, E_Age, E_Sex," +
+                " E_Type, E_Jdate, E_Add, E_Mail, E_Phno, E_Sal, created_date, created_by, updated_date, updated_by) " +
+                "VALUES('user', 'admin', 'admin', 'admin', '1997-01-07', 28, 'M', 'admin', '2024-01-01', null, null," +
+                " '0974995189', null, '2024-01-01', 'admin', null, null)");
+    }
+
     @DisplayName("Get Supplier: "
             + "givenGetSupplierRequest"
             + "_whenCallGetSupplierApi"
@@ -89,7 +103,7 @@ public class SupplierControllerTest {
                                       "phoneNo": "123-456-7890",
                                       "mail": "abc@suppliers.com",
                                       "createdDate": "1970-01-01T00:00:00",
-                                      "createdBy": "user"
+                                      "createdBy": "admin"
                                     }
                                  ],
                                  "size": 10,
@@ -132,7 +146,7 @@ public class SupplierControllerTest {
                                   "phoneNo": "123-456-7890",
                                   "mail": "abc@suppliers.com",
                                   "createdDate": "1970-01-01T00:00:00",
-                                  "createdBy": "user"
+                                  "createdBy": null
                                 }
                              }
                             """;
@@ -240,7 +254,7 @@ public class SupplierControllerTest {
                                 "phoneNo": "123-456-7890",
                                 "mail": "abcc@suppliers.com",
                                 "createdDate": "1970-01-01T00:00:00",
-                                "createdBy": "user",
+                                "createdBy": "admin",
                                 "updatedDate": "1970-01-01T00:00:00",
                                 "updatedBy": "user"
                            }

@@ -7,6 +7,7 @@ import com.app.pharmacy.domain.entity.LocationRack;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MapperConfig;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
@@ -23,6 +24,7 @@ public interface LocationRackMapper {
     LocationRack toEntity(CreateLocationRackRequest request);
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toEntity(UpdateLocationRackRequest request, @MappingTarget LocationRack locationrack);
+    @Mapping(target = "createdBy", source = "employee.firstName")
     LocationRackResponse toLocationRackResponse(LocationRack locationrack);
     List<LocationRackResponse> toListLocationRackResponse(List<LocationRack> locationRacks);
 }

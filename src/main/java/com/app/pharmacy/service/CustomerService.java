@@ -13,6 +13,8 @@ import com.app.pharmacy.exception.ErrorCode;
 import com.app.pharmacy.mapper.CustomerMapper;
 import com.app.pharmacy.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -38,7 +40,13 @@ public class CustomerService {
         Customer customer = CustomerMapper.INSTANCE.toEntity(request);
         customer.setCreatedBy(connectedUser.getName());
         customer.setCreatedDate(LocalDateTime.now(clock));
-        customerRepository.save(customer);
+        try {
+            customerRepository.save(customer);
+        } catch (DataIntegrityViolationException ex) {
+            if (ex.getMessage().contains("ERROR: duplicate key value violates unique constraint")) {
+                throw new CustomResponseException(ErrorCode.PHONE_NO_EXISTED);
+            }
+        }
 
         CustomerResponse customerResponse = CustomerMapper.INSTANCE.toCustomerResponse(customer);
         response.setData(customerResponse);

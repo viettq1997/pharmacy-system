@@ -3,6 +3,7 @@ package com.app.pharmacy.domain.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -34,11 +35,11 @@ public class SaleLog {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    @Column(name = "Total_Amt")
-    private BigDecimal totalAmount;
-
     @Column(name = "created_by")
     private String createdBy;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", referencedColumnName = "E_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), insertable = false, updatable = false)
+    private Employee employee;
 
     @ManyToOne
     @JoinColumn(name = "Sale_ID", referencedColumnName = "Sale_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), updatable = false, insertable = false)

@@ -79,7 +79,6 @@ public class SaleService {
                         .saleId(sale.getId())
                         .createdBy(connectedUser.getName())
                         .createdDate(now)
-                        .totalAmount(sale.getTotalAmount())
                 .build());
 
         SaleResponse saleResponse = SaleMapper.INSTANCE.toSaleResponse(sale);
