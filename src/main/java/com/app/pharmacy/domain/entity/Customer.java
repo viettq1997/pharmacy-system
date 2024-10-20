@@ -45,13 +45,15 @@ public class Customer {
     private String phoneNo;
     @Column(name = "C_Mail")
     private String mail;
+    @Column(name = "C_Point_accumulation")
+    private Integer pointAccumulation;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @Column(name = "created_by")
     private String createdBy;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", referencedColumnName = "E_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), insertable = false, updatable = false)
-    private Employee employee;
+    private Employee employeeCreated;
     @Column(name = "updated_date")
     private LocalDateTime updatedDate;
     @Column(name = "updated_by")

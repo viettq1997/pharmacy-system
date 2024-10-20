@@ -1,5 +1,4 @@
-package com.app.pharmacy.domain.dto.customer;
-
+package com.app.pharmacy.domain.dto.inventory;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,24 +6,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class CustomerResponse {
-
+public class InventoryDto {
     private String id;
 
-    private String firstName;
-    private String lastName;
-    private Integer age;
-    private String sex;
-    private String phoneNo;
-    private String mail;
-    private Integer pointAccumulation;
+    private String medicineName;
+    private String position;
+    private Integer quantity;
+    private LocalDate mfgDate;
+    private LocalDate expDate;
+
     private LocalDateTime createdDate;
     private String createdBy;
     private LocalDateTime updatedDate;

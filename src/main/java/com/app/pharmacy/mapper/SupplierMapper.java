@@ -24,7 +24,7 @@ public interface SupplierMapper {
     Supplier toEntity(CreateSupplierRequest request);
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toEntity(UpdateSupplierRequest request, @MappingTarget Supplier supplier);
-    @Mapping(target = "createdBy", source = "employee.firstName")
+    @Mapping(target = "createdBy", source = "employeeCreated.firstName")
     SupplierResponse toSupplierResponse(Supplier supplier);
     List<SupplierResponse> toListSupplierResponse(List<Supplier> suppliers);
 }

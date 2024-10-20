@@ -38,6 +38,7 @@ CREATE TABLE CUSTOMER (
     C_Sex CHAR(1) NOT NULL,
     C_Phno VARCHAR(20) NOT NULL,
     C_Mail VARCHAR(255),
+    C_Point_accumulation INT,
     created_date TIMESTAMP NOT NULL UNIQUE,
     created_by VARCHAR(36) NOT NULL,
     updated_date TIMESTAMP,

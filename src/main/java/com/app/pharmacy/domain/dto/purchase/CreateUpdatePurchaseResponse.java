@@ -1,5 +1,7 @@
 package com.app.pharmacy.domain.dto.purchase;
 
+import com.app.pharmacy.domain.dto.medicine.MedicineResponse;
+import com.app.pharmacy.domain.dto.supplier.SupplierResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +22,8 @@ public class CreateUpdatePurchaseResponse {
 
     private String id;
 
-    private String medicineId;
-    private String supplierId;
+    private MedicineResponse medicine;
+    private SupplierResponse supplier;
     private Integer quantity;
     private BigDecimal cost;
 
