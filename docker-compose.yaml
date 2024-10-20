@@ -49,8 +49,8 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://13.215.191.215:5432/keycloakdb
-      KC_DB_USERNAME: postgres
-      KC_DB_PASSWORD: postgres
+      KC_DB_USERNAME: pharmacy
+      KC_DB_PASSWORD: pharmacy
     networks:
       - common-network
     command:
