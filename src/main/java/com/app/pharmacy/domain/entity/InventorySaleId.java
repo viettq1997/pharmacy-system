@@ -12,10 +12,10 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MedSaleId implements Serializable {
+public class InventorySaleId implements Serializable {
 
-    @Column(name = "Med_ID", nullable = false)
-    private String medicineId;
+    @Column(name = "I_ID", nullable = false)
+    private String inventoryId;
 
     @Column(name = "Sale_ID", nullable = false)
     private String saleId;

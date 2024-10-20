@@ -179,6 +179,8 @@ public class SupplierControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                             {
+                              "code":null,
+                              "message":null,
                               "data": {
                                 "id": "%s"
                               }
@@ -229,6 +231,8 @@ public class SupplierControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                         {
+                           "code":null,
+                           "message":null,
                            "data": {
                                 "id": "%s",
                                 "name": "ABC Suppliers",

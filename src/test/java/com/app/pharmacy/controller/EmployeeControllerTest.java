@@ -88,6 +88,8 @@ public class EmployeeControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = """
                         {
+                           "code":null,
+                           "message":null,
                            "data": {
                              "id": "123",
                              "username": "john_doe",
@@ -104,7 +106,9 @@ public class EmployeeControllerTest {
                              "phoneNo": "+1234567890",
                              "salary": 65000.00,
                              "createdDate": "1970-01-01T00:00:00",
-                             "createdBy": "user"
+                             "createdBy": "user",
+                             "updatedDate":null,
+                             "updatedBy":null
                            }
                          }
                         """;
@@ -160,6 +164,8 @@ public class EmployeeControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                             {
+                              "code":null,
+                              "message":null,
                               "data": {
                                 "id": "%s"
                               }

@@ -22,6 +22,7 @@ public enum ErrorCode {
     PURCHASE_NOT_EXIST("PS00010", "Purchase is not found", HttpStatus.BAD_REQUEST),
     PURCHASE_UPDATE_MEDICINE_INFO_REQUIRED("PS00011",
             "Manufacturing date, expire date, location rack is required when the medicine is provided", HttpStatus.BAD_REQUEST),
+    INVENTORY_NOT_EXIST("PS00012", "Inventory is not found", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(String code, String message, HttpStatusCode statusCode) {

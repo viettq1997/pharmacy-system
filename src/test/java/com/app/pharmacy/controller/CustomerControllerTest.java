@@ -181,6 +181,8 @@ public class CustomerControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                             {
+                              "code":null,
+                              "message":null,
                               "data": {
                                 "id": "%s"
                               }
@@ -235,6 +237,8 @@ public class CustomerControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                         {
+                           "code": null,
+                           "message": null,
                            "data": {
                                 "id": "%s",
                                 "firstName": "John updated",

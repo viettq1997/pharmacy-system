@@ -168,6 +168,8 @@ public class MedicineCategoryControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                             {
+                              "code":null,
+                              "message":null,
                               "data": {
                                 "id": "%s"
                               }
@@ -214,6 +216,8 @@ public class MedicineCategoryControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                         {
+                           "code":null,
+                           "message":null,
                            "data": {
                                 "id": "%s",
                                 "name": "Pain Relief updated",

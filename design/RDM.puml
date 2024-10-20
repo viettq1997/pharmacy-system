@@ -81,11 +81,9 @@ entity "PURCHASE" as Purchase {
 
 entity "SALE" as Sales {
   + Sale_ID : VARCHAR(36) [PK]
-  + S_Date : DATE [NOT NULL]
   + S_Time : TIME [NOT NULL]
   + Total_Amt : DECIMAL(10, 2) [NOT NULL]
   + C_ID : VARCHAR(36) [FK] [NULLABLE]
-  + E_ID : VARCHAR(36) [FK]
   + created_date : DATE
   + created_by : VARCHAR(36)
   + updated_date : DATE
@@ -126,7 +124,7 @@ entity "INVENTORY" as Inventory {
   + updated_by : VARCHAR(36)
 }
 
-Sales --|> Employee : E_ID [FK]
+Sales --|> Employee : created_by [FK]
 Sales --|> Customer : C_ID [FK]
 SalesItems --|> Sales : Sale_ID [FK]
 SalesItems --|> Meds : Med_ID [FK]

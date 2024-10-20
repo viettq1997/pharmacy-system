@@ -325,6 +325,192 @@
 			]
 		},
 		{
+			"name": "med category",
+			"item": [
+				{
+					"name": "create med category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201)",
+									"})",
+									"pm.test(\"create medicine success\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.token).not.null",
+									"    pm.collectionVariables.set(\"medCategoryId\", jsonData.data.id)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pain Relief\",\n    \"description\": \"Medicines used for relieving pain.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicineCategories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicineCategories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get med categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicineCategories?page=0&size=10&name=Pain Relief",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicineCategories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "name",
+									"value": "Pain Relief"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update med category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pain Relief updated\",\n    \"description\": \"Medicines used for relieving pain.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicineCategories/{{medCategoryId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicineCategories",
+								"{{medCategoryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete med category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicineCategories/{{medCategoryId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicineCategories",
+								"{{medCategoryId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "medicine",
 			"item": [
 				{
@@ -887,192 +1073,6 @@
 			]
 		},
 		{
-			"name": "med category",
-			"item": [
-				{
-					"name": "create med category",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201)",
-									"})",
-									"pm.test(\"create medicine success\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.data.token).not.null",
-									"    pm.collectionVariables.set(\"medCategoryId\", jsonData.data.id)",
-									"})"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Pain Relief\",\n    \"description\": \"Medicines used for relieving pain.\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/medicineCategories",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"pharmacy",
-								"api",
-								"v1",
-								"medicineCategories"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get med categories",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/medicineCategories?page=0&size=10&name=Pain Relief",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"pharmacy",
-								"api",
-								"v1",
-								"medicineCategories"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "10"
-								},
-								{
-									"key": "name",
-									"value": "Pain Relief"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update med category",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Pain Relief updated\",\n    \"description\": \"Medicines used for relieving pain.\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/medicineCategories/{{medCategoryId}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"pharmacy",
-								"api",
-								"v1",
-								"medicineCategories",
-								"{{medCategoryId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete med category",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/medicineCategories/{{medCategoryId}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8081",
-							"path": [
-								"pharmacy",
-								"api",
-								"v1",
-								"medicineCategories",
-								"{{medCategoryId}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "location rack",
 			"item": [
 				{
@@ -1275,6 +1275,7 @@
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.data.token).not.null",
 									"    pm.collectionVariables.set(\"purchaseId\", jsonData.data.id)",
+									"    pm.collectionVariables.set(\"purchaseCreatedDate\", jsonData.data.createdDate)",
 									"})"
 								],
 								"type": "text/javascript",
@@ -1337,7 +1338,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/pharmacy/api/v1/purchases?medicineName=Aspirin&supplierName=ABC Suppliers test&purDateBegin=2024-10-19T00:00:00&purDateEnd=2024-10-20T00:00:00",
+							"raw": "http://localhost:8081/pharmacy/api/v1/purchases?medicineName=Aspirin&supplierName=ABC Suppliers test&purDateBegin={{purchaseCreatedDate}}&purDateEnd={{purchaseCreatedDate}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1360,11 +1361,11 @@
 								},
 								{
 									"key": "purDateBegin",
-									"value": "2024-10-19T00:00:00"
+									"value": "{{purchaseCreatedDate}}"
 								},
 								{
 									"key": "purDateEnd",
-									"value": "2024-10-20T00:00:00"
+									"value": "{{purchaseCreatedDate}}"
 								}
 							]
 						}
@@ -1447,6 +1448,176 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "sale",
+			"item": [
+				{
+					"name": "create sale",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201)",
+									"})",
+									"pm.test(\"create medicine success\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.token).not.null",
+									"    pm.collectionVariables.set(\"purchaseId\", jsonData.data.id)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"saleItems\": [\n    {\n      \"inventoryId\": \"2703fd25-22e2-43e0-a98d-1a91edad13cc\",\n      \"quantity\": 2,\n      \"totalPrice\": 19.99\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/sales",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"sales"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reports",
+			"item": [
+				{
+					"name": "report sales",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/reports/sales?saleDateBegin=2020-10-20T14:37:45&saleDateEnd=2029-10-20T14:37:45",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"reports",
+								"sales"
+							],
+							"query": [
+								{
+									"key": "saleDateBegin",
+									"value": "2020-10-20T14:37:45"
+								},
+								{
+									"key": "saleDateEnd",
+									"value": "2029-10-20T14:37:45"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "report inventory",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/reports/inventory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"reports",
+								"inventory"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
@@ -1480,6 +1651,14 @@
 		},
 		{
 			"key": "purchaseId",
+			"value": ""
+		},
+		{
+			"key": "createdDate",
+			"value": ""
+		},
+		{
+			"key": "purchaseCreatedDate",
 			"value": ""
 		}
 	]

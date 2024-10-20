@@ -1,9 +1,3 @@
---CREATE TABLE EMPLOGIN (
---    E_Username VARCHAR(255) PRIMARY KEY,
---    E_Password VARCHAR(255) NOT NULL,
---    E_ID VARCHAR(36) NOT NULL
---);
-
 CREATE TABLE EMPLOYEE (
     E_ID VARCHAR(36) PRIMARY KEY,
     E_Username VARCHAR(50) NOT NULL UNIQUE,
@@ -18,9 +12,9 @@ CREATE TABLE EMPLOYEE (
     E_Mail VARCHAR(255),
     E_Phno VARCHAR(20) NOT NULL,
     E_Sal DECIMAL(10, 2),
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
@@ -30,23 +24,23 @@ CREATE TABLE SUPPLIER (
     Sup_Add VARCHAR(255) NOT NULL,
     Sup_Phno VARCHAR(20) NOT NULL,
     Sup_Mail VARCHAR(255),
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
 CREATE TABLE CUSTOMER (
-    C_ID VARCHAR(36) PRIMARY KEY,
+    C_ID VARCHAR(36) NOT NULL,
     C_Fname VARCHAR(255) NOT NULL,
     C_Lname VARCHAR(255) NOT NULL,
     C_Age INT,
     C_Sex CHAR(1) NOT NULL,
     C_Phno VARCHAR(20) NOT NULL,
     C_Mail VARCHAR(255),
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL UNIQUE,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
@@ -54,9 +48,9 @@ CREATE TABLE MED_CATEGORY (
     Cat_ID VARCHAR(36) PRIMARY KEY,
     Cat_Name VARCHAR(255) NOT NULL,
     Cat_Description VARCHAR(1000),
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
@@ -65,9 +59,9 @@ CREATE TABLE MED (
     Med_Name VARCHAR(255) NOT NULL,
     Med_Price DECIMAL(10, 2) NOT NULL,
     Cat_ID VARCHAR(36) NOT NULL,
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
@@ -77,54 +71,56 @@ CREATE TABLE PURCHASE (
     Sup_ID VARCHAR(36) NOT NULL,
     P_Qty INT NOT NULL,
     P_Cost DECIMAL(10, 2) NOT NULL,
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
 CREATE TABLE SALE (
-    Sale_ID VARCHAR(36) PRIMARY KEY,
-    S_Date DATE NOT NULL,
+    Sale_ID VARCHAR(36) NOT NULL PRIMARY KEY,
     Total_Amt DECIMAL(10, 2),
-    C_ID VARCHAR(36), -- allow anonymous customer
-    E_ID VARCHAR(36) NOT NULL,
-    created_date DATE NOT NULL,
-    created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
-    updated_by VARCHAR(36)
+    C_ID VARCHAR(36) -- allow anonymous customer
+);
+
+CREATE TABLE SALE_LOG (
+    Sale_ID VARCHAR(36) NOT NULL,
+    created_date TIMESTAMP NOT NULL,
+    created_by VARCHAR(36),
+    PRIMARY KEY (Sale_ID, created_date)
 );
 
 CREATE TABLE SALE_ITEM (
-    Med_ID VARCHAR(36),
+    I_ID VARCHAR(36),
     Sale_ID VARCHAR(36),
     Sale_Qty INT NOT NULL,
     Tot_Price DECIMAL(10, 2) NOT NULL,
-    PRIMARY KEY (Med_ID, Sale_ID),
-    created_date DATE NOT NULL,
+    PRIMARY KEY (I_ID, Sale_ID),
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
 CREATE TABLE LOCATION_RACK (
     LR_ID VARCHAR(36) PRIMARY KEY,
     LR_POSITION VARCHAR(50) NOT NULL,
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
+    updated_date TIMESTAMP,
     updated_by VARCHAR(36)
 );
 
 CREATE TABLE INVENTORY (
     I_ID VARCHAR(36) PRIMARY KEY,
-    MED_ID VARCHAR(36) NOT NULL,
+    Med_ID VARCHAR(36) NOT NULL,
     LR_ID VARCHAR(36) NOT NULL,
     I_Qty INT NOT NULL,
     Mfg_Date DATE NOT NULL,
     Exp_Date DATE NOT NULL,
-    created_date DATE NOT NULL,
+    created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
-    updated_date DATE,
-    updated_by VARCHAR(36)
+    updated_date TIMESTAMP,
+    updated_by VARCHAR(36),
+    UNIQUE (Med_ID, Mfg_Date)
 );
