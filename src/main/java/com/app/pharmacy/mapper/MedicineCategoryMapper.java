@@ -25,6 +25,7 @@ public interface MedicineCategoryMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toEntity(UpdateMedicineCategoryRequest request, @MappingTarget MedicineCategory medicinecategory);
     @Mapping(target = "createdBy", source = "employeeCreated.firstName")
+    @Mapping(target = "updatedBy", source = "employeeUpdated.firstName")
     MedicineCategoryResponse toMedicineCategoryResponse(MedicineCategory medicinecategory);
     List<MedicineCategoryResponse> toListMedicineCategoryResponse(List<MedicineCategory> medicineCategories);
 }

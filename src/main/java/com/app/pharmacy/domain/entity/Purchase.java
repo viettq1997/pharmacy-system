@@ -56,4 +56,7 @@ public class Purchase {
     private LocalDateTime updatedDate;
     @Column(name = "updated_by")
     private String updatedBy;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "updated_by", referencedColumnName = "E_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), insertable = false, updatable = false)
+    private Employee employeeUpdated;
 }

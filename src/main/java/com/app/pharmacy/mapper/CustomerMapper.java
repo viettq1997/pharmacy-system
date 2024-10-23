@@ -25,6 +25,7 @@ public interface CustomerMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toEntity(UpdateCustomerRequest request, @MappingTarget Customer customer);
     @Mapping(target = "createdBy", source = "employeeCreated.firstName")
+    @Mapping(target = "updatedBy", source = "employeeUpdated.firstName")
     CustomerResponse toCustomerResponse(Customer customer);
     List<CustomerResponse> toListCustomerResponse(List<Customer> customers);
 }

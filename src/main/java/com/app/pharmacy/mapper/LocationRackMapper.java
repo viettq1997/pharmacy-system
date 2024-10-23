@@ -25,6 +25,7 @@ public interface LocationRackMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toEntity(UpdateLocationRackRequest request, @MappingTarget LocationRack locationrack);
     @Mapping(target = "createdBy", source = "employeeCreated.firstName")
+    @Mapping(target = "updatedBy", source = "employeeUpdated.firstName")
     LocationRackResponse toLocationRackResponse(LocationRack locationrack);
     List<LocationRackResponse> toListLocationRackResponse(List<LocationRack> locationRacks);
 }
