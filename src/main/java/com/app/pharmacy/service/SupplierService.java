@@ -11,6 +11,7 @@ import com.app.pharmacy.domain.entity.Supplier;
 import com.app.pharmacy.exception.CustomResponseException;
 import com.app.pharmacy.exception.ErrorCode;
 import com.app.pharmacy.mapper.SupplierMapper;
+import com.app.pharmacy.repository.PurchaseRepository;
 import com.app.pharmacy.repository.SupplierRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,7 @@ import static com.app.pharmacy.specification.SupplierSpecifications.hasName;
 public class SupplierService {
 
     private final SupplierRepository supplierRepository;
+    private final PurchaseRepository purchaseRepository;
     private final Clock clock;
 
     public ApiResponse<SupplierResponse> createSupplier(CreateSupplierRequest request, Authentication connectedUser) {
@@ -79,7 +81,12 @@ public class SupplierService {
 
     public ApiResponse<CommonDeleteResponse> deleteSupplier(String supplierId) {
         ApiResponse<CommonDeleteResponse> response = new ApiResponse<>();
-        supplierRepository.findById(supplierId).ifPresentOrElse(supplierRepository::delete, () -> {
+        supplierRepository.findById(supplierId).ifPresentOrElse(supplier -> {
+            if (purchaseRepository.existsBySupplierId(supplierId)) {
+                throw new CustomResponseException(ErrorCode.SUPPLIER_IS_BEING_USED);
+            }
+            supplierRepository.delete(supplier);
+        }, () -> {
             throw new CustomResponseException(ErrorCode.SUPPLIER_NOT_EXIST);
         });
         response.setData(new CommonDeleteResponse(supplierId));

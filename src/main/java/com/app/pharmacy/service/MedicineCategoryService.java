@@ -12,6 +12,7 @@ import com.app.pharmacy.exception.CustomResponseException;
 import com.app.pharmacy.exception.ErrorCode;
 import com.app.pharmacy.mapper.MedicineCategoryMapper;
 import com.app.pharmacy.repository.MedicineCategoryRepository;
+import com.app.pharmacy.repository.MedicineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +31,7 @@ import static com.app.pharmacy.specification.MedicineCategorySpecifications.hasN
 public class MedicineCategoryService {
 
     private final MedicineCategoryRepository medicinecategoryRepository;
+    private final MedicineRepository medicineRepository;
     private final Clock clock;
 
     public ApiResponse<MedicineCategoryResponse> createMedicineCategory(CreateMedicineCategoryRequest request, Authentication connectedUser) {
@@ -79,7 +81,12 @@ public class MedicineCategoryService {
 
     public ApiResponse<CommonDeleteResponse> deleteMedicineCategory(String medicineCategoryId) {
         ApiResponse<CommonDeleteResponse> response = new ApiResponse<>();
-        medicinecategoryRepository.findById(medicineCategoryId).ifPresentOrElse(medicinecategoryRepository::delete, () -> {
+        medicinecategoryRepository.findById(medicineCategoryId).ifPresentOrElse(medicineCategory -> {
+            if (medicineRepository.existsByCategoryId(medicineCategoryId)) {
+                throw new CustomResponseException(ErrorCode.CATEGORY_IS_BEING_USED);
+            }
+            medicinecategoryRepository.delete(medicineCategory);
+        }, () -> {
             throw new CustomResponseException(ErrorCode.CATEGORY_NOT_EXIST);
         });
         response.setData(new CommonDeleteResponse(medicineCategoryId));

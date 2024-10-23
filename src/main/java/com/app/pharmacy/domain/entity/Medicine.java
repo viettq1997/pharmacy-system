@@ -40,6 +40,9 @@ public class Medicine {
     private BigDecimal price;
     @Column(name = "Cat_ID")
     private String categoryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Cat_ID", referencedColumnName = "Cat_ID", insertable = false, updatable = false)
+    private MedicineCategory category;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
