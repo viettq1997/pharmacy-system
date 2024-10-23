@@ -2,7 +2,6 @@ package com.app.pharmacy.domain.dto.purchase;
 
 import com.app.pharmacy.domain.dto.medicine.MedicineResponse;
 import com.app.pharmacy.domain.dto.supplier.SupplierResponse;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -5,6 +5,7 @@ import com.app.pharmacy.domain.common.CommonGetResponse;
 import com.app.pharmacy.domain.dto.sale.CreateSaleRequest;
 import com.app.pharmacy.domain.dto.sale.SaleLogRequest;
 import com.app.pharmacy.domain.dto.sale.SaleResponse;
+import com.app.pharmacy.domain.entity.CustomerPointConfig;
 import com.app.pharmacy.domain.entity.Inventory;
 import com.app.pharmacy.domain.entity.Sale;
 import com.app.pharmacy.domain.entity.SaleItem;
@@ -12,6 +13,8 @@ import com.app.pharmacy.domain.entity.SaleLog;
 import com.app.pharmacy.exception.CustomResponseException;
 import com.app.pharmacy.exception.ErrorCode;
 import com.app.pharmacy.mapper.SaleMapper;
+import com.app.pharmacy.repository.CustomerPointConfigRepository;
+import com.app.pharmacy.repository.CustomerRepository;
 import com.app.pharmacy.repository.InventoryRepository;
 import com.app.pharmacy.repository.SaleLogRepository;
 import com.app.pharmacy.repository.SaleRepository;
@@ -41,6 +44,8 @@ public class SaleService {
     private final SaleRepository saleRepository;
     private final InventoryRepository inventoryRepository;
     private final SaleLogRepository saleLogRepository;
+    private final CustomerRepository customerRepository;
+    private final CustomerPointConfigRepository customerPointConfigRepository;
     private final Clock clock;
 
     @Transactional(rollbackOn = Exception.class)
@@ -51,7 +56,19 @@ public class SaleService {
 
         List<SaleItem> saleItems = SaleMapper.INSTANCE.toListEntity(request.saleItems(), now, connectedUser.getName(), sale);
         sale.setSaleItems(saleItems);
-        sale.setTotalAmount(saleItems.stream().map(SaleItem::getTotalPrice).reduce(BigDecimal.ZERO, BigDecimal::add));
+        final BigDecimal[] totalAmount = {saleItems.stream().map(SaleItem::getTotalPrice).reduce(BigDecimal.ZERO, BigDecimal::add)};
+
+        customerRepository.findById(request.customerId()).ifPresentOrElse(customer -> {
+            if (request.usePoint() != null && request.usePoint()) {
+                totalAmount[0] = totalAmount[0].subtract(customer.getPoints());
+                customer.setPoints(new BigDecimal(0));
+            } else {
+                BigDecimal point = customer.getPoints().add(customerPointConfigRepository.findAll().get(0).getRatio().multiply(totalAmount[0]));
+                customer.setPoints(point);
+            }
+            customerRepository.save(customer);
+        }, () -> {});
+        sale.setTotalAmount(totalAmount[0]);
         saleRepository.save(sale);
 
         List<String> inventoryIds = new ArrayList<>();
@@ -77,6 +94,7 @@ public class SaleService {
         saleLogRepository.save(SaleLog
                 .builder()
                         .saleId(sale.getId())
+                        .usePoint(request.usePoint())
                         .createdBy(connectedUser.getName())
                         .createdDate(now)
                 .build());

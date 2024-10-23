@@ -14,7 +14,6 @@ import com.app.pharmacy.mapper.CustomerMapper;
 import com.app.pharmacy.repository.CustomerRepository;
 import com.app.pharmacy.repository.SaleRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

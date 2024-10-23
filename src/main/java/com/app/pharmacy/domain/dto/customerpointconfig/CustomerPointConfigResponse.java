@@ -1,11 +1,13 @@
-package com.app.pharmacy.domain.dto.locationrack;
+package com.app.pharmacy.domain.dto.customerpointconfig;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,12 +15,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LocationRackResponse {
+public class CustomerPointConfigResponse {
     private String id;
 
-    private String position;
-    private LocalDateTime createdDate;
-    private String createdBy;
+    private BigDecimal ratio;
+
     private LocalDateTime updatedDate;
     private String updatedBy;
 }

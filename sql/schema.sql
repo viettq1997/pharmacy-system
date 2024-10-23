@@ -38,7 +38,7 @@ CREATE TABLE CUSTOMER (
     C_Sex CHAR(1) NOT NULL,
     C_Phno VARCHAR(20) NOT NULL,
     C_Mail VARCHAR(255),
-    C_Point_accumulation INT,
+    C_Points NUMERIC,
     created_date TIMESTAMP NOT NULL UNIQUE,
     created_by VARCHAR(36) NOT NULL,
     updated_date TIMESTAMP,
@@ -87,6 +87,7 @@ CREATE TABLE SALE (
 
 CREATE TABLE SALE_LOG (
     Sale_ID VARCHAR(36) NOT NULL,
+    use_point BOOLEAN,
     created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36),
     PRIMARY KEY (Sale_ID, created_date)
@@ -134,5 +135,14 @@ CREATE TABLE INVENTORY (
     updated_by VARCHAR(36),
     UNIQUE (Med_ID, Mfg_Date)
 );
+
+CREATE TABLE CUSTOMER_POINT_CONFIG (
+    CPC_ID VARCHAR(36) PRIMARY KEY,
+    CPC_Ratio NUMERIC NOT NULL,
+    updated_date TIMESTAMP,
+    updated_by VARCHAR(36)
+);
+
+INSERT INTO CUSTOMER_POINT_CONFIG VALUES('358dbac4-8270-4521-9aed-db3260b3db3e', 0.00001);
 
 INSERT INTO EMPLOYEE VALUES('1b623830-1de1-46a4-ad7f-c553fcf0b6ca', 'admin', 'admin', 'admin', null, null, 'M', 'admin', '2024-01-01', null, null, '0974995189', null, '2024-01-01', 'admin', null, null);

@@ -32,6 +32,9 @@ public class SaleLog {
     @Column(name = "Sale_ID")
     private String saleId;
 
+    @Column(name = "use_point")
+    private Boolean usePoint;
+
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 

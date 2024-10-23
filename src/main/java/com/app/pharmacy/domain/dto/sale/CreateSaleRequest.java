@@ -7,6 +7,7 @@ import java.util.List;
 public record CreateSaleRequest(
         String customerId,
         @NotNull(message = "saleItems is mandatory field")
-        List<SaleItemRequest> saleItems
+        List<SaleItemRequest> saleItems,
+        Boolean usePoint
 ) {
 }

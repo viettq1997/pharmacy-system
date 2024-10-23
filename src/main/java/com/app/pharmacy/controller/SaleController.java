@@ -30,8 +30,4 @@ public class SaleController {
     ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(saleService.createSale(request, connectedUser));
     }
-
-//    @GetMapping
-//    @PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
-//    public ResponseEntity<ApiResponse<CommonGetResponse<GetSale>>>
 }

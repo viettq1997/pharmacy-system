@@ -925,7 +925,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"age\": 30,\n    \"sex\": \"M\",\n    \"phoneNo\": \"123-456-7890\",\n    \"mail\": \"johndoe@example.com\"\n}",
+							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"age\": 30,\n    \"sex\": \"M\",\n    \"phoneNo\": \"123-456-789101\",\n    \"mail\": \"johndoe@example.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1488,7 +1488,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"saleItems\": [\n    {\n      \"inventoryId\": \"fc7f39d2-a2dd-4ed2-8e9b-c20b1fb24ea4\",\n      \"quantity\": 2,\n      \"totalPrice\": 19.99\n    }\n  ]\n}",
+							"raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"usePoint\": false,\n  \"saleItems\": [\n    {\n      \"inventoryId\": \"2dba1247-151a-48bc-a508-d0dd146aee20\",\n      \"quantity\": 2,\n      \"totalPrice\": 19.99\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1636,6 +1636,116 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "customer points config",
+			"item": [
+				{
+					"name": "get customer points config",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"create medicine success\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.token).not.null",
+									"    pm.collectionVariables.set(\"customerPConfigId\", jsonData.data.id)",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/customerPointConfigs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"customerPointConfigs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update customer points config",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ratio\": 0.0005\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/customerPointConfigs/{{customerPConfigId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"customerPointConfigs",
+								"{{customerPConfigId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
@@ -1677,6 +1787,10 @@
 		},
 		{
 			"key": "purchaseCreatedDate",
+			"value": ""
+		},
+		{
+			"key": "customerPConfigId",
 			"value": ""
 		}
 	]
