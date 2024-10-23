@@ -1,6 +1,5 @@
 package com.app.pharmacy.domain.dto.medicinecategory;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

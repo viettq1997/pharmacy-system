@@ -21,6 +21,7 @@ public interface CustomerMapper {
 
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
+    @Mapping(target = "points", expression = "java(new java.math.BigDecimal(0))")
     Customer toEntity(CreateCustomerRequest request);
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void toEntity(UpdateCustomerRequest request, @MappingTarget Customer customer);

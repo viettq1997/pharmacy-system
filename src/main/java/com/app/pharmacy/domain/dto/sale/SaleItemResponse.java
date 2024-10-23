@@ -1,7 +1,6 @@
 package com.app.pharmacy.domain.dto.sale;
 
 import com.app.pharmacy.domain.entity.InventorySaleId;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

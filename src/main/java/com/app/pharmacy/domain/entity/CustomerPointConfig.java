@@ -21,40 +21,22 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "CUSTOMER")
+@Table(name = "CUSTOMER_POINT_CONFIG")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Customer {
+public class CustomerPointConfig {
 
     @Id
-    @Column(name = "C_ID")
+    @Column(name = "CPC_ID")
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(name = "C_Fname")
-    private String firstName;
-    @Column(name = "C_Lname")
-    private String lastName;
-    @Column(name = "C_Age")
-    private Integer age;
-    @Column(name = "C_Sex")
-    private String sex;
-    @Column(name = "C_Phno")
-    private String phoneNo;
-    @Column(name = "C_Mail")
-    private String mail;
-    @Column(name = "C_Points")
-    private BigDecimal points;
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
-    @Column(name = "created_by")
-    private String createdBy;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by", referencedColumnName = "E_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), insertable = false, updatable = false)
-    private Employee employeeCreated;
+    @Column(name = "CPC_Ratio")
+    private BigDecimal ratio;
+
     @Column(name = "updated_date")
     private LocalDateTime updatedDate;
     @Column(name = "updated_by")

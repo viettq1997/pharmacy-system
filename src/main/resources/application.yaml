@@ -3,6 +3,9 @@ spring:
     name: pharmacy
   profiles:
     active: dev
+  jackson:
+    serialization:
+      WRITE_BIGDECIMAL_AS_PLAIN: true
 
 server:
   servlet:

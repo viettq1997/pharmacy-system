@@ -25,6 +25,16 @@ prefix: `/pharmacy/api/v1`
     - PUT `/locationRacks/{id}`: Update location track details (Admin only).
     - DELETE `/locationRacks/{id}`: Remove a location track (Admin only).
 
+### Medicine category Management
+
+- Function: Access and update the list of medicine category.
+- API Endpoints:
+  - GET `/medicineCategories`: Retrieve all available medicine categories (Admins, Pharmacists).
+  - POST `/medicineCategories`: Add a new medicine category (Admin only).
+  - PUT `/medicineCategories/{id}`: Update medicine category details (Admin only).
+  - DELETE `/medicineCategories/{id}`: Remove a medicine category (Admin only).
+
+
 ### Supplier Management
 
 - Function: Manage suppliers.
@@ -73,6 +83,13 @@ prefix: `/pharmacy/api/v1`
 - API Endpoints:
     - GET `/reports/sales`: Generate sales report (Admin: all transactions, Pharmacists: own transactions).
     - GET `/reports/inventory`: Generate inventory report (Admin only).
+
+### Customer points config
+
+- Function: Access and update customer points configuration
+- API Endpoints:
+  - GET `/customerPointConfigs`: Get customer points configuration (Admin).
+  - PUT `/customerPointConfigs/{id}`: Update customer points configuration (Admin).
 
 ## RDM Diagram
 

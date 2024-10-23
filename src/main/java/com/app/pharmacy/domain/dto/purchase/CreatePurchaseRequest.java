@@ -1,6 +1,5 @@
 package com.app.pharmacy.domain.dto.purchase;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

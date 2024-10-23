@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -24,7 +25,7 @@ public class CustomerResponse {
     private String sex;
     private String phoneNo;
     private String mail;
-    private Integer pointAccumulation;
+    private BigDecimal points;
     private LocalDateTime createdDate;
     private String createdBy;
     private LocalDateTime updatedDate;

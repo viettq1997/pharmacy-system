@@ -28,6 +28,7 @@ public enum ErrorCode {
     LOCATION_RACK_IS_BEING_USED("PS00015", "Location rack is being used, cannot delete", HttpStatus.BAD_REQUEST),
     SUPPLIER_IS_BEING_USED("PS00016", "Supplier is being used, cannot delete", HttpStatus.BAD_REQUEST),
     CUSTOMER_IS_BEING_USED("PS00017", "Customer is being used, cannot delete", HttpStatus.BAD_REQUEST),
+    CONFIG_NOT_EXIST("PS00018", "Config is being used, cannot delete", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(String code, String message, HttpStatusCode statusCode) {

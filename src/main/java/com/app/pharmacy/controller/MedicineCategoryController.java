@@ -35,7 +35,7 @@ public class MedicineCategoryController {
     private final MedicineCategoryService medicineCategoryService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
     public ResponseEntity<ApiResponse<CommonGetResponse<MedicineCategoryResponse>>> getMedicineCategories(
             @ModelAttribute GetMedicineCategoryRequest request,
             @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable
