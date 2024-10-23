@@ -11,6 +11,7 @@ import com.app.pharmacy.domain.entity.LocationRack;
 import com.app.pharmacy.exception.CustomResponseException;
 import com.app.pharmacy.exception.ErrorCode;
 import com.app.pharmacy.mapper.LocationRackMapper;
+import com.app.pharmacy.repository.InventoryRepository;
 import com.app.pharmacy.repository.LocationRackRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,7 @@ import static com.app.pharmacy.specification.LocationRackSpecifications.hasPosit
 public class LocationRackService {
 
     private final LocationRackRepository locationrackRepository;
+    private final InventoryRepository inventoryRepository;
     private final Clock clock;
 
     public ApiResponse<LocationRackResponse> createLocationRack(CreateLocationRackRequest request, Authentication connectedUser) {
@@ -79,7 +81,12 @@ public class LocationRackService {
 
     public ApiResponse<CommonDeleteResponse> deleteLocationRack(String locationRackId) {
         ApiResponse<CommonDeleteResponse> response = new ApiResponse<>();
-        locationrackRepository.findById(locationRackId).ifPresentOrElse(locationrackRepository::delete, () -> {
+        locationrackRepository.findById(locationRackId).ifPresentOrElse(locationRack -> {
+            if (inventoryRepository.existsByLocationRackId(locationRackId)) {
+                throw new CustomResponseException(ErrorCode.LOCATION_RACK_IS_BEING_USED);
+            }
+            locationrackRepository.delete(locationRack);
+        }, () -> {
             throw new CustomResponseException(ErrorCode.LOCATION_RACK_NOT_EXIST);
         });
         response.setData(new CommonDeleteResponse(locationRackId));

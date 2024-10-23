@@ -24,6 +24,10 @@ public enum ErrorCode {
             "Manufacturing date, expire date, location rack is required when the medicine is provided", HttpStatus.BAD_REQUEST),
     INVENTORY_NOT_EXIST("PS00012", "Inventory is not found", HttpStatus.BAD_REQUEST),
     PHONE_NO_EXISTED("PS00013", "Phone no is used by other customer", HttpStatus.BAD_REQUEST),
+    CATEGORY_IS_BEING_USED("PS00014", "Category is being used, cannot delete", HttpStatus.BAD_REQUEST),
+    LOCATION_RACK_IS_BEING_USED("PS00015", "Location rack is being used, cannot delete", HttpStatus.BAD_REQUEST),
+    SUPPLIER_IS_BEING_USED("PS00016", "Supplier is being used, cannot delete", HttpStatus.BAD_REQUEST),
+    CUSTOMER_IS_BEING_USED("PS00017", "Customer is being used, cannot delete", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(String code, String message, HttpStatusCode statusCode) {

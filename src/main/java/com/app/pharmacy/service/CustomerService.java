@@ -12,6 +12,7 @@ import com.app.pharmacy.exception.CustomResponseException;
 import com.app.pharmacy.exception.ErrorCode;
 import com.app.pharmacy.mapper.CustomerMapper;
 import com.app.pharmacy.repository.CustomerRepository;
+import com.app.pharmacy.repository.SaleRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -33,6 +34,7 @@ import static com.app.pharmacy.specification.CustomerSpecifications.hasLastName;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final SaleRepository saleRepository;
     private final Clock clock;
 
     public ApiResponse<CustomerResponse> createCustomer(CreateCustomerRequest request, Authentication connectedUser) {
@@ -88,7 +90,12 @@ public class CustomerService {
 
     public ApiResponse<CommonDeleteResponse> deleteCustomer(String customerId) {
         ApiResponse<CommonDeleteResponse> response = new ApiResponse<>();
-        customerRepository.findById(customerId).ifPresentOrElse(customerRepository::delete, () -> {
+        customerRepository.findById(customerId).ifPresentOrElse(customer -> {
+            if (saleRepository.existsByCustomerId(customerId)) {
+                throw new CustomResponseException(ErrorCode.CUSTOMER_IS_BEING_USED);
+            }
+            customerRepository.delete(customer);
+        }, () -> {
             throw new CustomResponseException(ErrorCode.CUSTOMER_NOT_EXIST);
         });
         response.setData(new CommonDeleteResponse(customerId));

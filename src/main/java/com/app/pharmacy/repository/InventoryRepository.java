@@ -13,4 +13,5 @@ import java.util.Optional;
 public interface InventoryRepository extends JpaRepository<Inventory, String>, JpaSpecificationExecutor<Inventory> {
     Optional<Inventory> findByMedicineIdAndMfgDate(String medicineId, LocalDate mfgDate);
     List<Inventory> findByIdIn(List<String> ids);
+    boolean existsByLocationRackId(String locationRackId);
 }

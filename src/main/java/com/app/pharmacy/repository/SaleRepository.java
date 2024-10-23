@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SaleRepository extends JpaRepository<Sale, String>, JpaSpecificationExecutor<Sale> {
+    boolean existsByCustomerId(String customerId);
 }
