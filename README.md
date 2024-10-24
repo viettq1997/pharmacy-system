@@ -61,6 +61,7 @@ prefix: `/pharmacy/api/v1`
     - POST `/employees`: Add a new employee (Admin only).
     - PUT `/employees/{id}`: Update employee details (Admin only).
     - DELETE `/employees/{id}`: Remove an employee (Admin only).
+    - POST `/employees/changePassword`: Change password (Admin, Pharmacist)
 
 ### Customer Management
 

@@ -3,6 +3,7 @@ package com.app.pharmacy.controller;
 import com.app.pharmacy.domain.common.ApiResponse;
 import com.app.pharmacy.domain.common.CommonDeleteResponse;
 import com.app.pharmacy.domain.common.CommonGetResponse;
+import com.app.pharmacy.domain.dto.employee.ChangePasswordRequest;
 import com.app.pharmacy.domain.dto.employee.CreateEmployeeRequest;
 import com.app.pharmacy.domain.dto.employee.EmployeeResponse;
 import com.app.pharmacy.domain.dto.employee.GetEmployeeRequest;
@@ -54,5 +55,12 @@ public class EmployeeController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<CommonDeleteResponse>> deleteEmployee(@PathVariable("id") String id) {
         return ResponseEntity.ok(employeeService.deleteEmployee(id));
+    }
+
+    @PostMapping("/changePassword")
+    @PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
+    public ResponseEntity<ApiResponse<?>> changePassword(
+            @Valid @RequestBody ChangePasswordRequest request, Authentication connectedUser) {
+        return ResponseEntity.ok(employeeService.changePassword(request, connectedUser));
     }
 }
