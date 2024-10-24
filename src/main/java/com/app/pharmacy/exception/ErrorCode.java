@@ -29,6 +29,8 @@ public enum ErrorCode {
     SUPPLIER_IS_BEING_USED("PS00016", "Supplier is being used, cannot delete", HttpStatus.BAD_REQUEST),
     CUSTOMER_IS_BEING_USED("PS00017", "Customer is being used, cannot delete", HttpStatus.BAD_REQUEST),
     CONFIG_NOT_EXIST("PS00018", "Config is being used, cannot delete", HttpStatus.BAD_REQUEST),
+    OLD_PASSWORD_INVALID("PS00019", "Old password is invalid", HttpStatus.BAD_REQUEST),
+    CONFIRM_NEW_PASSWORD_INVALID("PS00020", "Confirm new password does not match", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(String code, String message, HttpStatusCode statusCode) {

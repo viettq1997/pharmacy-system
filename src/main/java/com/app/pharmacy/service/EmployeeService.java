@@ -3,6 +3,7 @@ package com.app.pharmacy.service;
 import com.app.pharmacy.domain.common.ApiResponse;
 import com.app.pharmacy.domain.common.CommonDeleteResponse;
 import com.app.pharmacy.domain.common.CommonGetResponse;
+import com.app.pharmacy.domain.dto.employee.ChangePasswordRequest;
 import com.app.pharmacy.domain.dto.employee.CreateEmployeeRequest;
 import com.app.pharmacy.domain.dto.employee.EmployeeResponse;
 import com.app.pharmacy.domain.dto.employee.GetEmployeeRequest;
@@ -98,6 +99,19 @@ public class EmployeeService {
             throw new CustomResponseException(ErrorCode.USER_NOT_EXIST);
         });
         response.setData(new CommonDeleteResponse(employeeId));
+        return response;
+    }
+
+    public ApiResponse<?> changePassword(ChangePasswordRequest request, Authentication connectedUser) {
+        ApiResponse<?> response = new ApiResponse<>();
+        if (!keycloakAdminService.isOldPasswordValid(connectedUser.getName(), request.oldPassword())) {
+            throw new CustomResponseException(ErrorCode.OLD_PASSWORD_INVALID);
+        }
+        if (!request.newPassword().equals(request.confirmNewPassword())) {
+            throw new CustomResponseException(ErrorCode.CONFIRM_NEW_PASSWORD_INVALID);
+        }
+        keycloakAdminService.resetUserPassword(connectedUser.getName(), request.newPassword());
+        response.setMessage("Password is changed successful!");
         return response;
     }
 }

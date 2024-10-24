@@ -6,10 +6,13 @@ import com.app.pharmacy.exception.ErrorCode;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.ClientResource;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.representations.idm.ClientRepresentation;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -22,12 +25,17 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class KeycloakAdminService {
 
     private final Keycloak keycloak;
 
     @Value("${keycloak.realm}")
     private String realm;
+    @Value("${keycloak.auth-server-url}")
+    private String serverUrl;
+    @Value("${keycloak.client-id}")
+    private String clientId;
 
     public String createUser(CreateEmployeeRequest request) {
 
@@ -70,6 +78,35 @@ public class KeycloakAdminService {
         }
     }
 
+    public boolean isOldPasswordValid(String userId, String oldPassword) {
+        String username = getUserNameById(userId);
+        try {
+            KeycloakBuilder builder = KeycloakBuilder.builder()
+                    .serverUrl(serverUrl)
+                    .realm(realm)
+                    .clientId(clientId)
+                    .username(username)
+                    .password(oldPassword)
+                    .grantType("password");
+            AccessTokenResponse accessTokenResponse = builder.build().tokenManager().getAccessToken();
+            return accessTokenResponse != null;
+        } catch (Exception e) {
+            log.warn("change password fail", e);
+            return false;
+        }
+    }
+
+    public void resetUserPassword(String userId, String newPassword) {
+        UsersResource usersResource = keycloak.realm(realm).users();
+
+        CredentialRepresentation passwordCred = new CredentialRepresentation();
+        passwordCred.setTemporary(false);
+        passwordCred.setType(CredentialRepresentation.PASSWORD);
+        passwordCred.setValue(newPassword);
+
+        usersResource.get(userId).resetPassword(passwordCred);
+    }
+
     private static UserRepresentation getUserRepresentation(CreateEmployeeRequest request) {
         UserRepresentation user = new UserRepresentation();
         user.setUsername(request.username());
@@ -95,5 +132,16 @@ public class KeycloakAdminService {
         RoleRepresentation clientRole = clientResource.roles().get(roleName).toRepresentation();
         realmResource.users().get(userId).roles().clientLevel(clientResource.toRepresentation().getId())
                 .add(Collections.singletonList(clientRole));
+    }
+
+    private String getUserNameById(String userId) {
+        RealmResource realmResource = keycloak.realm(realm);
+        try {
+            return realmResource.users().get(userId).toRepresentation().getUsername();
+        } catch (NotFoundException ex) {
+            throw new CustomResponseException(ErrorCode.USER_NOT_EXIST);
+        } catch (Exception e) {
+            throw new RuntimeException("Get username failed", e);
+        }
     }
 }

@@ -102,7 +102,19 @@
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.data.token).not.null",
 									"    pm.collectionVariables.set(\"employeeId\", jsonData.data.id)",
+									"    pm.collectionVariables.set(\"createdUsername\", jsonData.data.username)",
+									"    pm.collectionVariables.set(\"createdUsername\", jsonData.data.username)",
 									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"employeePassword\", \"password123\")"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -124,7 +136,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"john_doe\",\n    \"role\": \"USER\",\n    \"password\": \"password123\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthDate\": \"1990-05-15\",\n    \"age\": 34,\n    \"sex\": \"M\",\n    \"type\": \"Manager\",\n    \"address\": \"1234 Elm Street, Springfield, USA\",\n    \"mail\": \"john.do1e@example.com\",\n    \"phoneNo\": \"+1234567890\",\n    \"salary\": 65000.00\n}",
+							"raw": "{\n    \"username\": \"john_doe\",\n    \"role\": \"USER\",\n    \"password\": \"{{employeePassword}}\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthDate\": \"1990-05-15\",\n    \"age\": 34,\n    \"sex\": \"M\",\n    \"type\": \"Manager\",\n    \"address\": \"1234 Elm Street, Springfield, USA\",\n    \"mail\": \"john.do1e@example.com\",\n    \"phoneNo\": \"+1234567890\",\n    \"salary\": 65000.00\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1746,6 +1758,167 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "password",
+			"item": [
+				{
+					"name": "login new employee",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"pm.test(\"response login success\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.access_token).not.null",
+									"    pm.collectionVariables.set(\"createdEmployeeToken\", jsonData.access_token)",
+									"    if (pm.collectionVariables.get(\"employeePassword\") === \"password123\") {",
+									"        pm.collectionVariables.set(\"newEmployeePassword\", \"newPassword123\")",
+									"    } else {",
+									"        pm.collectionVariables.set(\"newEmployeePassword\", \"password123\")",
+									"    }",
+									"    ",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "pharmacy-management-system",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{createdUsername}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{employeePassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9090/realms/pharmacy-management/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"realms",
+								"pharmacy-management",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'http://localhost:9090/realms/pharmacy-management/protocol/openid-connect/token' \\\n--header 'Content-Type: application/x-www-form-urlencoded' \\\n--data-urlencode 'client_id=pharmacy-management-system' \\\n--data-urlencode 'username=admin' \\\n--data-urlencode 'password=admin' \\\n--data-urlencode 'grant_type=password'"
+					},
+					"response": []
+				},
+				{
+					"name": "change password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200)",
+									"    pm.collectionVariables.set(\"employeePassword\", pm.collectionVariables.get(\"newEmployeePassword\"))",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{createdEmployeeToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\": \"{{employeePassword}}\",\n    \"newPassword\": \"{{newEmployeePassword}}\",\n    \"confirmNewPassword\": \"{{newEmployeePassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/employees/changePassword",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"employees",
+								"changePassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
@@ -1791,6 +1964,22 @@
 		},
 		{
 			"key": "customerPConfigId",
+			"value": ""
+		},
+		{
+			"key": "employeePassword",
+			"value": ""
+		},
+		{
+			"key": "createdUsername",
+			"value": ""
+		},
+		{
+			"key": "createdEmployeeToken",
+			"value": ""
+		},
+		{
+			"key": "newEmployeePassword",
 			"value": ""
 		}
 	]
