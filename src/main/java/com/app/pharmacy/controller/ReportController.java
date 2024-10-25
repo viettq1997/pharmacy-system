@@ -42,7 +42,7 @@ public class ReportController {
     @GetMapping("/inventory")
     public ResponseEntity<ApiResponse<CommonGetResponse<InventoryDto>>> reportInventory(
             @ModelAttribute GetInventoryRequest request,
-            @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(sort = "expDate", direction = Sort.Direction.ASC) Pageable pageable
     ) {
         return ResponseEntity.ok(inventoryService.getInventory(request, pageable));
     }

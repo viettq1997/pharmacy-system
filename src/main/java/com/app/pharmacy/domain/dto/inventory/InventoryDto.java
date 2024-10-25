@@ -22,6 +22,7 @@ public class InventoryDto {
     private Integer quantity;
     private LocalDate mfgDate;
     private LocalDate expDate;
+    private Boolean isGettingExpire;
 
     private LocalDateTime createdDate;
     private String createdBy;
