@@ -21,6 +21,7 @@ public class SaleResponse {
     private BigDecimal totalAmount;
     private String customerId;
     private List<SaleItemResponse> saleItems;
+    private SaleType type;
 
     private LocalDateTime createdDate;
     private String createdBy;

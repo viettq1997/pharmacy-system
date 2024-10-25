@@ -7,25 +7,24 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record CreateEmployeeRequest(
-        @NotBlank(message = "Username is mandatory field")
+        @NotBlank(message = "username is mandatory field")
         String username,
-        @NotNull(message = "Role is mandatory field")
+        @NotNull(message = "role is mandatory field")
         EmployeeRole role,
-        @NotBlank(message = "Password is mandatory field")
+        @NotBlank(message = "password is mandatory field")
         String password,
-        @NotBlank(message = "First name is mandatory field")
+        @NotBlank(message = "firstName is mandatory field")
         String firstName,
-        @NotBlank(message = "Last name is mandatory field")
         String lastName,
         LocalDate birthDate,
         Integer age,
-        @NotBlank(message = "Sex is mandatory field")
+        @NotBlank(message = "sex is mandatory field")
         String sex,
-        @NotBlank(message = "Type is mandatory field")
+        @NotBlank(message = "type is mandatory field")
         String type,
         String address,
         String mail,
-        @NotBlank(message = "Phone no is mandatory field")
+        @NotBlank(message = "phoneNo is mandatory field")
         String phoneNo,
         BigDecimal salary
 ) { }

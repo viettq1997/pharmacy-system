@@ -87,6 +87,9 @@ CREATE TABLE SALE (
 
 CREATE TABLE SALE_LOG (
     Sale_ID VARCHAR(36) NOT NULL,
+    Total_Amt DECIMAL(10, 2), -- for refund case
+    type VARCHAR(6) NOT NULL,
+    refund_item_id VARCHAR(255), -- for refund case
     use_point BOOLEAN,
     created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36),

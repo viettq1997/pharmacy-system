@@ -10,7 +10,7 @@ public record SaleItemRequest(
         String inventoryId,
         @NotNull(message = "quantity is mandatory field")
         Integer quantity,
-        @NotNull(message = "totalPrice is mandatory field")
-        BigDecimal totalPrice
+        @NotNull(message = "price is mandatory field")
+        BigDecimal price
 ) {
 }

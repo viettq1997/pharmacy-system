@@ -14,9 +14,9 @@ public record CreatePurchaseRequest(
         String supplierId,
         @NotBlank(message = "locationRackId is mandatory field")
         String locationRackId,
-        @NotNull(message = "Quantity is mandatory field")
+        @NotNull(message = "quantity is mandatory field")
         Integer quantity,
-        @NotNull(message = "Cost is mandatory field")
+        @NotNull(message = "cost is mandatory field")
         BigDecimal cost,
         @NotNull(message = "mfgDate is mandatory field")
         LocalDate mfgDate,
