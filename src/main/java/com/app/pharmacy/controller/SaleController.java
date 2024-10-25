@@ -30,4 +30,12 @@ public class SaleController {
     ) {
         return ResponseEntity.status(HttpStatus.CREATED).body(saleService.createSale(request, connectedUser));
     }
+
+//    @PostMapping("/refund")
+//    @PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
+//    public ResponseEntity<ApiResponse<RefundResponse>> refund(
+//            @RequestBody RefundRequest request, Authentication connectedUser
+//            ) {
+//
+//    }
 }
