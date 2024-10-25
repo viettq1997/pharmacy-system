@@ -1,8 +1,11 @@
 package com.app.pharmacy.domain.entity;
 
+import com.app.pharmacy.domain.dto.sale.SaleType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Id;
@@ -37,6 +40,17 @@ public class SaleLog {
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
+    @Column(name = "Total_Amt")
+    private BigDecimal totalAmount;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", columnDefinition = "sale_type")
+    private SaleType type;
+    @Column(name = "refund_item_id")
+    private String refundItemId;
+
+    @ManyToOne
+    @JoinColumn(name = "refund_item_id", referencedColumnName = "I_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), insertable = false, updatable = false)
+    private Inventory inventory;
 
     @Column(name = "created_by")
     private String createdBy;
@@ -44,7 +58,7 @@ public class SaleLog {
     @JoinColumn(name = "created_by", referencedColumnName = "E_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), insertable = false, updatable = false)
     private Employee employeeCreated;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Sale_ID", referencedColumnName = "Sale_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), updatable = false, insertable = false)
     private Sale sale;
 }

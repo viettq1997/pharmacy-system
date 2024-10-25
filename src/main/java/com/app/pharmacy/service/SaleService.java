@@ -3,9 +3,11 @@ package com.app.pharmacy.service;
 import com.app.pharmacy.domain.common.ApiResponse;
 import com.app.pharmacy.domain.common.CommonGetResponse;
 import com.app.pharmacy.domain.dto.sale.CreateSaleRequest;
+import com.app.pharmacy.domain.dto.sale.RefundRequest;
+import com.app.pharmacy.domain.dto.sale.RefundResponse;
 import com.app.pharmacy.domain.dto.sale.SaleLogRequest;
 import com.app.pharmacy.domain.dto.sale.SaleResponse;
-import com.app.pharmacy.domain.entity.CustomerPointConfig;
+import com.app.pharmacy.domain.dto.sale.SaleType;
 import com.app.pharmacy.domain.entity.Inventory;
 import com.app.pharmacy.domain.entity.Sale;
 import com.app.pharmacy.domain.entity.SaleItem;
@@ -34,6 +36,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.app.pharmacy.specification.SaleSpecifications.hasEmployeeId;
 
@@ -96,6 +100,7 @@ public class SaleService {
                         .saleId(sale.getId())
                         .usePoint(request.usePoint())
                         .createdBy(connectedUser.getName())
+                        .type(SaleType.SALE)
                         .createdDate(now)
                 .build());
 
@@ -122,6 +127,39 @@ public class SaleService {
         response.setData(new CommonGetResponse<>(
                 saleResponses, saleLogPage.getSize(), saleLogPage.getNumber(), saleLogPage.getTotalElements()
         ));
+        return response;
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    public ApiResponse<RefundResponse> refund(RefundRequest request, Authentication connectedUser) {
+        ApiResponse<RefundResponse> response = new ApiResponse<>();
+        AtomicReference<BigDecimal> refundAmountAtomic = new AtomicReference<>(new BigDecimal(0));
+        AtomicReference<String> refundItemId = new AtomicReference<>("");
+        inventoryRepository.findById(request.refundItemId()).ifPresentOrElse(inventory -> {
+            inventory.setQuantity(inventory.getQuantity() + request.refundItemQuantity());
+            inventoryRepository.save(inventory);
+            BigDecimal refundAmount = inventory.getMedicine().getPrice().multiply(BigDecimal.valueOf(request.refundItemQuantity()));
+            refundAmountAtomic.set(refundAmount);
+            refundItemId.set(inventory.getId());
+            response.setData(RefundResponse
+                    .builder()
+                            .medicineName(inventory.getMedicine().getName())
+                            .refundAmount(refundAmount)
+                            .quantity(request.refundItemQuantity())
+                    .build());
+        }, () -> {
+            throw new CustomResponseException(ErrorCode.INVENTORY_NOT_EXIST);
+        });
+        SaleLog saleLog = SaleLog
+                .builder()
+                .saleId(UUID.randomUUID().toString())
+                .createdBy(connectedUser.getName())
+                .createdDate(LocalDateTime.now(clock))
+                .totalAmount(new BigDecimal(0).subtract(refundAmountAtomic.get()))
+                .type(SaleType.REFUND)
+                .refundItemId(refundItemId.get())
+                .build();
+        saleLogRepository.save(saleLog);
         return response;
     }
 }

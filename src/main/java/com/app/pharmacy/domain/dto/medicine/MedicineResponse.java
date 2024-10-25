@@ -1,5 +1,6 @@
 package com.app.pharmacy.domain.dto.medicine;
 
+import com.app.pharmacy.domain.dto.medicinecategory.MedicineCategoryResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ public class MedicineResponse {
     private String id;
     private String name;
     private BigDecimal price;
-    private String categoryId;
+    private MedicineCategoryResponse category;
 
     private LocalDateTime createdDate;
     private String createdBy;
