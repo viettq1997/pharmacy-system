@@ -19,10 +19,8 @@ public interface InventoryMapper {
 
     InventoryMapper INSTANCE = Mappers.getMapper(InventoryMapper.class);
 
-    @Mapping(target = "position", source = "locationRack.position")
     @Mapping(target = "createdBy", source = "employeeCreated.firstName")
     @Mapping(target = "updatedBy", source = "employeeUpdated.firstName")
-    @Mapping(target = "medicineName", source = "medicine.name")
     @Mapping(target = "isGettingExpire", source = "expDate", qualifiedByName = "isGettingExpire")
     InventoryDto toDto(Inventory inventory);
 

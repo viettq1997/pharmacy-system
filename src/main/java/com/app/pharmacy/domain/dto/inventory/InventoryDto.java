@@ -1,5 +1,7 @@
 package com.app.pharmacy.domain.dto.inventory;
 
+import com.app.pharmacy.domain.dto.locationrack.LocationRackResponse;
+import com.app.pharmacy.domain.dto.medicine.MedicineResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,8 +19,8 @@ import java.time.LocalDateTime;
 public class InventoryDto {
     private String id;
 
-    private String medicineName;
-    private String position;
+    private MedicineResponse medicine;
+    private LocationRackResponse locationRack;
     private Integer quantity;
     private LocalDate mfgDate;
     private LocalDate expDate;
