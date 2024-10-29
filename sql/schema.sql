@@ -73,6 +73,7 @@ CREATE TABLE PURCHASE (
     Sup_ID VARCHAR(36) NOT NULL,
     P_Qty INT NOT NULL,
     P_Cost DECIMAL(10, 2) NOT NULL,
+    P_Code VARCHAR(9) NOT NULL,
     created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36) NOT NULL,
     updated_date TIMESTAMP,
@@ -91,6 +92,7 @@ CREATE TABLE SALE_LOG (
     type VARCHAR(6) NOT NULL,
     refund_item_id VARCHAR(255), -- for refund case
     use_point BOOLEAN,
+    Sale_Code VARCHAR(9) NOT NULL,
     created_date TIMESTAMP NOT NULL,
     created_by VARCHAR(36),
     PRIMARY KEY (Sale_ID, created_date)

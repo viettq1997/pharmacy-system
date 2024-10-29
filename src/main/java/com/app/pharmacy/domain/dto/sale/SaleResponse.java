@@ -22,6 +22,7 @@ public class SaleResponse {
     private String customerId;
     private List<SaleItemResponse> saleItems;
     private SaleType type;
+    private String code;
 
     private LocalDateTime createdDate;
     private String createdBy;
