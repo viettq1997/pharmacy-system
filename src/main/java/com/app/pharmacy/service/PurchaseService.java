@@ -3,6 +3,7 @@ package com.app.pharmacy.service;
 import com.app.pharmacy.domain.common.ApiResponse;
 import com.app.pharmacy.domain.common.CommonDeleteResponse;
 import com.app.pharmacy.domain.common.CommonGetResponse;
+import com.app.pharmacy.domain.common.Constants;
 import com.app.pharmacy.domain.dto.purchase.CreatePurchaseRequest;
 import com.app.pharmacy.domain.dto.purchase.CreateUpdatePurchaseResponse;
 import com.app.pharmacy.domain.dto.purchase.GetPurchaseRequest;
@@ -19,6 +20,7 @@ import com.app.pharmacy.repository.InventoryRepository;
 import com.app.pharmacy.repository.MedicineRepository;
 import com.app.pharmacy.repository.PurchaseRepository;
 import com.app.pharmacy.repository.SupplierRepository;
+import com.app.pharmacy.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -59,6 +61,9 @@ public class PurchaseService {
         purchase.setSupplier(supplier);
         purchase.setCreatedBy(connectedUser.getName());
         purchase.setCreatedDate(LocalDateTime.now(clock));
+        purchase.setCode(Constants.PURCHASE_CODE_PREFIX
+                + StringUtils.generateRandomString(2)
+                + StringUtils.generateRandomNumberString(6));
 
         saveInventory(request, connectedUser, medicine);
 

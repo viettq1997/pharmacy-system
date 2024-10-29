@@ -18,4 +18,6 @@ public class RefundResponse {
     private String medicineName;
     private Integer quantity;
     private BigDecimal refundAmount;
+    private String code;
+    private SaleType type;
 }

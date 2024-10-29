@@ -42,6 +42,8 @@ public class SaleLog {
     private LocalDateTime createdDate;
     @Column(name = "Total_Amt")
     private BigDecimal totalAmount;
+    @Column(name = "Sale_Code")
+    private String code;
     @Enumerated(EnumType.STRING)
     @Column(name = "type", columnDefinition = "sale_type")
     private SaleType type;

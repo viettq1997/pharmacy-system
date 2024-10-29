@@ -2,6 +2,7 @@ package com.app.pharmacy.service;
 
 import com.app.pharmacy.domain.common.ApiResponse;
 import com.app.pharmacy.domain.common.CommonGetResponse;
+import com.app.pharmacy.domain.common.Constants;
 import com.app.pharmacy.domain.dto.sale.CreateSaleRequest;
 import com.app.pharmacy.domain.dto.sale.RefundRequest;
 import com.app.pharmacy.domain.dto.sale.RefundResponse;
@@ -21,6 +22,7 @@ import com.app.pharmacy.repository.InventoryRepository;
 import com.app.pharmacy.repository.SaleLogRepository;
 import com.app.pharmacy.repository.SaleRepository;
 import com.app.pharmacy.specification.SaleSpecifications;
+import com.app.pharmacy.util.StringUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -95,16 +97,22 @@ public class SaleService {
         }
         inventoryRepository.saveAll(inventory);
 
+        String saleCode = Constants.SALE_CODE_PREFIX
+                + StringUtils.generateRandomString(2)
+                + StringUtils.generateRandomNumberString(6);
         saleLogRepository.save(SaleLog
                 .builder()
                         .saleId(sale.getId())
                         .usePoint(request.usePoint())
                         .createdBy(connectedUser.getName())
                         .type(SaleType.SALE)
+                        .code(saleCode)
                         .createdDate(now)
                 .build());
 
         SaleResponse saleResponse = SaleMapper.INSTANCE.toSaleResponse(sale);
+        saleResponse.setType(SaleType.SALE);
+        saleResponse.setCode(saleCode);
         saleResponse.setCreatedBy(connectedUser.getName());
         saleResponse.setCreatedDate(now);
         response.setData(saleResponse);
@@ -135,6 +143,9 @@ public class SaleService {
         ApiResponse<RefundResponse> response = new ApiResponse<>();
         AtomicReference<BigDecimal> refundAmountAtomic = new AtomicReference<>(new BigDecimal(0));
         AtomicReference<String> refundItemId = new AtomicReference<>("");
+        String saleCode = Constants.SALE_CODE_PREFIX
+                + StringUtils.generateRandomString(2)
+                + StringUtils.generateRandomNumberString(6);
         inventoryRepository.findById(request.refundItemId()).ifPresentOrElse(inventory -> {
             inventory.setQuantity(inventory.getQuantity() + request.refundItemQuantity());
             inventoryRepository.save(inventory);
@@ -146,6 +157,8 @@ public class SaleService {
                             .medicineName(inventory.getMedicine().getName())
                             .refundAmount(refundAmount)
                             .quantity(request.refundItemQuantity())
+                            .code(saleCode)
+                            .type(SaleType.REFUND)
                     .build());
         }, () -> {
             throw new CustomResponseException(ErrorCode.INVENTORY_NOT_EXIST);
@@ -156,6 +169,7 @@ public class SaleService {
                 .createdBy(connectedUser.getName())
                 .createdDate(LocalDateTime.now(clock))
                 .totalAmount(new BigDecimal(0).subtract(refundAmountAtomic.get()))
+                .code(saleCode)
                 .type(SaleType.REFUND)
                 .refundItemId(refundItemId.get())
                 .build();

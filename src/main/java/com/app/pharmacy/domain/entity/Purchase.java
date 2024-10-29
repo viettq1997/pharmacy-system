@@ -44,6 +44,8 @@ public class Purchase {
     private Integer quantity;
     @Column(name = "P_Cost")
     private BigDecimal cost;
+    @Column(name = "P_Code")
+    private String code;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
