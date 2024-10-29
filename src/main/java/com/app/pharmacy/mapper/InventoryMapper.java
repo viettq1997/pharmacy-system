@@ -28,6 +28,6 @@ public interface InventoryMapper {
 
     @Named("isGettingExpire")
     default Boolean isGettingExpire(LocalDate expDate) {
-        return LocalDate.now().isBefore(expDate.minusMonths(7));
+        return LocalDate.now().isAfter(expDate.minusMonths(7));
     }
 }
