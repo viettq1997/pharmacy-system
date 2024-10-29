@@ -64,16 +64,18 @@ public class SaleService {
         sale.setSaleItems(saleItems);
         final BigDecimal[] totalAmount = {saleItems.stream().map(SaleItem::getTotalPrice).reduce(BigDecimal.ZERO, BigDecimal::add)};
 
-        customerRepository.findById(request.customerId()).ifPresentOrElse(customer -> {
-            if (request.usePoint() != null && request.usePoint()) {
-                totalAmount[0] = totalAmount[0].subtract(customer.getPoints());
-                customer.setPoints(new BigDecimal(0));
-            } else {
-                BigDecimal point = customer.getPoints().add(customerPointConfigRepository.findAll().get(0).getRatio().multiply(totalAmount[0]));
-                customer.setPoints(point);
-            }
-            customerRepository.save(customer);
-        }, () -> {});
+        if (request.customerId() != null) {
+            customerRepository.findById(request.customerId()).ifPresentOrElse(customer -> {
+                if (request.usePoint() != null && request.usePoint()) {
+                    totalAmount[0] = totalAmount[0].subtract(customer.getPoints());
+                    customer.setPoints(new BigDecimal(0));
+                } else {
+                    BigDecimal point = customer.getPoints().add(customerPointConfigRepository.findAll().get(0).getRatio().multiply(totalAmount[0]));
+                    customer.setPoints(point);
+                }
+                customerRepository.save(customer);
+            }, () -> {});
+        }
         sale.setTotalAmount(totalAmount[0]);
         saleRepository.save(sale);
 
