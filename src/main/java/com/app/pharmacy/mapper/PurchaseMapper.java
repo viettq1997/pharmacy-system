@@ -41,6 +41,8 @@ public interface PurchaseMapper {
     @Mapping(target = "supplier", source = "supplier")
     @Mapping(target = "supplier.createdBy", source = "supplier.employeeCreated.firstName")
     @Mapping(target = "supplier.updatedBy", source = "supplier.employeeUpdated.firstName")
+    @Mapping(target = "createdBy", source = "employeeCreated.firstName")
+    @Mapping(target = "updatedBy", source = "employeeUpdated.firstName")
     GetPurchaseResponse toGetPurchaseResponse(Purchase purchase);
 
     @Mapping(target = "createdBy", source = "employeeCreated.firstName")

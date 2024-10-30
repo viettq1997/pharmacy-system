@@ -27,6 +27,7 @@ import java.util.List;
 
 import static com.app.pharmacy.specification.CustomerSpecifications.hasFirstName;
 import static com.app.pharmacy.specification.CustomerSpecifications.hasLastName;
+import static com.app.pharmacy.specification.CustomerSpecifications.hasPhoneNo;
 
 @Service
 @RequiredArgsConstructor
@@ -58,7 +59,7 @@ public class CustomerService {
         ApiResponse<CommonGetResponse<CustomerResponse>> response = new ApiResponse<>();
 
         Specification<Customer> specification = Specification.where(
-                hasFirstName(request.name()).or(hasLastName(request.name())));
+                (hasFirstName(request.name()).or(hasLastName(request.name()))).and(hasPhoneNo(request.phoneNo())));
         Page<Customer> customersPage = customerRepository.findAll(specification, pageable);
         List<CustomerResponse> customerResponses = CustomerMapper.INSTANCE.toListCustomerResponse(customersPage.getContent());
         response.setData(new CommonGetResponse<>(
