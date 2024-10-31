@@ -41,6 +41,9 @@ public class SaleItem {
     @JoinColumn(name = "Sale_ID", referencedColumnName = "Sale_ID")
     @JsonBackReference
     private Sale sale;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "I_ID", referencedColumnName = "I_ID",  foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), insertable = false, updatable = false)
+    private Inventory inventory;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;

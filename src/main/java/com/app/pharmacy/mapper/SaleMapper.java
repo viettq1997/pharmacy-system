@@ -44,6 +44,7 @@ public interface SaleMapper {
 
     SaleResponse toSaleResponse(Sale sale);
     @Mapping(target = "createdBy", source = "employeeCreated.firstName")
+    @Mapping(target = "medicineName", source = "inventory.medicine.name")
     SaleItemResponse toSaleItemResponse(SaleItem saleItem);
 
     List<SaleItemResponse> toSaleItemResponseList(List<SaleItem> saleItems);
@@ -52,6 +53,7 @@ public interface SaleMapper {
     @Mapping(target = "saleItems", source = "saleLog", qualifiedByName = "saleItems")
     @Mapping(target = "createdBy", source = "employeeCreated.firstName")
     @Mapping(target = "customerId", source = "saleLog", qualifiedByName = "customerId")
+    @Mapping(target = "refundMedicineName", source = "saleLog", qualifiedByName = "refundMedicineName")
     SaleResponse toSaleResponseFromLog(SaleLog saleLog);
     List<SaleResponse> toSaleResponseList(List<SaleLog> saleLogs);
 
@@ -73,5 +75,13 @@ public interface SaleMapper {
             return null;
         }
         return saleLog.getSale().getCustomerId();
+    }
+
+    @Named("refundMedicineName")
+    default String refundMedicineName(SaleLog saleLog) {
+        if (!saleLog.getType().equals(SaleType.REFUND)) {
+            return null;
+        }
+        return saleLog.getInventory().getMedicine().getName();
     }
 }

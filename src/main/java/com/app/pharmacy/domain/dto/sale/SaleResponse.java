@@ -23,6 +23,7 @@ public class SaleResponse {
     private List<SaleItemResponse> saleItems;
     private SaleType type;
     private String code;
+    private String refundMedicineName;
 
     private LocalDateTime createdDate;
     private String createdBy;
