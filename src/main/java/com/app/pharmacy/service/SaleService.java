@@ -105,6 +105,7 @@ public class SaleService {
         saleLogRepository.save(SaleLog
                 .builder()
                         .saleId(sale.getId())
+                        .totalAmount(sale.getTotalAmount())
                         .usePoint(request.usePoint())
                         .createdBy(connectedUser.getName())
                         .type(SaleType.SALE)

@@ -51,6 +51,7 @@ public interface SaleMapper {
     @Mapping(target = "id", source = "saleId")
     @Mapping(target = "saleItems", source = "saleLog", qualifiedByName = "saleItems")
     @Mapping(target = "createdBy", source = "employeeCreated.firstName")
+    @Mapping(target = "customerId", source = "saleLog", qualifiedByName = "customerId")
     SaleResponse toSaleResponseFromLog(SaleLog saleLog);
     List<SaleResponse> toSaleResponseList(List<SaleLog> saleLogs);
 
@@ -64,5 +65,13 @@ public interface SaleMapper {
             return null;
         }
         return toSaleItemResponseList(saleLog.getSale().getSaleItems());
+    }
+
+    @Named("customerId")
+    default String toCustomerId(SaleLog saleLog) {
+        if (saleLog.getType().equals(SaleType.REFUND)) {
+            return null;
+        }
+        return saleLog.getSale().getCustomerId();
     }
 }
