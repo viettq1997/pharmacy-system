@@ -18,6 +18,7 @@ public class SaleItemResponse {
 
     private Integer quantity;
     private BigDecimal totalPrice;
+    private String medicineName;
 
     private LocalDateTime createdDate;
     private String createdBy;
