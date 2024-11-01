@@ -31,4 +31,6 @@ public class SaleSpecifications {
             return criteriaBuilder.equal(root.get("createdBy"), employeeId);
         });
     }
+
+
 }
