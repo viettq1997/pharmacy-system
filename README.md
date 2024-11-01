@@ -222,169 +222,169 @@ prefix: `/pharmacy/api/v1`
 
 ### Employee
 
-#### Creation
+#### [Employee Creation](design/flow/employee/EmployeeCreationFlow.puml)
 
 ![Employee Creation](design/flow/employee/EmployeeCreationFlow.svg)
 
-#### Fetching
+#### [Employee Fetching](design/flow/employee/FetchEmployeeFlow.puml)
 
 ![Employee Fetching](design/flow/employee/FetchEmployeeFlow.svg)
 
-#### Updating
+#### [Employee Updating](design/flow/employee/EmployeeUpdating.puml)
 
 ![Employee Updating](design/flow/employee/EmployeeUpdating.svg)
 
-#### Deleting
+#### [Deleting](design/flow/employee/EmployeeDeleting.puml)
 
 ![Employee Deleting](design/flow/employee/EmployeeDeleting.svg)
 
-#### Changing Password
+#### [Changing Password](design/flow/employee/ChangePassword.puml)
 
 ![Changing Password](design/flow/employee/ChangePassword.svg)
 
 ### Customer
 
-#### Creation
+#### [Customer Creation](design/flow/customer/CustomerCreationFlow.puml)
 
 ![Customer Creation](design/flow/customer/CustomerCreation.svg)
 
-#### Fetching
+#### [Customer Fetching](design/flow/customer/FetchCustomer.puml)
 
 ![Customer Fetching](design/flow/customer/FetchCustomer.svg)
 
-#### Updating
+#### [Customer Updating](design/flow/customer/CustomerUpdating.puml)
 
 ![Customer Updating](design/flow/customer/CustomerUpdating.svg)
 
-#### Deleting
+#### [Customer Deleting](design/flow/customer/CustomerDeleting.puml)
 
 ![Customer Deleting](design/flow/customer/CustomerDeleting.svg)
 
 ### Medicine
 
-#### Creation
+#### [Medicine Creation](design/flow/medicine/CreateMedicine.puml)
 
 ![Medicine Creation](design/flow/medicine/CreateMedicine.svg)
 
-#### Fetching
+#### [Medicine Fetching](design/flow/medicine/FetchMedicine.puml)
 
 ![Medicine Fetching](design/flow/medicine/FetchMedicine.svg)
 
-#### Updating
+#### [Medicine Updating](design/flow/medicine/UpdateMedicine.puml)
 
 ![Medicine Updating](design/flow/medicine/UpdateMedicine.svg)
 
-#### Deleting
+#### [Medicine Deleting](design/flow/medicine/DeleteMedicine.puml)
 
 ![Medicine Deleting](design/flow/medicine/DeleteMedicine.svg)
 
 ### Location Rack
 
-#### Creation
+#### [Location Rack Creation](design/flow/locationrack/CreateLocationRack.puml)
 
 ![Location Rack Creation](design/flow/locationrack/CreateLocationRack.svg)
 
-#### Fetching
+#### [Location Rack Fetching](design/flow/locationrack/FetchLocationRack.puml)
 
 ![Location Rack Fetching](design/flow/locationrack/FetchLocationRack.svg)
 
-#### Updating
+#### [Location Rack Updating](design/flow/locationrack/UpdateLocationRack.puml)
 
 ![Location Rack Updating](design/flow/locationrack/UpdateLocationRack.svg)
 
-#### Deleting
+#### [Location Rack Deleting](design/flow/locationrack/DeleteLocationRack.puml)
 
 ![Location Rack Deleting](design/flow/locationrack/DeleteLocationRack.svg)
 
 ### Medicine Category
 
-#### Creation
+#### [Medicine Category Creation](design/flow/medicinecategory/CreateMedicineCategory.puml)
 
 ![Medicine Category Creation](design/flow/medicinecategory/CreateMedicineCategory.svg)
 
-#### Fetching
+#### [Medicine Category Fetching](design/flow/medicinecategory/FetchMedicineCategory.puml)
 
 ![Medicine Category Fetching](design/flow/medicinecategory/FetchMedicineCategory.svg)
 
-#### Updating
+#### [Medicine Category Updating](design/flow/medicinecategory/UpdateMedicineCategory.puml)
 
 ![Medicine Category Updating](design/flow/medicinecategory/UpdateMedicineCategory.svg)
 
-#### Deleting
+#### [Medicine Category Deleting](design/flow/medicinecategory/DeleteMedicineCategory.puml)
 
 ![Medicine Category Deleting](design/flow/medicinecategory/DeleteMedicineCategory.svg)
 
 ### Supplier
 
-#### Creation
+#### [Supplier Creation](design/flow/supplier/CreateSupplier.puml)
 
 ![Supplier Creation](design/flow/supplier/CreateSupplier.svg)
 
-#### Fetching
+#### [Supplier Fetching](design/flow/supplier/FetchSupplier.puml)
 
 ![Supplier Fetching](design/flow/supplier/FetchSupplier.svg)
 
-#### Updating
+#### [Supplier Updating](design/flow/supplier/UpdateSupplier.puml)
 
 ![Supplier Updating](design/flow/supplier/UpdateSupplier.svg)
 
-#### Deleting
+#### [Supplier Deleting](design/flow/supplier/DeleteSupplier.puml)
 
 ![Supplier Deleting](design/flow/supplier/DeleteSupplier.svg)
 
 ### Purchase
 
-#### Creation
+#### [Purchase Creation](design/flow/purchase/CreatePurchase.puml)
 
 ![Purchase Creation](design/flow/purchase/CreatePurchase.svg)
 
-#### Fetching
+#### [Purchase Fetching](design/flow/purchase/FetchPurchase.puml)
 
 ![Purchase Fetching](design/flow/purchase/FetchPurchase.svg)
 
-#### Updating
+#### [Purchase Updating](design/flow/purchase/UpdatePurchase.puml)
 
 ![Purchase Updating](design/flow/purchase/UpdatePurchase.svg)
 
-#### Deleting
+#### [Purchase Deleting](design/flow/purchase/DeletePurchase.puml)
 
 ![Purchase Deleting](design/flow/purchase/DeletePurchase.svg)
 
 ### Sale
 
-#### Create Sale
+#### [Sale Creation](design/flow/sale/CreateSale.puml)
 
 ![Sale Creation](design/flow/sale/CreateSale.svg)
 
-#### Create Refund
+#### [Refund](design/flow/sale/Refund.puml)
 
 ![Refund](design/flow/sale/Refund.svg)
 
 ### Report
 
-#### Sale
+#### [Report Sale](design/flow/report/ReportSale.puml)
 
 ![Report Sale](design/flow/report/ReportSale.svg)
 
-#### Inventory
+#### [Report Inventory](design/flow/report/ReportInventory.puml)
 
 ![Report Inventory](design/flow/report/ReportInventory.svg)
 
-#### Profit Per Day
+#### [Report Profit Per Day](design/flow/report/ReportProfitPerDay.puml)
 
 ![Report Profit Per Day](design/flow/report/ReportProfitPerDay.svg)
 
-#### Sale Chart Infos
+#### [Report Sale Chart Infos](design/flow/report/ReportSaleChartInfos.puml)
 
 ![Report Sale Chart Infos](design/flow/report/ReportSaleChartInfos.svg)
 
 ### Customer Point Config
 
-#### Fetching
+#### [Fetch Customer Point Config](design/flow/customerpointconfig/FetchCustomerPointConfig.puml)
 
 ![Fetch Customer Point Config](design/flow/customerpointconfig/FetchCustomerPointConfig.svg)
 
-#### Updating
+#### [Update Customer Point Config](design/flow/customerpointconfig/UpdateCustomerPointConfig.puml)
 
 ![Update Customer Point Config](design/flow/customerpointconfig/UpdateCustomerPointConfig.svg)
 
