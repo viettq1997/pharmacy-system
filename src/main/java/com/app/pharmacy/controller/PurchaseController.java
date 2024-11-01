@@ -55,7 +55,7 @@ public class PurchaseController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<CreateUpdatePurchaseResponse>> updatePurchase(
             @PathVariable("id") String purchaseId,
-            @RequestBody UpdatePurchaseRequest request,
+            @Valid @RequestBody UpdatePurchaseRequest request,
             Authentication connectedUser
             ) {
         return ResponseEntity.ok(purchaseService.updatePurchase(purchaseId, request, connectedUser));

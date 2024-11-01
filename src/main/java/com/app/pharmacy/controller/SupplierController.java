@@ -54,7 +54,7 @@ public class SupplierController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<SupplierResponse>> updateSupplier(
-            @PathVariable("id") String id, @RequestBody UpdateSupplierRequest request, Authentication connectedUser) {
+            @PathVariable("id") String id, @Valid @RequestBody UpdateSupplierRequest request, Authentication connectedUser) {
         return ResponseEntity.ok(supplierService.updateSupplier(id, request, connectedUser));
     }
 
