@@ -256,6 +256,24 @@ prefix: `/pharmacy/api/v1`
 
 ![Customer Deleting](design/flow/customer/CustomerDeleting.svg)
 
+### Medicine
+
+#### Creation
+
+![Medicine Creation](design/flow/medicine/CreateMedicine.svg)
+
+#### Fetching
+
+![Medicine Fetching](design/flow/medicine/FetchMedicine.svg)
+
+#### Updating
+
+![Medicine Updating](design/flow/medicine/UpdateMedicine.svg)
+
+#### Deleting
+
+![Medicine Deleting](design/flow/medicine/DeleteMedicine.svg)
+
 # How to Run
 
 ```shell

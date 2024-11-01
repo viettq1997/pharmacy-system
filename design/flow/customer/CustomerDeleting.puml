@@ -5,17 +5,23 @@ actor Admin as "Admin"
 participant Backend as "Backend Service"
 database DB as "Database"
 
-== Customer Deleting Flow ==
-Admin -> Backend: Customer update request
-Backend -> DB: Fetch sale by customerId
-alt [sale exists]
-    DB -> Backend: sale record by customer id exists
-    Backend -> Admin: cannot delete customer is being used
-else [sale not exist]
-    DB -> Backend: sale record by customer is not exists
-    Backend -> DB: delete
-    DB -> Backend: deleted
-    Backend -> Admin: deleted success
+== Delete Customer Flow ==
+Admin -> Backend: Delete customer request with customerId
+Backend -> DB: Find customer by customerId
+alt ["customer not found"]
+    DB -> Backend: customer not found
+    Backend -> Admin: Error: CUSTOMER_NOT_EXIST
+else
+    DB -> Backend: customer found
+    Backend -> DB: Check if customer has related sales
+    alt ["customer is in use"]
+        DB -> Backend: Reference exists
+        Backend -> Admin: Error: CUSTOMER_IS_BEING_USED
+    else
+        DB -> Backend: No references found
+        Backend -> DB: Delete customer record
+        DB -> Backend: delete success
+        Backend -> Admin: Customer delete success
+    end
 end
 @enduml
-
