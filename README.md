@@ -224,7 +224,7 @@ prefix: `/pharmacy/api/v1`
 
 #### Creation
 
-![Employee Creation](design/flow/employee/EmployeeDeleting.svg)
+![Employee Creation](design/flow/employee/EmployeeCreationFlow.svg)
 
 #### Fetching
 
@@ -237,6 +237,24 @@ prefix: `/pharmacy/api/v1`
 #### Deleting
 
 ![Employee Deleting](design/flow/employee/EmployeeDeleting.svg)
+
+### Customer
+
+#### Creation
+
+![Customer Creation](design/flow/customer/CustomerCreation.svg)
+
+#### Fetching
+
+![Customer Fetching](design/flow/customer/FetchCustomer.svg)
+
+#### Updating
+
+![Customer Updating](design/flow/customer/CustomerUpdating.svg)
+
+#### Deleting
+
+![Customer Deleting](design/flow/customer/CustomerDeleting.svg)
 
 # How to Run
 

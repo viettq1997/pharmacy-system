@@ -1,0 +1,21 @@
+@startuml
+autonumber
+
+actor Admin as "Admin"
+participant Backend as "Backend Service"
+database DB as "Database"
+
+== Customer Deleting Flow ==
+Admin -> Backend: Customer update request
+Backend -> DB: Fetch sale by customerId
+alt [sale exists]
+    DB -> Backend: sale record by customer id exists
+    Backend -> Admin: cannot delete customer is being used
+else [sale not exist]
+    DB -> Backend: sale record by customer is not exists
+    Backend -> DB: delete
+    DB -> Backend: deleted
+    Backend -> Admin: deleted success
+end
+@enduml
+
