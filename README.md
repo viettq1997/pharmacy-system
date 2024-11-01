@@ -274,6 +274,24 @@ prefix: `/pharmacy/api/v1`
 
 ![Medicine Deleting](design/flow/medicine/DeleteMedicine.svg)
 
+### Location Rack
+
+#### Creation
+
+![Location Rack Creation](design/flow/locationrack/CreateLocationRack.svg)
+
+#### Fetching
+
+![Location Rack Fetching](design/flow/locationrack/FetchLocationRack.svg)
+
+#### Updating
+
+![Location Rack Updating](design/flow/locationrack/UpdateLocationRack.svg)
+
+#### Deleting
+
+![Location Rack Deleting](design/flow/locationrack/DeleteLocationRack.svg)
+
 # How to Run
 
 ```shell
