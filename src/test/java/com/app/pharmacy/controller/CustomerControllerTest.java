@@ -250,22 +250,23 @@ public class CustomerControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                         {
-                           "code": null,
-                           "message": null,
-                           "data": {
-                                "id": "%s",
-                                "firstName": "John updated",
-                                "lastName": "Doe",
-                                "age": 30,
-                                "sex": "M",
-                                "phoneNo": "123-456-78903",
-                                "mail": "johndoe@example.com",
-                                "createdDate": "1970-01-01T00:00:00",
-                                "createdBy": "admin",
-                                "updatedDate":"1970-01-01T00:00:00",
-                                "updatedBy":"user"
-                           }
-                         }
+                            "code": null,
+                            "message": null,
+                            "data": {
+                              "id": "%s",
+                              "firstName": "John updated",
+                              "lastName": "Doe",
+                              "age": 30,
+                              "sex": "M",
+                              "phoneNo": "123-456-78903",
+                              "mail": "johndoe@example.com",
+                              "points": 0.00,
+                              "createdDate": "1970-01-01T00:00:00",
+                              "createdBy": "admin",
+                              "updatedDate": "1970-01-01T00:00:00",
+                              "updatedBy": null
+                            }
+                          }
                         """, id);
                     JSONAssert.assertEquals(expectedResponse, response, JSONCompareMode.NON_EXTENSIBLE);
                 });

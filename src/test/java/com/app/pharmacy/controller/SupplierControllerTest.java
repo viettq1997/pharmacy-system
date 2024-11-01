@@ -245,20 +245,20 @@ public class SupplierControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                         {
-                           "code":null,
-                           "message":null,
-                           "data": {
-                                "id": "%s",
-                                "name": "ABC Suppliers",
-                                "address": "1234 Main Street, Springfield",
-                                "phoneNo": "123-456-7890",
-                                "mail": "abcc@suppliers.com",
-                                "createdDate": "1970-01-01T00:00:00",
-                                "createdBy": "admin",
-                                "updatedDate": "1970-01-01T00:00:00",
-                                "updatedBy": "user"
-                           }
-                         }
+                            "code": null,
+                            "message": null,
+                            "data": {
+                              "id": "%s",
+                              "name": "ABC Suppliers",
+                              "address": "1234 Main Street, Springfield",
+                              "phoneNo": "123-456-7890",
+                              "mail": "abcc@suppliers.com",
+                              "createdDate": "1970-01-01T00:00:00",
+                              "createdBy": "admin",
+                              "updatedDate": "1970-01-01T00:00:00",
+                              "updatedBy": null
+                            }
+                          }
                         """, id);
                     JSONAssert.assertEquals(expectedResponse, response, JSONCompareMode.NON_EXTENSIBLE);
                 });

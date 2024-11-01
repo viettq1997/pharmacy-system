@@ -113,21 +113,33 @@ public class MedicineControllerTest {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
                             {
-                               "data": {
-                                 "content": [
-                                   {
-                                     "name": "Aspirin",
-                                     "price": 19.99,
-                                     "categoryId": "%s",
-                                     "createdDate": "1970-01-01T00:00:00",
-                                     "createdBy": "admin"
-                                   }
-                                 ],
-                                 "size": 10,
-                                 "number": 0,
-                                 "totalElement": 1
-                               }
-                             }
+                                "code": null,
+                                "message": null,
+                                "data": {
+                                  "content": [
+                                    {
+                                      "name": "Aspirin",
+                                      "price": 19.99,
+                                      "category": {
+                                        "id": "%s",
+                                        "name": "Pain Relief",
+                                        "description": "Medicines used for relieving pain.",
+                                        "createdDate": "1970-01-01T00:00:00",
+                                        "createdBy": "user",
+                                        "updatedDate": null,
+                                        "updatedBy": null
+                                      },
+                                      "createdDate": "1970-01-01T00:00:00",
+                                      "createdBy": "admin",
+                                      "updatedDate": null,
+                                      "updatedBy": null
+                                    }
+                                  ],
+                                  "size": 10,
+                                  "number": 0,
+                                  "totalElement": 1
+                                }
+                              }
                             """, categoryId);
                     JSONAssert.assertEquals(expectedResponse, response, JSONCompareMode.LENIENT);
                 });
@@ -155,17 +167,21 @@ public class MedicineControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(result -> {
                     var response = result.getResponse().getContentAsString();
-                    String expectedResponse = String.format("""
+                    String expectedResponse = """
                             {
-                               "data": {
-                                 "name": "Aspirin",
-                                 "price": 19.99,
-                                 "categoryId": "%s",
-                                 "createdDate": "1970-01-01T00:00:00",
-                                 "createdBy": null
-                               }
-                             }
-                            """, categoryId);
+                              "code": null,
+                              "message": null,
+                              "data": {
+                                "name": "Aspirin",
+                                "price": 19.99,
+                                "category": null,
+                                "createdDate": "1970-01-01T00:00:00",
+                                "createdBy": null,
+                                "updatedDate": null,
+                                "updatedBy": null
+                              }
+                            }
+                            """;
                     JSONAssert.assertEquals(expectedResponse, response, JSONCompareMode.LENIENT);
                 });
     }
@@ -256,18 +272,29 @@ public class MedicineControllerTest {
                 .andExpect(result -> {
                     var response = result.getResponse().getContentAsString();
                     String expectedResponse = String.format("""
-                        {
-                               "data": {
-                                 "name": "Aspirin1",
-                                 "price": 19.99,
-                                 "categoryId": "%s",
-                                 "createdDate": "1970-01-01T00:00:00",
-                                 "createdBy": "admin",
-                                 "updatedDate": "1970-01-01T00:00:00",
-                                 "updatedBy": "user"
-                               }
-                             }
-                        """, categoryId);
+                            {
+                                    "code": null,
+                                    "message": null,
+                                    "data": {
+                                      "id": "%s",
+                                      "name": "Aspirin1",
+                                      "price": 19.99,
+                                      "category": {
+                                        "id": "%s",
+                                        "name": "Pain Relief",
+                                        "description": "Medicines used for relieving pain.",
+                                        "createdDate": "1970-01-01T00:00:00",
+                                        "createdBy": "user",
+                                        "updatedDate": null,
+                                        "updatedBy": null
+                                      },
+                                      "createdDate": "1970-01-01T00:00:00",
+                                      "createdBy": "admin",
+                                      "updatedDate": "1970-01-01T00:00:00",
+                                      "updatedBy": null
+                                    }
+                                  }
+                        """, id, categoryId);
                     JSONAssert.assertEquals(expectedResponse, response, JSONCompareMode.LENIENT);
                 });
     }
