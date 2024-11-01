@@ -54,7 +54,7 @@ public class LocationRackController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<LocationRackResponse>> updateLocationRack(
-            @PathVariable("id") String id, @RequestBody UpdateLocationRackRequest request, Authentication connectedUser) {
+            @PathVariable("id") String id, @Valid @RequestBody UpdateLocationRackRequest request, Authentication connectedUser) {
         return ResponseEntity.ok(locationRackService.updateLocationRack(id, request, connectedUser));
     }
 

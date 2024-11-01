@@ -54,7 +54,7 @@ public class CustomerController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<CustomerResponse>> updateCustomer(
-            @PathVariable("id") String id, @RequestBody UpdateCustomerRequest request, Authentication connectedUser) {
+            @PathVariable("id") String id, @Valid @RequestBody UpdateCustomerRequest request, Authentication connectedUser) {
         return ResponseEntity.ok(customerService.updateCustomer(id, request, connectedUser));
     }
 

@@ -4,6 +4,7 @@ import com.app.pharmacy.domain.common.ApiResponse;
 import com.app.pharmacy.domain.dto.customerpointconfig.CustomerPointConfigResponse;
 import com.app.pharmacy.domain.dto.customerpointconfig.UpdateCustomerPointConfigRequest;
 import com.app.pharmacy.service.CustomerPointConfigService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,7 @@ public class CustomerPointConfigController {
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<CustomerPointConfigResponse>> updateConfig(
             @PathVariable("id") String id,
-            @RequestBody UpdateCustomerPointConfigRequest request) {
+            @Valid @RequestBody UpdateCustomerPointConfigRequest request) {
         return ResponseEntity.ok(customerPointConfigService.updateConfig(id, request));
     }
 }

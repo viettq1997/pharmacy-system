@@ -54,7 +54,7 @@ public class MedicineCategoryController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<MedicineCategoryResponse>> updateMedicineCategory(
-            @PathVariable("id") String id, @RequestBody UpdateMedicineCategoryRequest request, Authentication connectedUser) {
+            @PathVariable("id") String id, @Valid @RequestBody UpdateMedicineCategoryRequest request, Authentication connectedUser) {
         return ResponseEntity.ok(medicineCategoryService.updateMedicineCategory(id, request, connectedUser));
     }
 
