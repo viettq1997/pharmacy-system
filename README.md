@@ -11,7 +11,7 @@ prefix: `/pharmacy/api/v1`
 
 - Function: Access and update the list of medicines.
 - API Endpoints:
-    - GET `/medicines`: Retrieve all available medicines (Admins: full details, Pharmacists: read-only).
+    - GET `/medicines`: Retrieve all available medicines (Admins: full details, User: read-only).
     - POST `/medicines`: Add a new medicine (Admin only).
     - PUT `/medicines/{id}`: Update medicine details (Admin only).
     - DELETE `/medicines/{id}`: Remove a medicine (Admin only).
@@ -20,7 +20,7 @@ prefix: `/pharmacy/api/v1`
 
 - Function: Access and update the list of location track.
 - API Endpoints:
-    - GET `/locationRacks`: Retrieve all available location tracks (Admins, Pharmacists).
+    - GET `/locationRacks`: Retrieve all available location tracks (Admins, User).
     - POST `/locationRacks`: Add a new location track (Admin only).
     - PUT `/locationRacks/{id}`: Update location track details (Admin only).
     - DELETE `/locationRacks/{id}`: Remove a location track (Admin only).
@@ -29,11 +29,10 @@ prefix: `/pharmacy/api/v1`
 
 - Function: Access and update the list of medicine category.
 - API Endpoints:
-  - GET `/medicineCategories`: Retrieve all available medicine categories (Admins, Pharmacists).
-  - POST `/medicineCategories`: Add a new medicine category (Admin only).
-  - PUT `/medicineCategories/{id}`: Update medicine category details (Admin only).
-  - DELETE `/medicineCategories/{id}`: Remove a medicine category (Admin only).
-
+    - GET `/medicineCategories`: Retrieve all available medicine categories (Admins, User).
+    - POST `/medicineCategories`: Add a new medicine category (Admin only).
+    - PUT `/medicineCategories/{id}`: Update medicine category details (Admin only).
+    - DELETE `/medicineCategories/{id}`: Remove a medicine category (Admin only).
 
 ### Supplier Management
 
@@ -67,8 +66,8 @@ prefix: `/pharmacy/api/v1`
 
 - Function: Manage customers.
 - API Endpoints:
-    - GET `/customers`: Get the list of customers (Admins: full details, Pharmacists: minimal details).
-    - POST `/customers`: Add a new customer (Admins and Pharmacists).
+    - GET `/customers`: Get the list of customers (Admins, User).
+    - POST `/customers`: Add a new customer (Admins and User).
     - PUT `/customers/{id}`: Update customer details (Admin only).
     - DELETE `/customers/{id}`: Remove a customer (Admin only).
 
@@ -76,21 +75,24 @@ prefix: `/pharmacy/api/v1`
 
 - Function: Manage sales transactions.
 - API Endpoints:
-    - POST `/sales`: Register a new sale (Admin, Pharmacists).
+    - POST `/sales`: Register a new sale (Admin, User).
+    - POST `/sales/refund`: Refund a medicine in inventory (Admin, User).
 
 ### Reports
 
 - Function: Generate reports.
 - API Endpoints:
-    - GET `/reports/sales`: Generate sales report (Admin: all transactions, Pharmacists: own transactions).
-    - GET `/reports/inventory`: Generate inventory report (Admin only).
+    - GET `/reports/sales`: Report sales (Admin: all transactions, User: own transactions).
+    - GET `/reports/inventory`: Report Inventory (Admin only).
+    - GET `/reports/profit-per-day`: Report profit per day (Admin, User).
+    - GET `/reports/sale-chart-infos`:  (Admin, User).
 
 ### Customer points config
 
 - Function: Access and update customer points configuration
 - API Endpoints:
-  - GET `/customerPointConfigs`: Get customer points configuration (Admin).
-  - PUT `/customerPointConfigs/{id}`: Update customer points configuration (Admin).
+    - GET `/customerPointConfigs`: Get customer points configuration (Admin).
+    - PUT `/customerPointConfigs/{id}`: Update customer points configuration (Admin).
 
 ## RDM Diagram
 
@@ -98,98 +100,123 @@ prefix: `/pharmacy/api/v1`
 
 ## Database Schema Description
 
-| Table Name       | Column Name          | Data Type             | Constraints                                      | Description                                     |
-|------------------|----------------------|-----------------------|--------------------------------------------------|-------------------------------------------------|
-| EMPLOYEE         | E_ID                 | VARCHAR(36)           | PRIMARY KEY                                      | Employee ID (UUID)                              |
-|                  | E_Username           | VARCHAR(50)           | NOT NULL, UNIQUE                                 | Username                                        |
-|                  | E_Fname              | VARCHAR(255)          | NOT NULL                                         | First name                                      |
-|                  | E_Lname              | VARCHAR(255)          | NOT NULL                                         | Last name                                       |
-|                  | E_Bdate              | DATE                  |                                                  | Birth date                                      |
-|                  | E_Age                | INT                   |                                                  | Age                                             |
-|                  | E_Sex                | CHAR(1)               | NOT NULL                                         | Sex (M/F)                                       |
-|                  | E_Type               | VARCHAR(50)           | NOT NULL                                         | Employee type (e.g., Pharmacist, Admin)         |
-|                  | E_Jdate              | DATE                  | NOT NULL                                         | Joining date                                    |
-|                  | E_Add                | VARCHAR(255)          |                                                  | Address                                         |
-|                  | E_Mail               | VARCHAR(255)          |                                                  | Email address                                   |
-|                  | E_Phno               | VARCHAR(20)           | NOT NULL                                         | Phone number                                    |
-|                  | E_Sal                | DECIMAL(10, 2)        |                                                  | Salary                                          |
-|                  | created_date         | TIMESTAMP             | NOT NULL                                         | Creation date                                   |
-|                  | created_by           | VARCHAR(36)           | NOT NULL                                         | Created by (User ID)                            |
-|                  | updated_date         | TIMESTAMP             |                                                  | Last update date                                |
-|                  | updated_by           | VARCHAR(36)           |                                                  | Updated by (User ID)                            |
-| ---------------- | ------------------   | --------------------- | ------------------------------------------------ | ----------------------------------------------- |
-| SUPPLIER         | Sup_ID               | VARCHAR(36)           | PRIMARY KEY                                      | Supplier ID (UUID)                              |
-|                  | Sup_Name             | VARCHAR(255)          | NOT NULL                                         | Supplier name                                   |
-|                  | Sup_Add              | VARCHAR(255)          | NOT NULL                                         | Supplier address                                |
-|                  | Sup_Phno             | VARCHAR(20)           | NOT NULL                                         | Supplier phone number                           |
-|                  | Sup_Mail             | VARCHAR(255)          |                                                  | Supplier email address                          |
-|                  | created_date         | TIMESTAMP             | NOT NULL                                         | Creation date                                   |
-|                  | created_by           | VARCHAR(36)           | NOT NULL                                         | Created by (User ID)                            |
-|                  | updated_date         | TIMESTAMP             |                                                  | Last update date                                |
-|                  | updated_by           | VARCHAR(36)           |                                                  | Updated by (User ID)                            |
-| ---------------- | ------------------   | --------------------- | ------------------------------------------------ | ----------------------------------------------- |
-| CUSTOMER         | C_ID                 | VARCHAR(36)           | NOT NULL                                         | Customer ID (UUID)                              |
-|                  | C_Fname              | VARCHAR(255)          | NOT NULL                                         | Customer first name                             |
-|                  | C_Lname              | VARCHAR(255)          | NOT NULL                                         | Customer last name                              |
-|                  | C_Age                | INT                   |                                                  | Customer age                                    |
-|                  | C_Sex                | CHAR(1)               | NOT NULL                                         | Customer sex                                    |
-|                  | C_Phno               | VARCHAR(20)           | NOT NULL                                         | Customer phone number                           |
-|                  | C_Mail               | VARCHAR(255)          |                                                  | Customer email address                          |
-|                  | C_Point_accumulation | INT                   |                                                  | Customer accumulated points                     |
-|                  | created_date         | TIMESTAMP             | NOT NULL, UNIQUE                                 | Customer creation date                          |
-|                  | created_by           | VARCHAR(36)           | NOT NULL                                         | Created by (User ID)                            |
-|                  | updated_date         | TIMESTAMP             |                                                  | Last update date                                |
-|                  | updated_by           | VARCHAR(36)           |                                                  | Updated by (User ID)                            |
-| ---------------- | ------------------   | --------------------- | ------------------------------------------------ | ----------------------------------------------- |
-| MED_CATEGORY     | Cat_ID               | VARCHAR(36)           | PRIMARY KEY                                      | Medicine category ID (UUID)                     |
-|                  | Cat_Name             | VARCHAR(255)          | NOT NULL                                         | Category name                                   |
-|                  | Cat_Description      | VARCHAR(1000)         |                                                  | Category description                            |
-|                  | created_date         | TIMESTAMP             | NOT NULL                                         | Category creation date                          |
-|                  | created_by           | VARCHAR(36)           | NOT NULL                                         | Created by (User ID)                            |
-|                  | updated_date         | TIMESTAMP             |                                                  | Last update date                                |
-|                  | updated_by           | VARCHAR(36)           |                                                  | Updated by (User ID)                            |
-| ---------------- | ------------------   | --------------------- | ------------------------------------------------ | ----------------------------------------------- |
-| MED              | Med_ID               | VARCHAR(36)           | PRIMARY KEY                                      | Medicine ID (UUID)                              |
-|                  | Med_Name             | VARCHAR(255)          | NOT NULL                                         | Medicine name                                   |
-|                  | Med_Price            | DECIMAL(10, 2)        | NOT NULL                                         | Medicine price                                  |
-|                  | Cat_ID               | VARCHAR(36)           | NOT NULL                                         | Category ID (UUID)                              |
-|                  | created_date         | TIMESTAMP             | NOT NULL                                         | Medicine creation date                          |
-|                  | created_by           | VARCHAR(36)           | NOT NULL                                         | Created by (User ID)                            |
-|                  | updated_date         | TIMESTAMP             |                                                  | Last update date                                |
-|                  | updated_by           | VARCHAR(36)           |                                                  | Updated by (User ID)                            |
-| ---------------- | ------------------   | --------------------- | ------------------------------------------------ | ----------------------------------------------- |
-| PURCHASE         | P_ID                 | VARCHAR(36)           | PRIMARY KEY                                      | Purchase ID (UUID)                              |
-|                  | Med_ID               | VARCHAR(36)           | NOT NULL                                         | Medicine ID (UUID)                              |
-|                  | Sup_ID               | VARCHAR(36)           | NOT NULL                                         | Supplier ID (UUID)                              |
-|                  | P_Qty                | INT                   | NOT NULL                                         | Purchase quantity                               |
-|                  | P_Cost               | DECIMAL(10, 2)        | NOT NULL                                         | Purchase cost                                   |
-|                  | created_date         | TIMESTAMP             | NOT NULL                                         | Purchase creation date                          |
-|                  | created_by           | VARCHAR(36)           | NOT NULL                                         | Created by (User ID)                            |
-|                  | updated_date         | TIMESTAMP             |                                                  | Last update date                                |
-|                  | updated_by           | VARCHAR(36)           |                                                  | Updated by (User ID)                            |
-| ---------------- | ------------------   | --------------------- | ------------------------------------------------ | ----------------------------------------------- |
-| SALE             | Sale_ID              | VARCHAR(36)           | NOT NULL                                         | Sale ID (UUID)                                  |
-|                  | Total_Amt            | DECIMAL(10, 2)        |                                                  | Total sale amount                               |
-|                  | C_ID                 | VARCHAR(36)           |                                                  | Customer ID (UUID) (nullable for anonymous)     |
-|                  | created_date         | TIMESTAMP             | NOT NULL, UNIQUE                                 | Sale creation date                              |
-|                  | created_by           | VARCHAR(36)           | NOT NULL                                         | Created by (User ID)                            |
-|                  | updated_date         | TIMESTAMP             |                                                  | Last update date                                |
-|                  | updated_by           | VARCHAR(36)           |                                                  | Updated by (User ID)                            |
-| ---------------- | ------------------   | --------------------- | ------------------------------------------------ | ----------------------------------------------- |
-| SALE_ITEM        | I_ID                 | VARCHAR(36)           | PRIMARY KEY (I_ID, Sale_ID)                      | Medicine ID (UUID)                              |
-|                  | Sale_ID              | VARCHAR(36)           | PRIMARY KEY (I_ID, Sale_ID)                      | Sale ID (UUID)                                  |
-|                  | Sale_Qty             | INT                   | NOT NULL                                         | Quantity sold                                   |
-|                  | Tot_Price            | DECIMAL(10, 2)        | NOT NULL                                         | Total price of the sale item                    |
-|                  | created_date         | TIMESTAMP             | NOT NULL                                         | Sale item creation date                         |
-|                  | created_by           | VARCHAR(36)           | NOT NULL                                         | Created by (User ID)                            |
-|                  | updated_date         | TIMESTAMP             |                                                  | Last update date                                |
-|                  | updated_by           | VARCHAR(36)           |                                                  | Updated by (User ID)                            |
-| ---------------- | ------------------   | --------------------- | ------------------------------------------------ | ----------------------------------------------- |
-| LOCATION_RACK    | LR_ID                | VARCHAR(36)           | PRIMARY KEY                                      | Location Rack ID (UUID)                         |
-|                  | LR_POSITION          | VARCHAR(50)           | NOT NULL                                         | Rack position                                   |
-|                  | created_date         | TIMESTAMP             | NOT NULL                                         | Location rack creation date                     |
-|                  | created_by           | VARCHAR(36)           | NOT NULL                                         | Created by (User ID)                            |
-|                  | updated_date         | TIMESTAMP             |                                                  |
+| Table Name            | Column Name     | Data Type      | Constraints           | Description                            |
+|-----------------------|-----------------|----------------|-----------------------|----------------------------------------|
+| EMPLOYEE              | E_ID            | VARCHAR(36)    | PRIMARY KEY           | Employee ID                            |
+|                       | E_Username      | VARCHAR(50)    | NOT NULL, UNIQUE      | Username of the employee               |
+|                       | E_Fname         | VARCHAR(255)   | NOT NULL              | Employee first name                    |
+|                       | E_Lname         | VARCHAR(255)   |                       | Employee last name                     |
+|                       | E_Bdate         | DATE           |                       | Employee birth date                    |
+|                       | E_Age           | INT            |                       | Employee age                           |
+|                       | E_Sex           | CHAR(1)        | NOT NULL              | Employee gender                        |
+|                       | E_Type          | VARCHAR(50)    | NOT NULL              | Type of employee                       |
+|                       | E_Jdate         | DATE           | NOT NULL              | Employee joining date                  |
+|                       | E_Add           | VARCHAR(255)   |                       | Employee address                       |
+|                       | E_Mail          | VARCHAR(255)   |                       | Employee email                         |
+|                       | E_Phno          | VARCHAR(20)    | NOT NULL              | Employee phone number                  |
+|                       | E_Sal           | DECIMAL(10, 2) |                       | Employee salary                        |
+|                       | created_date    | TIMESTAMP      | NOT NULL              | Record creation date                   |
+|                       | created_by      | VARCHAR(36)    | NOT NULL              | Creator of the record                  |
+|                       | updated_date    | TIMESTAMP      |                       | Record update date                     |
+|                       | updated_by      | VARCHAR(36)    |                       | Updater of the record                  |
+|                       |                 |                |                       |                                        |
+| SUPPLIER              | Sup_ID          | VARCHAR(36)    | PRIMARY KEY           | Supplier ID                            |
+|                       | Sup_Name        | VARCHAR(255)   | NOT NULL              | Supplier name                          |
+|                       | Sup_Add         | VARCHAR(255)   | NOT NULL              | Supplier address                       |
+|                       | Sup_Phno        | VARCHAR(20)    | NOT NULL              | Supplier phone number                  |
+|                       | Sup_Mail        | VARCHAR(255)   |                       | Supplier email                         |
+|                       | created_date    | TIMESTAMP      | NOT NULL              | Record creation date                   |
+|                       | created_by      | VARCHAR(36)    | NOT NULL              | Creator of the record                  |
+|                       | updated_date    | TIMESTAMP      |                       | Record update date                     |
+|                       | updated_by      | VARCHAR(36)    |                       | Updater of the record                  |
+|                       |                 |                |                       |                                        |
+| CUSTOMER              | C_ID            | VARCHAR(36)    | NOT NULL, PRIMARY KEY | Customer ID                            |
+|                       | C_Fname         | VARCHAR(255)   | NOT NULL              | Customer first name                    |
+|                       | C_Lname         | VARCHAR(255)   |                       | Customer last name                     |
+|                       | C_Age           | INT            |                       | Customer age                           |
+|                       | C_Sex           | CHAR(1)        | NOT NULL              | Customer gender                        |
+|                       | C_Phno          | VARCHAR(20)    | NOT NULL, UNIQUE      | Customer phone number                  |
+|                       | C_Mail          | VARCHAR(255)   |                       | Customer email                         |
+|                       | C_Points        | NUMERIC        |                       | Loyalty points                         |
+|                       | created_date    | TIMESTAMP      | NOT NULL, UNIQUE      | Record creation date                   |
+|                       | created_by      | VARCHAR(36)    | NOT NULL              | Creator of the record                  |
+|                       | updated_date    | TIMESTAMP      |                       | Record update date                     |
+|                       | updated_by      | VARCHAR(36)    |                       | Updater of the record                  |
+|                       |                 |                |                       |                                        |
+| MED_CATEGORY          | Cat_ID          | VARCHAR(36)    | PRIMARY KEY           | Category ID                            |
+|                       | Cat_Name        | VARCHAR(255)   | NOT NULL              | Category name                          |
+|                       | Cat_Description | VARCHAR(1000)  |                       | Category description                   |
+|                       | created_date    | TIMESTAMP      | NOT NULL              | Record creation date                   |
+|                       | created_by      | VARCHAR(36)    | NOT NULL              | Creator of the record                  |
+|                       | updated_date    | TIMESTAMP      |                       | Record update date                     |
+|                       | updated_by      | VARCHAR(36)    |                       | Updater of the record                  |
+|                       |                 |                |                       |                                        |
+| MED                   | Med_ID          | VARCHAR(36)    | PRIMARY KEY           | Medicine ID                            |
+|                       | Med_Name        | VARCHAR(255)   | NOT NULL              | Medicine name                          |
+|                       | Med_Price       | DECIMAL(10, 2) | NOT NULL              | Medicine price                         |
+|                       | Cat_ID          | VARCHAR(36)    | NOT NULL              | Category ID (foreign key)              |
+|                       | created_date    | TIMESTAMP      | NOT NULL              | Record creation date                   |
+|                       | created_by      | VARCHAR(36)    | NOT NULL              | Creator of the record                  |
+|                       | updated_date    | TIMESTAMP      |                       | Record update date                     |
+|                       | updated_by      | VARCHAR(36)    |                       | Updater of the record                  |
+|                       |                 |                |                       |                                        |
+| PURCHASE              | P_ID            | VARCHAR(36)    | PRIMARY KEY           | Purchase ID                            |
+|                       | Med_ID          | VARCHAR(36)    | NOT NULL              | Medicine ID (foreign key)              |
+|                       | Sup_ID          | VARCHAR(36)    | NOT NULL              | Supplier ID (foreign key)              |
+|                       | P_Qty           | INT            | NOT NULL              | Quantity purchased                     |
+|                       | P_Cost          | DECIMAL(10, 2) | NOT NULL              | Total cost of purchase                 |
+|                       | P_Code          | VARCHAR(9)     | NOT NULL              | Purchase code                          |
+|                       | created_date    | TIMESTAMP      | NOT NULL              | Record creation date                   |
+|                       | created_by      | VARCHAR(36)    | NOT NULL              | Creator of the record                  |
+|                       | updated_date    | TIMESTAMP      |                       | Record update date                     |
+|                       | updated_by      | VARCHAR(36)    |                       | Updater of the record                  |
+|                       |                 |                |                       |                                        |
+| SALE                  | Sale_ID         | VARCHAR(36)    | NOT NULL, PRIMARY KEY | Sale ID                                |
+|                       | Total_Amt       | DECIMAL(10, 2) |                       | Total amount of the sale               |
+|                       | C_ID            | VARCHAR(36)    |                       | Customer ID (allow anonymous customer) |
+|                       |                 |                |                       |                                        |
+| SALE_LOG              | Sale_ID         | VARCHAR(36)    | NOT NULL              | Sale ID (foreign key)                  |
+|                       | Total_Amt       | DECIMAL(10, 2) |                       | Total amount (for refund case)         |
+|                       | type            | VARCHAR(6)     | NOT NULL              | Type of sale log                       |
+|                       | refund_item_id  | VARCHAR(255)   |                       | Refund item ID (for refund case)       |
+|                       | use_point       | BOOLEAN        |                       | Indicates if points were used          |
+|                       | Sale_Code       | VARCHAR(9)     | NOT NULL              | Sale code                              |
+|                       | created_date    | TIMESTAMP      | NOT NULL              | Record creation date                   |
+|                       | created_by      | VARCHAR(36)    |                       | Creator of the record                  |
+|                       | updated_date    | TIMESTAMP      |                       | Record update date                     |
+|                       | updated_by      | VARCHAR(36)    |                       | Updater of the record                  |
+|                       |                 |                |                       |                                        |
+| SALE_ITEM             | I_ID            | VARCHAR(36)    |                       | Item ID                                |
+|                       | Sale_ID         | VARCHAR(36)    |                       | Sale ID (foreign key)                  |
+|                       | Sale_Qty        | INT            | NOT NULL              | Quantity of items sold                 |
+|                       | Tot_Price       | DECIMAL(10, 2) | NOT NULL              | Total price of the items               |
+|                       | created_date    | TIMESTAMP      | NOT NULL              | Record creation date                   |
+|                       | created_by      | VARCHAR(36)    | NOT NULL              | Creator of the record                  |
+|                       | updated_date    | TIMESTAMP      |                       | Record update date                     |
+|                       | updated_by      | VARCHAR(36)    |                       | Updater of the record                  |
+|                       |                 |                |                       |                                        |
+| LOCATION_RACK         | LR_ID           | VARCHAR(36)    | PRIMARY KEY           | Location rack ID                       |
+|                       | LR_POSITION     | VARCHAR(50)    | NOT NULL              | Position of the rack                   |
+|                       | created_date    | TIMESTAMP      | NOT NULL              | Record creation date                   |
+|                       | created_by      | VARCHAR(36)    | NOT NULL              | Creator of the record                  |
+|                       | updated_date    | TIMESTAMP      |                       | Record update date                     |
+|                       | updated_by      | VARCHAR(36)    |                       | Updater of the record                  |
+|                       |                 |                |                       |                                        |
+| INVENTORY             | I_ID            | VARCHAR(36)    | PRIMARY KEY           | Inventory ID                           |
+|                       | Med_ID          | VARCHAR(36)    | NOT NULL              | Medicine ID (foreign key)              |
+|                       | LR_ID           | VARCHAR(36)    | NOT NULL              | Location rack ID (foreign key)         |
+|                       | I_Qty           | INT            | NOT NULL              | Quantity in inventory                  |
+|                       | Mfg_Date        | DATE           | NOT NULL              | Manufacturing date                     |
+|                       | Exp_Date        | DATE           | NOT NULL              | Expiration date                        |
+|                       | created_date    | TIMESTAMP      | NOT NULL              | Record creation date                   |
+|                       | created_by      | VARCHAR(36)    | NOT NULL              | Creator of the record                  |
+|                       | updated_date    | TIMESTAMP      |                       | Record update date                     |
+|                       | updated_by      | VARCHAR(36)    |                       | Updater of the record                  |
+|                       |                 |                |                       |                                        |
+| CUSTOMER_POINT_CONFIG | CPC_ID          | VARCHAR(36)    | PRIMARY KEY           | Customer point config ID               |
+|                       | CPC_Ratio       | NUMERIC        | NOT NULL              | Ratio of points                        |
+|                       | updated_date    | TIMESTAMP      |                       | Record update date                     |
+|                       | updated_by      | VARCHAR(36)    |                       | Updater of the record                  |
 
 ## Function flow
 
