@@ -29,7 +29,7 @@ prefix: `/pharmacy/api/v1`
 
 - Function: Access and update the list of medicine category.
 - API Endpoints:
-    - GET `/medicineCategories`: Retrieve all available medicine categories (Admins, User).
+    - GET `/medicineCategories`: Retrieve all available medicine categories (Admin only).
     - POST `/medicineCategories`: Add a new medicine category (Admin only).
     - PUT `/medicineCategories/{id}`: Update medicine category details (Admin only).
     - DELETE `/medicineCategories/{id}`: Remove a medicine category (Admin only).
@@ -238,6 +238,10 @@ prefix: `/pharmacy/api/v1`
 
 ![Employee Deleting](design/flow/employee/EmployeeDeleting.svg)
 
+#### Changing Password
+
+![Changing Password](design/flow/employee/ChangePassword.svg)
+
 ### Customer
 
 #### Creation
@@ -291,6 +295,98 @@ prefix: `/pharmacy/api/v1`
 #### Deleting
 
 ![Location Rack Deleting](design/flow/locationrack/DeleteLocationRack.svg)
+
+### Medicine Category
+
+#### Creation
+
+![Medicine Category Creation](design/flow/medicinecategory/CreateMedicineCategory.svg)
+
+#### Fetching
+
+![Medicine Category Fetching](design/flow/medicinecategory/FetchMedicineCategory.svg)
+
+#### Updating
+
+![Medicine Category Updating](design/flow/medicinecategory/UpdateMedicineCategory.svg)
+
+#### Deleting
+
+![Medicine Category Deleting](design/flow/medicinecategory/DeleteMedicineCategory.svg)
+
+### Supplier
+
+#### Creation
+
+![Supplier Creation](design/flow/supplier/CreateSupplier.svg)
+
+#### Fetching
+
+![Supplier Fetching](design/flow/supplier/FetchSupplier.svg)
+
+#### Updating
+
+![Supplier Updating](design/flow/supplier/UpdateSupplier.svg)
+
+#### Deleting
+
+![Supplier Deleting](design/flow/supplier/DeleteSupplier.svg)
+
+### Purchase
+
+#### Creation
+
+![Purchase Creation](design/flow/purchase/CreatePurchase.svg)
+
+#### Fetching
+
+![Purchase Fetching](design/flow/purchase/FetchPurchase.svg)
+
+#### Updating
+
+![Purchase Updating](design/flow/purchase/UpdatePurchase.svg)
+
+#### Deleting
+
+![Purchase Deleting](design/flow/purchase/DeletePurchase.svg)
+
+### Sale
+
+#### Create Sale
+
+![Sale Creation](design/flow/sale/CreateSale.svg)
+
+#### Create Refund
+
+![Refund](design/flow/sale/Refund.svg)
+
+### Report
+
+#### Sale
+
+![Report Sale](design/flow/report/ReportSale.svg)
+
+#### Inventory
+
+![Report Inventory](design/flow/report/ReportInventory.svg)
+
+#### Profit Per Day
+
+![Report Profit Per Day](design/flow/report/ReportProfitPerDay.svg)
+
+#### Sale Chart Infos
+
+![Report Sale Chart Infos](design/flow/report/ReportSaleChartInfos.svg)
+
+### Customer Point Config
+
+#### Fetching
+
+![Fetch Customer Point Config](design/flow/customerpointconfig/FetchCustomerPointConfig.svg)
+
+#### Updating
+
+![Update Customer Point Config](design/flow/customerpointconfig/UpdateCustomerPointConfig.svg)
 
 # How to Run
 
