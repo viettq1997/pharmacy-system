@@ -13,6 +13,8 @@ public record CreateMedicineRequest(
         @DecimalMin(value = "0.0", message = "price cannot be negative")
         BigDecimal price,
         @NotBlank(message = "categoryId is mandatory field")
-        String categoryId
+        String categoryId,
+        @NotBlank(message = "medicineUnitId is mandatory field")
+        String medicineUnitId
 ) {
 }

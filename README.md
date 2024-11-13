@@ -217,6 +217,8 @@ prefix: `/pharmacy/api/v1`
 |                       | CPC_Ratio       | NUMERIC        | NOT NULL              | Ratio of points                        |
 |                       | updated_date    | TIMESTAMP      |                       | Record update date                     |
 |                       | updated_by      | VARCHAR(36)    |                       | Updater of the record                  |
+| MED_UNIT              | MU_ID           | VARCHAR(36)    | PRIMARY KEY           | Medicine unit ID                       |
+|                       | MU_Unit         | VARCHAR(20)    | NOT NULL              | Unit                                   |
 
 ## Function flow
 

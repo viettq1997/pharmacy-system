@@ -31,6 +31,7 @@ public enum ErrorCode {
     CONFIG_NOT_EXIST("PS00018", "Config is being used, cannot delete", HttpStatus.BAD_REQUEST),
     OLD_PASSWORD_INVALID("PS00019", "Old password is invalid", HttpStatus.BAD_REQUEST),
     CONFIRM_NEW_PASSWORD_INVALID("PS00020", "Confirm new password does not match", HttpStatus.BAD_REQUEST),
+    UNIT_NOT_EXIST("PS00021", "Unit is not found", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(String code, String message, HttpStatusCode statusCode) {
