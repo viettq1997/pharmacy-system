@@ -5,14 +5,17 @@ import com.app.pharmacy.domain.common.CommonDeleteResponse;
 import com.app.pharmacy.domain.common.CommonGetResponse;
 import com.app.pharmacy.domain.dto.medicine.CreateMedicineRequest;
 import com.app.pharmacy.domain.dto.medicine.GetMedicineRequest;
+import com.app.pharmacy.domain.dto.medicine.MedUnitResponse;
 import com.app.pharmacy.domain.dto.medicine.MedicineResponse;
 import com.app.pharmacy.domain.dto.medicine.UpdateMedicineRequest;
 import com.app.pharmacy.domain.entity.Medicine;
+import com.app.pharmacy.domain.entity.MedicineUnit;
 import com.app.pharmacy.exception.CustomResponseException;
 import com.app.pharmacy.exception.ErrorCode;
 import com.app.pharmacy.mapper.MedicineMapper;
 import com.app.pharmacy.repository.MedicineCategoryRepository;
 import com.app.pharmacy.repository.MedicineRepository;
+import com.app.pharmacy.repository.MedicineUnitRepository;
 import com.app.pharmacy.repository.PurchaseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -36,6 +39,7 @@ public class MedicineService {
     private final MedicineRepository medicineRepository;
     private final MedicineCategoryRepository medicineCategoryRepository;
     private final PurchaseRepository purchaseRepository;
+    private final MedicineUnitRepository medicineUnitRepository;
     private final Clock clock;
 
     public ApiResponse<CommonGetResponse<MedicineResponse>> getMedicines(GetMedicineRequest request, Pageable pageable) {
@@ -63,6 +67,10 @@ public class MedicineService {
            throw new CustomResponseException(ErrorCode.CATEGORY_NOT_EXIST);
         }
 
+        if (medicineUnitRepository.findById(request.medicineUnitId()).isEmpty()) {
+            throw new CustomResponseException(ErrorCode.UNIT_NOT_EXIST);
+        }
+
         Medicine medicine = MedicineMapper.INSTANCE.toEntity(request);
         medicine.setCreatedBy(connectedUser.getName());
         medicine.setCreatedDate(LocalDateTime.now(clock));
@@ -77,6 +85,9 @@ public class MedicineService {
             String medicineId, UpdateMedicineRequest request, Authentication connectedUser) {
         ApiResponse<MedicineResponse> response = new ApiResponse<>();
         medicineRepository.findById(medicineId).ifPresentOrElse(medicine -> {
+            if (request.medicineUnitId() != null && medicineUnitRepository.findById(request.medicineUnitId()).isEmpty()) {
+                throw new CustomResponseException(ErrorCode.UNIT_NOT_EXIST);
+            }
             MedicineMapper.INSTANCE.toEntity(request, medicine);
             medicine.setUpdatedBy(connectedUser.getName());
             medicine.setUpdatedDate(LocalDateTime.now(clock));
@@ -102,6 +113,13 @@ public class MedicineService {
             throw new CustomResponseException(ErrorCode.MEDICINE_NOT_EXIST);
         });
         response.setData(new CommonDeleteResponse(medicineId));
+        return response;
+    }
+
+    public ApiResponse<List<MedUnitResponse>> getMedicineUnits() {
+        ApiResponse<List<MedUnitResponse>> response = new ApiResponse<>();
+        List<MedicineUnit> medicineUnits = medicineUnitRepository.findAll();
+        response.setData(MedicineMapper.INSTANCE.toListMedicineUnitResponse(medicineUnits));
         return response;
     }
 }

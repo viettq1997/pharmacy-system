@@ -44,6 +44,12 @@ public class Medicine {
     @JoinColumn(name = "Cat_ID", referencedColumnName = "Cat_ID", insertable = false, updatable = false)
     private MedicineCategory category;
 
+    @Column(name = "MU_ID")
+    private String medicineUnitId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MU_ID", referencedColumnName = "MU_ID", insertable = false, updatable = false)
+    private MedicineUnit unit;
+
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @Column(name = "created_by")

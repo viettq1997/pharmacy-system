@@ -8,6 +8,7 @@ public record UpdateMedicineRequest(
         String name,
         @DecimalMin(value = "0.0", message = "price cannot be negative")
         BigDecimal price,
-        String categoryId
+        String categoryId,
+        String medicineUnitId
 ) {
 }

@@ -1,9 +1,11 @@
 package com.app.pharmacy.mapper;
 
 import com.app.pharmacy.domain.dto.medicine.CreateMedicineRequest;
+import com.app.pharmacy.domain.dto.medicine.MedUnitResponse;
 import com.app.pharmacy.domain.dto.medicine.MedicineResponse;
 import com.app.pharmacy.domain.dto.medicine.UpdateMedicineRequest;
 import com.app.pharmacy.domain.entity.Medicine;
+import com.app.pharmacy.domain.entity.MedicineUnit;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MapperConfig;
@@ -28,4 +30,7 @@ public interface MedicineMapper {
     @Mapping(target = "updatedBy", source = "employeeUpdated.firstName")
     MedicineResponse toMedicineResponse(Medicine medicine);
     List<MedicineResponse> toListMedicineResponse(List<Medicine> medicines);
+
+    MedUnitResponse toMedicineUnitResponse(MedicineUnit medicineUnit);
+    List<MedUnitResponse> toListMedicineUnitResponse(List<MedicineUnit> medicineUnits);
 }

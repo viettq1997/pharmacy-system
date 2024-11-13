@@ -5,6 +5,7 @@ import com.app.pharmacy.domain.common.CommonDeleteResponse;
 import com.app.pharmacy.domain.common.CommonGetResponse;
 import com.app.pharmacy.domain.dto.medicine.CreateMedicineRequest;
 import com.app.pharmacy.domain.dto.medicine.GetMedicineRequest;
+import com.app.pharmacy.domain.dto.medicine.MedUnitResponse;
 import com.app.pharmacy.domain.dto.medicine.MedicineResponse;
 import com.app.pharmacy.domain.dto.medicine.UpdateMedicineRequest;
 import com.app.pharmacy.service.MedicineService;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/medicines")
@@ -62,5 +65,11 @@ public class MedicineController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<CommonDeleteResponse>> deleteMedicine(@PathVariable("id") String id) {
         return ResponseEntity.ok(medicineService.deleteMedicine(id));
+    }
+
+    @GetMapping("/units")
+    @PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<List<MedUnitResponse>>> getMedicineUnit() {
+        return ResponseEntity.ok(medicineService.getMedicineUnits());
     }
 }
