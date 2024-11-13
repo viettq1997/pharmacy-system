@@ -561,7 +561,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Aspirin\",\n    \"price\": 19.99,\n    \"categoryId\": \"{{medCategoryId}}\"\n}",
+							"raw": "{\n    \"name\": \"Aspirin\",\n    \"price\": 19.99,\n    \"categoryId\": \"{{medCategoryId}}\",\n    \"medicineUnitId\": \"facfb9d8-cf12-4e2c-8ba8-a51ef5931aa1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -630,6 +630,39 @@
 									"key": "name",
 									"value": "Aspirin"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get medicines units",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pharmacy/api/v1/medicines/units",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pharmacy",
+								"api",
+								"v1",
+								"medicines",
+								"units"
 							]
 						}
 					},
