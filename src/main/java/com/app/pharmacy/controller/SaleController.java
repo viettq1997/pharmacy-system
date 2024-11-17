@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/sales")
 @RequiredArgsConstructor
@@ -35,7 +37,7 @@ public class SaleController {
     @PostMapping("/refund")
     @PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
     public ResponseEntity<ApiResponse<RefundResponse>> refund(
-            @Valid @RequestBody RefundRequest request, Authentication connectedUser
+            @Valid @RequestBody List<RefundRequest> request, Authentication connectedUser
             ) {
         return ResponseEntity.ok(saleService.refund(request, connectedUser));
     }

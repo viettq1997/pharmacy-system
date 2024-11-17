@@ -5,9 +5,11 @@ import com.app.pharmacy.domain.dto.sale.SaleItemRequest;
 import com.app.pharmacy.domain.dto.sale.SaleItemResponse;
 import com.app.pharmacy.domain.dto.sale.SaleResponse;
 import com.app.pharmacy.domain.dto.sale.SaleType;
+import com.app.pharmacy.domain.entity.Inventory;
 import com.app.pharmacy.domain.entity.Sale;
 import com.app.pharmacy.domain.entity.SaleItem;
 import com.app.pharmacy.domain.entity.SaleLog;
+import com.app.pharmacy.repository.InventoryRepository;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
@@ -20,11 +22,12 @@ import org.mapstruct.factory.Mappers;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper
+@Mapper(uses = InventoryRepository.class)
 @MapperConfig(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SaleMapper {
 
@@ -53,9 +56,9 @@ public interface SaleMapper {
     @Mapping(target = "saleItems", source = "saleLog", qualifiedByName = "saleItems")
     @Mapping(target = "createdBy", source = "employeeCreated.firstName")
     @Mapping(target = "customerId", source = "saleLog", qualifiedByName = "customerId")
-    @Mapping(target = "refundMedicineName", source = "saleLog", qualifiedByName = "refundMedicineName")
-    SaleResponse toSaleResponseFromLog(SaleLog saleLog);
-    List<SaleResponse> toSaleResponseList(List<SaleLog> saleLogs);
+    @Mapping(target = "refundMedicineName", expression = "java(mapRefundItemIdsToMedicineName(saleLog, inventoryRepository))")
+    SaleResponse toSaleResponseFromLog(SaleLog saleLog, @Context InventoryRepository inventoryRepository);
+    List<SaleResponse> toSaleResponseList(List<SaleLog> saleLogs, @Context InventoryRepository inventoryRepository);
 
     @Named("totalPrice")
     default BigDecimal totalPrice(SaleItemRequest dto) {
@@ -77,11 +80,11 @@ public interface SaleMapper {
         return saleLog.getSale().getCustomerId();
     }
 
-    @Named("refundMedicineName")
-    default String refundMedicineName(SaleLog saleLog) {
+    default String mapRefundItemIdsToMedicineName(SaleLog saleLog, InventoryRepository inventoryRepository) {
         if (!saleLog.getType().equals(SaleType.REFUND)) {
             return null;
         }
-        return saleLog.getInventory().getMedicine().getName();
+        List<Inventory> inventories = inventoryRepository.findByIdIn(Arrays.asList(saleLog.getRefundItemId().split(",")));
+        return String.join(",", inventories.stream().map(inventory -> inventory.getMedicine().getName()).toList());
     }
 }
