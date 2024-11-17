@@ -148,7 +148,7 @@ public class SaleService {
         ApiResponse<RefundResponse> response = new ApiResponse<>();
         List<RefundItemResponse> refundItemResponses = new ArrayList<>();
         AtomicReference<BigDecimal> totalRefundAmountAtomic = new AtomicReference<>(new BigDecimal(0));
-        String saleCode = Constants.SALE_CODE_PREFIX
+        String saleCode = Constants.REFUND_CODE_PREFIX
                 + StringUtils.generateRandomString(2)
                 + StringUtils.generateRandomNumberString(6);
         List<String> inventoryIds = request.stream().map(RefundRequest::refundItemId).distinct().toList();
