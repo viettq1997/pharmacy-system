@@ -3,6 +3,7 @@ package com.app.pharmacy.controller;
 import com.app.pharmacy.config.TestSecurityConfig;
 import com.app.pharmacy.service.KeycloakAdminService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -85,6 +86,10 @@ public class MedicineControllerTest {
                 " E_Type, E_Jdate, E_Add, E_Mail, E_Phno, E_Sal, created_date, created_by, updated_date, updated_by) " +
                 "VALUES('user', 'admin', 'admin', 'admin', '1997-01-07', 28, 'M', 'admin', '2024-01-01', null, null," +
                 " '0974995189', null, '2024-01-01', 'admin', null, null)");
+        jdbcTemplate.execute(
+                "MERGE INTO MED_UNIT KEY(MU_ID) " +
+                        "VALUES('facfb9d8-cf12-4e2c-8ba8-a51ef5931aa1', 'Tablet')"
+        );
     }
 
     @DisplayName("Get Medicines: "
@@ -101,7 +106,8 @@ public class MedicineControllerTest {
                 {
                   "name": "Aspirin",
                   "price": 19.99,
-                  "categoryId": "%s"
+                  "categoryId": "%s",
+                  "medicineUnitId": "facfb9d8-cf12-4e2c-8ba8-a51ef5931aa1"
                 }
                 """, categoryId);
         createMedicine(createMedicineRequest).andExpect(status().isCreated());
@@ -159,7 +165,8 @@ public class MedicineControllerTest {
                 {
                   "name": "Aspirin",
                   "price": 19.99,
-                  "categoryId": "%s"
+                  "categoryId": "%s",
+                  "medicineUnitId": "facfb9d8-cf12-4e2c-8ba8-a51ef5931aa1"
                 }
                 """, categoryId);
 
@@ -206,7 +213,8 @@ public class MedicineControllerTest {
                 {
                   "name": "Aspirin",
                   "price": 19.99,
-                  "categoryId": "%s"
+                  "categoryId": "%s",
+                  "medicineUnitId": "facfb9d8-cf12-4e2c-8ba8-a51ef5931aa1"
                 }
                 """, categoryId);
         AtomicReference<String> id = new AtomicReference<>("");
@@ -247,7 +255,8 @@ public class MedicineControllerTest {
                 {
                   "name": "Aspirin",
                   "price": 19.99,
-                  "categoryId": "%s"
+                  "categoryId": "%s",
+                  "medicineUnitId": "facfb9d8-cf12-4e2c-8ba8-a51ef5931aa1"
                 }
                 """, categoryId);
         AtomicReference<String> id = new AtomicReference<>("");

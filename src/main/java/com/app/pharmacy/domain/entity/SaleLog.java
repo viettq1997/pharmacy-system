@@ -45,7 +45,7 @@ public class SaleLog {
     @Column(name = "Sale_Code")
     private String code;
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", columnDefinition = "sale_type")
+    @Column(name = "type")
     private SaleType type;
     @Column(name = "refund_item_id")
     private String refundItemId;
