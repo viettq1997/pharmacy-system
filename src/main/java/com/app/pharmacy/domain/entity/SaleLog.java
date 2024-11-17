@@ -21,6 +21,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "SALE_LOG")
@@ -49,10 +50,6 @@ public class SaleLog {
     private SaleType type;
     @Column(name = "refund_item_id")
     private String refundItemId;
-
-    @ManyToOne
-    @JoinColumn(name = "refund_item_id", referencedColumnName = "I_ID", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), insertable = false, updatable = false)
-    private Inventory inventory;
 
     @Column(name = "created_by")
     private String createdBy;

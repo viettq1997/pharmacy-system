@@ -1537,7 +1537,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"usePoint\": false,\n  \"saleItems\": [\n    {\n      \"inventoryId\": \"2c4215f7-24ab-43e4-9f9a-b888f3dd5e88\",\n      \"quantity\": 2,\n      \"price\": 19.99\n    }\n  ]\n}",
+							"raw": "{\n  \"customerId\": \"{{customerId}}\",\n  \"usePoint\": false,\n  \"saleItems\": [\n    {\n      \"inventoryId\": \"6acd4090-da49-4148-a031-5ff27c9c8f25\",\n      \"quantity\": 2,\n      \"price\": 19.99\n    }\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1597,7 +1597,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"refundItemId\": \"2c4215f7-24ab-43e4-9f9a-b888f3dd5e88\",\n  \"refundItemQuantity\": \"1\"\n}",
+							"raw": "[{\n  \"refundItemId\": \"6acd4090-da49-4148-a031-5ff27c9c8f25\",\n  \"refundItemQuantity\": \"1\"\n}, {\n  \"refundItemId\": \"6acd4090-da49-4148-a031-5ff27c9c8f25\",\n  \"refundItemQuantity\": \"1\"\n}]",
 							"options": {
 								"raw": {
 									"language": "json"

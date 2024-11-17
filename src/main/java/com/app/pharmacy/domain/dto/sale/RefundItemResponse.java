@@ -7,16 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
-public class RefundResponse {
+public class RefundItemResponse {
 
-    private List<RefundItemResponse> refundItemResponses;
-    private String code;
-    private SaleType type;
+    private String medicineName;
+    private Integer quantity;
+    private BigDecimal refundAmount;
 }
