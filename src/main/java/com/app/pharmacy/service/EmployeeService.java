@@ -102,8 +102,8 @@ public class EmployeeService {
         return response;
     }
 
-    public ApiResponse<?> changePassword(ChangePasswordRequest request, Authentication connectedUser) {
-        ApiResponse<?> response = new ApiResponse<>();
+    public ApiResponse<Boolean> changePassword(ChangePasswordRequest request, Authentication connectedUser) {
+        ApiResponse<Boolean> response = new ApiResponse<>();
         if (!keycloakAdminService.isOldPasswordValid(connectedUser.getName(), request.oldPassword())) {
             throw new CustomResponseException(ErrorCode.OLD_PASSWORD_INVALID);
         }
@@ -111,6 +111,7 @@ public class EmployeeService {
             throw new CustomResponseException(ErrorCode.CONFIRM_NEW_PASSWORD_INVALID);
         }
         keycloakAdminService.resetUserPassword(connectedUser.getName(), request.newPassword());
+        response.setData(true);
         response.setMessage("Password is changed successful!");
         return response;
     }
