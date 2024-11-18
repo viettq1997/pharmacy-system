@@ -390,6 +390,243 @@ prefix: `/pharmacy/api/v1`
 
 ![Update Customer Point Config](design/flow/customerpointconfig/UpdateCustomerPointConfig.svg)
 
+## Validation Checklist
+
+- Create Customer Request
+  - First Name:
+    - If `firstName` is not provided → Show "firstName is a mandatory field".
+  - Last Name:
+    - `lastName` is optional, so no validation is required for this field.
+  - Age:
+    - If `age` is negative → Show "age cannot be negative".
+    - If `age` is null, it is considered valid (assuming no additional validation for `null`).
+  - Sex:
+    - If `sex` is not provided → Show "sex is a mandatory field".
+    - If `sex` is provided but not "F" or "M" → Show "sex should be one of F or M".
+  - Phone Number:
+    - If `phoneNo` is not provided → Show "phoneNo is a mandatory field".
+  - Mail:
+    - `mail` is optional, so no validation is required for this field.
+  - Valid Inputs:
+    - If all fields meet their respective validation requirements → Process request successfully.
+
+- Update Customer Request
+  - First Name:
+    - `firstName` is optional, so no validation is required for this field.
+  - Last Name:
+    - `lastName` is optional, so no validation is required for this field.
+  - Age:
+    - If `age` is negative → Show "age cannot be negative".
+    - If `age` is null, it is considered valid (assuming no additional validation for `null`).
+  - Sex:
+    - If `sex` is provided but not "F" or "M" → Show "sex should be one of F or M".
+    - If `sex` is null, it is considered valid (assuming no additional validation for `null`).
+  - Phone Number:
+    - `phoneNo` is optional, so no validation is required for this field.
+  - Mail:
+    - `mail` is optional, so no validation is required for this field.
+  - Valid Inputs:
+    - If all provided fields meet their respective validation requirements → Process request successfully.
+
+- Change Password Request
+  - Old Password:
+    - If `oldPassword` is not provided → Show "oldPassword is a mandatory field".
+
+  - New Password:
+    - If `newPassword` is not provided → Show "newPassword is a mandatory field".
+
+  - Confirm New Password:
+    - If `confirmNewPassword` is not provided → Show "confirmNewPassword is a mandatory field".
+
+  - Password Matching Validation:
+    - If `newPassword` and `confirmNewPassword` do not match → Show "newPassword and confirmNewPassword must match".
+
+  - Valid Inputs:
+    - If all fields meet their respective validation requirements and `newPassword` matches `confirmNewPassword` → Process request successfully.
+
+- Create Employee Request
+  - Username:
+    - If `username` is not provided → Show "username is a mandatory field".
+  - Role:
+    - If `role` is not provided → Show "role is a mandatory field".
+  - Password:
+    - If `password` is not provided → Show "password is a mandatory field".
+  - First Name:
+    - If `firstName` is not provided → Show "firstName is a mandatory field".
+  - Last Name:
+    - `lastName` is optional, so no validation is required for this field.
+  - Birth Date:
+    - `birthDate` is optional, so no validation is required for this field.
+  - Age:
+    - If `age` is negative → Show "age cannot be negative".
+    - If `age` is null, it is considered valid (assuming no additional validation for `null`).
+  - Sex:
+    - If `sex` is not provided → Show "sex is a mandatory field".
+    - If `sex` is provided but not "F" or "M" → Show "sex should be one of F or M".
+  - Type:
+    - If `type` is not provided → Show "type is a mandatory field".
+  - Address:
+    - `address` is optional, so no validation is required for this field.
+  - Mail:
+    - `mail` is optional, so no validation is required for this field.
+  - Phone Number:
+    - If `phoneNo` is not provided → Show "phoneNo is a mandatory field".
+  - Salary:
+    - `salary` is optional, so no validation is required for this field.
+  - Valid Inputs:
+    - If all required fields meet their respective validation requirements → Process request successfully.
+
+- Update Employee Request
+  - Username:
+    - `username` is optional, so no validation is required for this field.
+  - First Name:
+    - `firstName` is optional, so no validation is required for this field.
+  - Last Name:
+    - `lastName` is optional, so no validation is required for this field.
+  - Birth Date:
+    - `birthDate` is optional, so no validation is required for this field.
+  - Age:
+    - If `age` is negative → Show "age cannot be negative".
+    - If `age` is null, it is considered valid (assuming no additional validation for `null`).
+  - Sex:
+    - If `sex` is provided but not "F" or "M" → Show "sex should be one of F or M".
+    - If `sex` is null, it is considered valid (assuming no additional validation for `null`).
+  - Type:
+    - `type` is optional, so no validation is required for this field.
+  - Address:
+    - `address` is optional, so no validation is required for this field.
+  - Mail:
+    - `mail` is optional, so no validation is required for this field.
+  - Phone Number:
+    - `phoneNo` is optional, so no validation is required for this field.
+  - Salary:
+    - `salary` is optional, so no validation is required for this field.
+  - Valid Inputs:
+    - If all provided fields meet their respective validation requirements → Process request successfully.
+
+- Create Location Rack Request
+  - Position:
+    - If `position` is not provided → Show "position is a mandatory field".
+  - Valid Inputs:
+    - If `position` meets the validation requirement → Process request successfully.
+
+- Create Medicine Request
+  - Name:
+    - If `name` is not provided → Show "name is a mandatory field".
+  - Price:
+    - If `price` is not provided → Show "price is a mandatory field".
+    - If `price` is negative → Show "price cannot be negative".
+  - Category ID:
+    - If `categoryId` is not provided → Show "categoryId is a mandatory field".
+  - Medicine Unit ID:
+    - If `medicineUnitId` is not provided → Show "medicineUnitId is a mandatory field".
+  - Valid Inputs:
+    - If all fields meet their respective validation requirements → Process request successfully.
+
+- Update Medicine Request
+  - Name:
+    - `name` is optional, so no validation is required for this field.
+  - Price:
+    - If `price` is provided and is negative → Show "price cannot be negative".
+    - If `price` is null, it is considered valid (assuming no additional validation for `null`).
+  - Category ID:
+    - `categoryId` is optional, so no validation is required for this field.
+  - Medicine Unit ID:
+    - `medicineUnitId` is optional, so no validation is required for this field.
+  - Valid Inputs:
+    - If all provided fields meet their respective validation requirements → Process request successfully.
+
+- Create Medicine Category Request
+  - Name:
+    - If `name` is not provided → Show "name is a mandatory field".
+  - Description:
+    - If `description` is not provided → Show "description is a mandatory field".
+  - Valid Inputs:
+    - If all fields meet their respective validation requirements → Process request successfully.
+
+- Create Purchase Request
+  - Medicine ID:
+    - If `medicineId` is not provided → Show "medicineId is a mandatory field".
+  - Supplier ID:
+    - If `supplierId` is not provided → Show "supplierId is a mandatory field".
+  - Location Rack ID:
+    - If `locationRackId` is not provided → Show "locationRackId is a mandatory field".
+  - Quantity:
+    - If `quantity` is not provided → Show "quantity is a mandatory field".
+    - If `quantity` is less than 1 → Show "quantity should be greater than 0".
+  - Cost:
+    - If `cost` is not provided → Show "cost is a mandatory field".
+    - If `cost` is negative → Show "cost should not be negative".
+  - Manufacturing Date:
+    - If `mfgDate` is not provided → Show "mfgDate is a mandatory field".
+  - Expiration Date:
+    - If `expDate` is not provided → Show "expDate is a mandatory field".
+  - Valid Inputs:
+    - If all fields meet their respective validation requirements → Process request successfully.
+
+- Update Purchase Request
+  - Medicine ID:
+    - `medicineId` is optional, so no validation is required for this field.
+  - Manufacturing Date:
+    - `mfgDate` is optional, so no validation is required for this field.
+  - Supplier ID:
+    - `supplierId` is optional, so no validation is required for this field.
+  - Quantity:
+    - If `quantity` is provided and less than 1 → Show "quantity should be greater than 0".
+    - If `quantity` is null, it is considered valid (assuming no additional validation for `null`).
+  - Cost:
+    - If `cost` is provided and negative → Show "cost should not be negative".
+    - If `cost` is null, it is considered valid (assuming no additional validation for `null`).
+  - Location Rack ID:
+    - `locationRackId` is optional, so no validation is required for this field.
+  - Expiration Date:
+    - `expDate` is optional, so no validation is required for this field.
+  - Valid Inputs:
+    - If all provided fields meet their respective validation requirements → Process request successfully.
+
+- Create Sale Request
+  - Customer ID:
+    - `customerId` is optional, so no validation is required for this field.
+  - Sale Items:
+    - If `saleItems` is not provided → Show "saleItems is a mandatory field".
+    - If any `SaleItemRequest` in the list is invalid (see below), show appropriate error messages.
+  - Use Points:
+    - `usePoint` is optional, so no validation is required for this field.
+  - Valid Inputs:
+    - If `saleItems` is provided and all items meet their respective validation requirements → Process request successfully.
+  - Sale Item Request
+    - Inventory ID:
+      - If `inventoryId` is not provided → Show "inventoryId is a mandatory field".
+    - Quantity:
+      - If `quantity` is not provided → Show "quantity is a mandatory field".
+      - If `quantity` is less than 1 → Show "quantity should be greater than 0".
+    - Price:
+      - If `price` is not provided → Show "price is a mandatory field".
+      - If `price` is negative → Show "price should not be negative".
+    - Valid Inputs:
+      - If all fields meet their respective validation requirements → Process request successfully.
+
+- Refund Request
+  - Refund Item ID:
+    - If `refundItemId` is not provided → Show "refundItemId is a mandatory field".
+  - Refund Item Quantity:
+    - If `refundItemQuantity` is not provided → Show "refundItemQuantity is a mandatory field".
+    - If `refundItemQuantity` is less than 1 → Show "refundItemQuantity should be greater than 0".
+  - Valid Inputs:
+    - If all fields meet their respective validation requirements → Process request successfully.
+
+- Create Supplier Request
+  - Name:
+    - If `name` is not provided → Show "name is a mandatory field".
+  - Address:
+    - If `address` is not provided → Show "address is a mandatory field".
+  - Phone Number:
+    - If `phoneNo` is not provided → Show "phoneNo is a mandatory field".
+  - Email:
+    - `mail` is optional, so no validation is required for this field.
+  - Valid Inputs:
+    - If all mandatory fields (`name`, `address`, `phoneNo`) meet their respective validation requirements → Process request successfully.
+
 # How to Run
 
 ```shell
