@@ -399,21 +399,19 @@
   "webAuthnPolicyPasswordlessAcceptableAaguids" : [ ],
   "webAuthnPolicyPasswordlessExtraOrigins" : [ ],
   "users" : [ {
-    "id" : "1b623830-1de1-46a4-ad7f-c553fcf0b6ca",
-    "username" : "admin",
-    "firstName" : "tran",
-    "lastName" : "viet",
-    "email" : "vietpro23w@gmail.com",
+    "id" : "91ce8bc4-dc9c-4825-83dd-c1a0f65b5db7",
+    "username" : "9f89331d-9257-44e3-9a69-c7b6f792a983",
+    "email" : "admin@gmail.com",
     "emailVerified" : false,
-    "createdTimestamp" : 1728494256968,
+    "createdTimestamp" : 1731940965480,
     "enabled" : true,
     "totp" : false,
     "credentials" : [ {
-      "id" : "f326a7b6-07f4-4e7a-9a33-dcc53a06aaf3",
+      "id" : "2d399ec2-ff7c-49de-8ce3-0a05d80fe1af",
       "type" : "password",
       "userLabel" : "My password",
-      "createdDate" : 1728494276247,
-      "secretData" : "{\"value\":\"GdxWwEBI2eOuWNIgVxEnRvkZUyyq0eVFHm7MF7N5l4vQx+wp+SfnM08AvQLmK+R9IUe/v4ArzYEOYHNpQgz5iQ==\",\"salt\":\"qUZZjNzB6KHolwlO3AzhDA==\",\"additionalParameters\":{}}",
+      "createdDate" : 1731941007240,
+      "secretData" : "{\"value\":\"HH45jE4XERuvIXa5npSD+oc0fDpetYS+2YJzYW0drmaPSm21MaWt0mMvBshgLvn+ub/R768fugMqHXpuQsUL6g==\",\"salt\":\"pgYeXwm0M8wWI8R4/nLt7Q==\",\"additionalParameters\":{}}",
       "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
     } ],
     "disableableCredentialTypes" : [ ],
@@ -426,28 +424,27 @@
     "notBefore" : 0,
     "groups" : [ ]
   }, {
-    "id" : "9c28ab83-ab9a-497a-b466-3329e1c7fe3d",
-    "username" : "user@yopmail.com",
-    "firstName" : "User",
-    "lastName" : "User",
-    "email" : "user@yopmail.com",
+    "id" : "7c4f7e37-82ce-4b5a-bbb6-e57478044481",
+    "username" : "admin",
+    "email" : "admin1@gmail.com",
     "emailVerified" : false,
-    "createdTimestamp" : 1725368099141,
+    "createdTimestamp" : 1731941138694,
     "enabled" : true,
     "totp" : false,
     "credentials" : [ {
-      "id" : "a2db681d-4e95-441f-8627-0e4dfb451bdd",
+      "id" : "fe1ddb25-fc4c-46c4-8aa8-7357e7780a28",
       "type" : "password",
       "userLabel" : "My password",
-      "createdDate" : 1728491271340,
-      "secretData" : "{\"value\":\"BLAihMQJ3Kv+3REgXJNtkiySZaMWGXnGs7bP39KyCNTfiNngOXxr8EatrNW8R/rhqUx6kec+5C2Oa/aSZ2Zoxw==\",\"salt\":\"F1hNAWfhlXuWsjmRj1v3iA==\",\"additionalParameters\":{}}",
+      "createdDate" : 1731941151431,
+      "secretData" : "{\"value\":\"ThX3xjH/HRDq9MDntOPEiMD+51X2UdA1tYmgeUQR3qt9fUxGVw840Yvp02J9iLGKBjG3m8hzMJKs8NHh8AiFBw==\",\"salt\":\"TMVBRdy4Zh6gfZi7lNe3pg==\",\"additionalParameters\":{}}",
       "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
     "realmRoles" : [ "default-roles-pharmacy-management" ],
     "clientRoles" : {
-      "pharmacy-management-system" : [ "ADMIN", "USER" ]
+      "pharmacy-management-system" : [ "ADMIN" ],
+      "realm-management" : [ "realm-admin" ]
     },
     "notBefore" : 0,
     "groups" : [ ]
@@ -1229,7 +1226,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-role-list-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper", "oidc-full-name-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper", "oidc-usermodel-attribute-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-sha256-pairwise-sub-mapper", "oidc-address-mapper", "oidc-full-name-mapper", "saml-user-attribute-mapper", "saml-user-property-mapper", "oidc-usermodel-property-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper" ]
       }
     }, {
       "id" : "261ecc34-b7d3-4bba-9c0f-065e863a14e8",
@@ -1256,7 +1253,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-full-name-mapper", "oidc-address-mapper", "saml-user-property-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-attribute-mapper", "saml-role-list-mapper", "saml-user-attribute-mapper", "oidc-usermodel-property-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-full-name-mapper", "oidc-usermodel-property-mapper", "oidc-usermodel-attribute-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-role-list-mapper", "oidc-address-mapper" ]
       }
     }, {
       "id" : "b783c769-4f8d-4b34-bfc4-7fd4c3c59c33",

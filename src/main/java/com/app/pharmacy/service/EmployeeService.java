@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import static com.app.pharmacy.specification.EmployeeSpecifications.hasFirstName;
 import static com.app.pharmacy.specification.EmployeeSpecifications.hasLastName;
@@ -104,7 +105,9 @@ public class EmployeeService {
 
     public ApiResponse<Boolean> changePassword(ChangePasswordRequest request, Authentication connectedUser) {
         ApiResponse<Boolean> response = new ApiResponse<>();
-        if (!keycloakAdminService.isOldPasswordValid(connectedUser.getName(), request.oldPassword())) {
+        String username = keycloakAdminService.getUserNameById(connectedUser.getName());
+
+        if (!keycloakAdminService.isOldPasswordValid(username, request.oldPassword())) {
             throw new CustomResponseException(ErrorCode.OLD_PASSWORD_INVALID);
         }
         if (!request.newPassword().equals(request.confirmNewPassword())) {

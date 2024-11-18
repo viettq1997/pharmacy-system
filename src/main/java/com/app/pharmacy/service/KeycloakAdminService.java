@@ -78,8 +78,7 @@ public class KeycloakAdminService {
         }
     }
 
-    public boolean isOldPasswordValid(String userId, String oldPassword) {
-        String username = getUserNameById(userId);
+    public boolean isOldPasswordValid(String username, String oldPassword) {
         try {
             KeycloakBuilder builder = KeycloakBuilder.builder()
                     .serverUrl(serverUrl)
@@ -134,7 +133,7 @@ public class KeycloakAdminService {
                 .add(Collections.singletonList(clientRole));
     }
 
-    private String getUserNameById(String userId) {
+    public String getUserNameById(String userId) {
         RealmResource realmResource = keycloak.realm(realm);
         try {
             return realmResource.users().get(userId).toRepresentation().getUsername();

@@ -16,6 +16,6 @@ keycloak:
   realm: pharmacy-management
   client-id: admin-cli
   # admin user should be assigned realm-management (manage-users)
-  username: admin
-  password: admin
+  username: 9f89331d-9257-44e3-9a69-c7b6f792a983
+  password: a36288fb-8eb8-45a9-8f6e-90bb639403a4
   grant-type: password

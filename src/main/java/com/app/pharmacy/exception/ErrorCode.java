@@ -32,6 +32,7 @@ public enum ErrorCode {
     OLD_PASSWORD_INVALID("PS00019", "Old password is invalid", HttpStatus.BAD_REQUEST),
     CONFIRM_NEW_PASSWORD_INVALID("PS00020", "Confirm new password does not match", HttpStatus.BAD_REQUEST),
     UNIT_NOT_EXIST("PS00021", "Unit is not found", HttpStatus.BAD_REQUEST),
+    CANNOT_CHANGE_ADMIN_PASSWORD("PS00022", "Cannot change password for user 'admin'", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(String code, String message, HttpStatusCode statusCode) {
