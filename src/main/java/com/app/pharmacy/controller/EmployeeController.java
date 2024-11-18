@@ -59,7 +59,7 @@ public class EmployeeController {
 
     @PostMapping("/changePassword")
     @PreAuthorize("hasRole('ADMIN') || hasRole('USER')")
-    public ResponseEntity<ApiResponse<?>> changePassword(
+    public ResponseEntity<ApiResponse<Boolean>> changePassword(
             @Valid @RequestBody ChangePasswordRequest request, Authentication connectedUser) {
         return ResponseEntity.ok(employeeService.changePassword(request, connectedUser));
     }
