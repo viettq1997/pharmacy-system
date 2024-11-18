@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: "${DATABASE_URL:jdbc:postgresql://localhost:5432/pharmacy_db}"
-    username: "${DATABASE_USER:admin}"
-    password: "${DATABASE_PASSWORD:admin}"
+    url: "${DATABASE_URL:jdbc:postgresql://13.215.191.215:5432/postgres}"
+    username: "${DATABASE_USER:pharmacy}"
+    password: "${DATABASE_PASSWORD:pharmacy}"
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
