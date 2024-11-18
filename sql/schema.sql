@@ -161,4 +161,4 @@ CREATE TABLE CUSTOMER_POINT_CONFIG (
 
 INSERT INTO CUSTOMER_POINT_CONFIG VALUES('358dbac4-8270-4521-9aed-db3260b3db3e', 0.00001);
 
-INSERT INTO EMPLOYEE VALUES('7c4f7e37-82ce-4b5a-bbb6-e57478044481', 'admin', 'admin', 'admin', null, null, 'M', 'admin', '2024-01-01', null, 'admin1@gmail.com', '0974995189', 1, '2024-01-01', 'admin', null, null);
+INSERT INTO EMPLOYEE VALUES('7c4f7e37-82ce-4b5a-bbb6-e57478044481', 'admin', 'admin', 'admin', null, null, 'M', 'Manager', '2024-01-01', null, 'admin1@gmail.com', '0974995189', 1, '2024-01-01', 'admin', null, null);
